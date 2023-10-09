@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class DispenserScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [OnValueChanged("UpdateColor")]
+    public Color IngredientColor;
+    public IngredientScript IngredientPrefab;
+
+    public void OnMouseDown()
     {
-        
+        var ingredient = Instantiate(IngredientPrefab);
+        ingredient.Color = IngredientColor;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void UpdateColor()
     {
-        
+        GetComponent<SpriteRenderer>().color = IngredientColor;
     }
 }
