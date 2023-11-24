@@ -1,20 +1,23 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class DispenserScript : MonoBehaviour
+namespace PotionBlues.Prototypes.InfiniteWaves
 {
-    [OnValueChanged("UpdateColor")]
-    public Color IngredientColor;
-    public IngredientScript IngredientPrefab;
-
-    public void OnMouseDown()
+    public class DispenserScript : MonoBehaviour
     {
-        var ingredient = Instantiate(IngredientPrefab);
-        ingredient.Color = IngredientColor;
-    }
+        [OnValueChanged("UpdateColor")]
+        public Color IngredientColor;
+        public IngredientScript IngredientPrefab;
 
-    private void UpdateColor()
-    {
-        GetComponent<SpriteRenderer>().color = IngredientColor;
+        public void OnMouseDown()
+        {
+            var ingredient = Instantiate(IngredientPrefab);
+            ingredient.Color = IngredientColor;
+        }
+
+        private void UpdateColor()
+        {
+            GetComponent<SpriteRenderer>().color = IngredientColor;
+        }
     }
 }

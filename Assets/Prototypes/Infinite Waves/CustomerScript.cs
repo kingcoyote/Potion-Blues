@@ -3,44 +3,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomerScript : MonoBehaviour
+namespace PotionBlues.Prototypes.InfiniteWaves
 {
-    public float Speed;
-
-    [OnValueChanged("UpdateColor")]
-    public Color Color;
-
-    private void Start()
+    public class CustomerScript : MonoBehaviour
     {
-        UpdateColor();
-    }
+        public float Speed;
 
-    // Start is called before the first frame update
-    void UpdateColor()
-    {
-        GetComponent<SpriteRenderer>().color = Color;
-    }
+        [OnValueChanged("UpdateColor")]
+        public Color Color;
 
-    // Update is called once per frame
-    void Update()
-    {
-        transform.position = transform.position + Vector3.left * Speed * Time.deltaTime;
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.name == "Counter")
+        private void Start()
         {
-            Speed = 0;
+            UpdateColor();
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        var potion = collision.GetComponent<PotionScript>();
-        if (potion != null)
+        // Start is called before the first frame update
+        void UpdateColor()
         {
-            Destroy(potion.gameObject);
-            Destroy(gameObject);
+            GetComponent<SpriteRenderer>().color = Color;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            transform.position = transform.position + Vector3.left * Speed * Time.deltaTime;
+        }
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.name == "Counter")
+            {
+                Speed = 0;
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            var potion = collision.GetComponent<PotionScript>();
+            if (potion != null)
+            {
+                Destroy(potion.gameObject);
+                Destroy(gameObject);
+            }
         }
     }
 }

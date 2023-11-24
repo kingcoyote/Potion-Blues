@@ -1,23 +1,26 @@
 using UnityEngine;
 
-public class IngredientScript : MonoBehaviour
+namespace PotionBlues.Prototypes.InfiniteWaves
 {
-    public Color Color;
-
-    public void Start()
+    public class IngredientScript : MonoBehaviour
     {
-        GetComponent<SpriteRenderer>().color = Color;
-    }
+        public Color Color;
 
-    // Update is called once per frame
-    void Update()
-    {
-        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector3(mousePos.x, mousePos.y, transform.position.z);
-    }
+        public void Start()
+        {
+            GetComponent<SpriteRenderer>().color = Color;
+        }
 
-    public void OnMouseUp()
-    {
-        Destroy(gameObject);
+        // Update is called once per frame
+        void Update()
+        {
+            var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = new Vector3(mousePos.x, mousePos.y, transform.position.z);
+        }
+
+        public void OnMouseUp()
+        {
+            Destroy(gameObject);
+        }
     }
 }
