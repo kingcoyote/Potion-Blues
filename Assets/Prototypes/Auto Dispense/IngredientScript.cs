@@ -1,18 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class IngredientScript : MonoBehaviour
+namespace PotionBlues.Prototypes.Autodispense
 {
-    // Start is called before the first frame update
-    void Start()
+    [RequireComponent(typeof(SelectHandlerScript))]
+    public class IngredientScript : MonoBehaviour
     {
-        
-    }
+        private bool _selected;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Start is called before the first frame update
+        void Start()
+        {
+            var selectHandler = gameObject.GetComponent<SelectHandlerScript>();
+            selectHandler.OnSelect.AddListener(Select);
+            selectHandler.OnRelease.AddListener(Release);
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (_selected)
+            {
+                var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                transform.position = new Vector3(mousePos.x, mousePos.y, transform.position.z);
+            }
+        }
+
+        void Select()
+        {
+            _selected = true;
+        }
+
+        void Release()
+        {
+            _selected = false;
+        }
     }
 }
