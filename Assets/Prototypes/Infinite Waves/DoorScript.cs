@@ -42,7 +42,7 @@ namespace PotionBlues.Prototypes.InfiniteWaves
             {
                 SpawnRate *= 0.99f;
                 var customer = Instantiate(_customerPrefab);
-                customer.transform.position = transform.position + Vector3.down * Random.Range(0, _entrance.size.y);
+                customer.transform.position = transform.position + Vector3.down * Random.Range(0-_entrance.size.y, _entrance.size.y);
                 customer.Color = _colors[Random.Range(0, _colors.Count)];
                 _nextSpawn = SpawnRate;
             }
