@@ -1,23 +1,25 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace PotionBlues.Prototypes.Autodispense
 {
     [RequireComponent(typeof(SelectHandlerScript))]
-    public class IngredientScript : MonoBehaviour
+    [RequireComponent(typeof(CircleCollider2D))]
+    public class PotionScript : MonoBehaviour
     {
         public Color Color;
-        
+
         private bool _selected;
         private CircleCollider2D _circleCollider;
 
-        // Start is called before the first frame update
+        // Use this for initialization
         void Start()
         {
-            var selectHandler = gameObject.GetComponent<SelectHandlerScript>();
+            _circleCollider = GetComponent<CircleCollider2D>();
+
+            var selectHandler = GetComponent<SelectHandlerScript>();
             selectHandler.OnSelect.AddListener(Select);
             selectHandler.OnRelease.AddListener(Release);
-
-            _circleCollider = GetComponent<CircleCollider2D>();
+            selectHandler.Select();
         }
 
         // Update is called once per frame
@@ -44,10 +46,10 @@ namespace PotionBlues.Prototypes.Autodispense
             filter.NoFilter();
             if (_circleCollider.OverlapCollider(filter, results) > 0)
             {
-                var cauldron = results[0].gameObject.GetComponent<CauldronScript>();
+                var cauldron = results[0].gameObject.GetComponent<CounterScript>();
                 if (cauldron != null)
                 {
-                    cauldron.AddIngredient(this);
+                    cauldron.AddPotion(this);
                 }
             }
         }

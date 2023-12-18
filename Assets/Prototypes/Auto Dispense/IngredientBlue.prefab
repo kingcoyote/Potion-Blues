@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8405798465464205614}
   - component: {fileID: 2038305999851068702}
   - component: {fileID: 2840138717356645167}
-  - component: {fileID: 8096819289692737094}
+  - component: {fileID: 4482441959141774676}
   m_Layer: 0
-  m_Name: Ingredient
+  m_Name: IngredientBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d177a70aa05f8dc408f1aec82bb1044f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Color: {r: 0, g: 0, b: 1, a: 1}
 --- !u!212 &2038305999851068702
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -87,9 +88,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.95382977, a: 1}
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 21300000, guid: f4f6a5ec1d8fbed42852009aa9361a4c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -117,8 +118,8 @@ MonoBehaviour:
   OnRelease:
     m_PersistentCalls:
       m_Calls: []
---- !u!60 &8096819289692737094
-PolygonCollider2D:
+--- !u!58 &4482441959141774676
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -150,19 +151,5 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.5}
-    newSize: {x: 1, y: 0.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0, y: 0.25}
-      - {x: -0.5, y: 0}
-      - {x: 0, y: -0.25}
-      - {x: 0.5, y: 0}
-  m_UseDelaunayMesh: 0
+  serializedVersion: 2
+  m_Radius: 0.5

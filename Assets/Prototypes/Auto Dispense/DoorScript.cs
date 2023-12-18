@@ -40,7 +40,9 @@ namespace PotionBlues.Prototypes.Autodispense
         void SpawnCustomer()
         {
             var customer = Instantiate(Customer, transform);
-            customer.transform.position = transform.position + Vector3.down * Random.Range(-_box.size.y, _box.size.y) / 2;
+            customer.transform.position = transform.position 
+                + Vector3.down * Random.Range(-_box.size.y, _box.size.y) / 2
+                + Vector3.right * _box.size.x;
             customer.Patience = Random.Range(PatienceRange.x, PatienceRange.y);
         }
     }
