@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace PotionBlues.Prototypes.Autodispense
@@ -5,8 +6,9 @@ namespace PotionBlues.Prototypes.Autodispense
     [RequireComponent(typeof(SelectHandlerScript))]
     public class IngredientScript : MonoBehaviour
     {
-        public Color Color;
-        
+        [OnValueChanged("Refresh")]
+        public PotionAttributeDefinition Attribute;
+
         private bool _selected;
         private CircleCollider2D _circleCollider;
 
@@ -18,6 +20,14 @@ namespace PotionBlues.Prototypes.Autodispense
             selectHandler.OnRelease.AddListener(Release);
 
             _circleCollider = GetComponent<CircleCollider2D>();
+
+            Refresh();
+        }
+
+        void Refresh()
+        {
+            var sprite = GetComponent<SpriteRenderer>();
+            sprite.sprite = Attribute.Ingredient;
         }
 
         // Update is called once per frame

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8405798465464205614}
   - component: {fileID: 2038305999851068702}
   - component: {fileID: 2840138717356645167}
-  - component: {fileID: 4482441959141774676}
+  - component: {fileID: 550102769273435124}
   m_Layer: 0
-  m_Name: IngredientBlue
+  m_Name: Ingredient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d177a70aa05f8dc408f1aec82bb1044f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Color: {r: 0, g: 0, b: 1, a: 1}
+  Color: {r: 1, g: 0, b: 0, a: 1}
 --- !u!212 &2038305999851068702
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: f4f6a5ec1d8fbed42852009aa9361a4c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e175a22c72795d84bb5315aadfc4f53f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
   OnRelease:
     m_PersistentCalls:
       m_Calls: []
---- !u!58 &4482441959141774676
+--- !u!58 &550102769273435124
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

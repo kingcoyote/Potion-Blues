@@ -8,9 +8,9 @@ namespace PotionBlues.Prototypes.Autodispense
     [RequireComponent(typeof(SelectHandlerScript))]
     public class DispenserScript : MonoBehaviour
     {
+        [OnValueChanged("Refresh", includeChildren: true)]
+        public PotionAttributeDefinition Attribute;
         public IngredientScript Ingredient;
-        [OnValueChanged("Refresh")]
-        public Color Color;
 
         // Start is called before the first frame update
         void Start()
@@ -22,13 +22,17 @@ namespace PotionBlues.Prototypes.Autodispense
 
         void Refresh()
         {
-            GetComponent<SpriteRenderer>().color = Color;
+            var icon = transform.Find("Icon").GetComponent<SpriteRenderer>();
+
+            icon.color = Attribute.Color;
+            icon.sprite = Attribute.Icon;
         }
 
         private void SpawnIngredient()
         {
             var ingredient = Instantiate(Ingredient);
             ingredient.transform.position = transform.position;
+            ingredient.Attribute = Attribute;
             ingredient.Select();
         }
     }

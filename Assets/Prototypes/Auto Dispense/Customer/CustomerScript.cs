@@ -1,4 +1,4 @@
-using PotionBlues.Prototypes.InfiniteWaves;
+using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
 
@@ -6,12 +6,17 @@ namespace PotionBlues.Prototypes.Autodispense
 {
     public class CustomerScript : MonoBehaviour
     {
+        [OnValueChanged("Refresh")]
+        public PotionAttributeDefinition Attribute;
+
         public float WalkSpeed = 2;
         public float Patience;
         public PotionScript Potion;
 
         private Animator _anim;
         private float _walkSpeed;
+
+        [SerializeField] private SpriteRenderer _icon;
 
         // Start is called before the first frame update
         void Start()
@@ -24,6 +29,8 @@ namespace PotionBlues.Prototypes.Autodispense
             renderer.GetPropertyBlock(matProps);
             matProps.SetColor("_VestColor", new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
             renderer.SetPropertyBlock(matProps);
+
+            Refresh();
         }
 
         // Update is called once per frame
@@ -43,6 +50,12 @@ namespace PotionBlues.Prototypes.Autodispense
                 _walkSpeed = -WalkSpeed;
                 transform.localScale = new Vector3(_walkSpeed >= 0 ? 1 : -1, 1, 1);
             }
+        }
+
+        void Refresh()
+        {
+            _icon.sprite = Attribute.Icon;
+            _icon.color = Attribute.Color;
         }
 
         public void OnTriggerEnter2D(Collider2D other)
@@ -71,6 +84,8 @@ namespace PotionBlues.Prototypes.Autodispense
 
         public void BuyPotion(PotionScript potion)
         {
+            if (potion.Attribute != Attribute) return;
+
             Potion = potion;
             potion.gameObject.transform.SetParent(transform, true);
             potion.gameObject.transform.localPosition = Vector3.zero;

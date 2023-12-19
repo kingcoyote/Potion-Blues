@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace PotionBlues.Prototypes.Autodispense
@@ -34,9 +35,12 @@ namespace PotionBlues.Prototypes.Autodispense
         private void TryDispense(CustomerScript customer)
         {
             if (Potions.Count <= 0) return;
-            customer.BuyPotion(Potions[0]);
-            Potions.RemoveAt(0);
-            // Destroy(customer.Potion.gameObject);
+            var potion = Potions.FirstOrDefault(p => p.Attribute == customer.Attribute);
+            if (potion != null)
+            {
+                customer.BuyPotion(potion);
+                Potions.Remove(potion);
+            }
         }
     }
 }

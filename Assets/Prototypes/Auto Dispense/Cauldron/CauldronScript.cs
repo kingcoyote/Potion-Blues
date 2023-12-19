@@ -48,7 +48,7 @@ namespace PotionBlues.Prototypes.Autodispense
                     _ingredients.Add(ingredient);
                     Destroy(ingredient.gameObject);
                     _cauldronFill.sprite = _potHalf;
-                    _cauldronFill.color = ingredient.Color;
+                    _cauldronFill.color = ingredient.Attribute.Color;
                     break;
                 case 1:
                     _ingredients.Add(ingredient);
@@ -68,12 +68,14 @@ namespace PotionBlues.Prototypes.Autodispense
                 return;
             }
 
-            _brewTime = 0;
-            _ingredients.Clear();
             _cauldronFill.color = Color.clear;
             var potion = Instantiate(_potionPrefab);
+            potion.Attribute = _ingredients[0].Attribute;
             potion.transform.position = transform.position;
             potion.Select();
+            
+            _brewTime = 0;
+            _ingredients.Clear();
         }
 
         private void StartBrewing()
@@ -84,8 +86,8 @@ namespace PotionBlues.Prototypes.Autodispense
         private IEnumerator Brew()
         {
             _cauldronFill.color = Color.clear;
-            _cauldronFillLeft.color = _ingredients[0].Color;
-            _cauldronFillRight.color = _ingredients[1].Color;
+            _cauldronFillLeft.color = _ingredients[0].Attribute.Color;
+            _cauldronFillRight.color = _ingredients[1].Attribute.Color;
             _brewTime = 0;
 
             while (_brewTime < BrewTime)
@@ -95,11 +97,9 @@ namespace PotionBlues.Prototypes.Autodispense
             }
 
             _cauldronFill.sprite = _potFull;
-            _cauldronFill.color = Color.Lerp(_ingredients[0].Color, _ingredients[1].Color, 0.5f);
+            _cauldronFill.color = Color.Lerp(_ingredients[0].Attribute.Color, _ingredients[1].Attribute.Color, 0.5f);
             _cauldronFillLeft.color = Color.clear;
             _cauldronFillRight.color = Color.clear;
         }
-
-
     }
 }

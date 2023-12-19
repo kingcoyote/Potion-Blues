@@ -132,6 +132,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1908317658395002018, guid: 021ff470d4fb37546a74622f87d6fc1a, type: 3}
+      propertyPath: BrewTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1908317658395002018, guid: 021ff470d4fb37546a74622f87d6fc1a, type: 3}
       propertyPath: _counter
       value: 
       objectReference: {fileID: 961614388}
@@ -325,6 +329,50 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &655673665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 655673667}
+  - component: {fileID: 655673666}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &655673666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655673665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e9d1b3ff143d3c4b9d6e52e258c5ef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &655673667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655673665}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.4702268, y: 0.013899803, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &961614386
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,6 +526,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1908317658395002018, guid: 021ff470d4fb37546a74622f87d6fc1a, type: 3}
+      propertyPath: BrewTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1908317658395002018, guid: 021ff470d4fb37546a74622f87d6fc1a, type: 3}
       propertyPath: _counter
       value: 
@@ -638,22 +690,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 326455846667979375, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 326455846667979375, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 326455846667979375, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 326455846667979375, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 982165937759697129, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
       propertyPath: Color.a
       value: 1
@@ -671,9 +707,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 982165937759697129, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
-      propertyPath: Ingredient
+      propertyPath: Attribute
       value: 
-      objectReference: {fileID: 8405798465464205614, guid: f2d5b3aa3ca605942be29d28ebae4811, type: 3}
+      objectReference: {fileID: 11400000, guid: 3172f65b57edd0e4c826b7ac10c0531b, type: 2}
     - target: {fileID: 1232976707559992702, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8
@@ -714,6 +750,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1353146339606083484, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 44ca91cfcddb28a4db331d1873a8c242, type: 3}
+    - target: {fileID: 1353146339606083484, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353146339606083484, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.25882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353146339606083484, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3060540429122289268, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
       propertyPath: m_Name
       value: Dispenser Speed
@@ -731,22 +783,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 326455846667979375, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 326455846667979375, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 326455846667979375, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 326455846667979375, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 982165937759697129, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
       propertyPath: Color.a
       value: 1
@@ -764,9 +800,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 982165937759697129, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
-      propertyPath: Ingredient
+      propertyPath: Attribute
       value: 
-      objectReference: {fileID: 8405798465464205614, guid: 33c9be98a146f4a448f7a989f3958079, type: 3}
+      objectReference: {fileID: 11400000, guid: a6a149dd18c93284ebfcdaa1b7d71bed, type: 2}
     - target: {fileID: 1232976707559992702, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8
@@ -807,6 +843,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1353146339606083484, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
+      propertyPath: m_Color.r
+      value: 0.98823535
+      objectReference: {fileID: 0}
     - target: {fileID: 3060540429122289268, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
       propertyPath: m_Name
       value: Dispenser Health
@@ -846,7 +886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfd365d51d20b1b46be4dd3dcc4fc6a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnTime: 3
+  SpawnTime: 5
   SpawnDecay: 0.99
   Customer: {fileID: 4268432425718603531, guid: 9a2a47fe6fa7e734b9804121c0d77c51, type: 3}
   PatienceRange: {x: 1.0703967, y: 5.265189}
@@ -919,6 +959,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1908317658395002018, guid: 021ff470d4fb37546a74622f87d6fc1a, type: 3}
+      propertyPath: BrewTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1908317658395002018, guid: 021ff470d4fb37546a74622f87d6fc1a, type: 3}
       propertyPath: _counter
       value: 
       objectReference: {fileID: 961614388}
@@ -983,22 +1027,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 326455846667979375, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 326455846667979375, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 326455846667979375, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 326455846667979375, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 982165937759697129, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
       propertyPath: Color.a
       value: 1
@@ -1016,9 +1044,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 982165937759697129, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
-      propertyPath: Ingredient
+      propertyPath: Attribute
       value: 
-      objectReference: {fileID: 8405798465464205614, guid: b902d74b43a22f44aa193bad68758590, type: 3}
+      objectReference: {fileID: 11400000, guid: 028193ca6e38177439dbf4f14a721c98, type: 2}
     - target: {fileID: 1232976707559992702, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8
@@ -1059,9 +1087,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1353146339606083484, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6f72b5d3a5cd922409cc080be65f2e38, type: 3}
+    - target: {fileID: 1353146339606083484, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
+      propertyPath: m_Color.b
+      value: 0.19607845
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353146339606083484, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353146339606083484, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3060540429122289268, guid: a8fd89ccd0e526a4dba1b0575be2a5d2, type: 3}
       propertyPath: m_Name
-      value: Dispenser Luck
+      value: Dispenser Strength
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1082,3 +1126,4 @@ SceneRoots:
   - {fileID: 2051250246}
   - {fileID: 961614389}
   - {fileID: 1078888149}
+  - {fileID: 655673667}
