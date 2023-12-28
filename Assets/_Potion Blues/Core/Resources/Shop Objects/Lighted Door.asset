@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8d7383027516e74ab121307857c5ca5, type: 3}
-  m_Name: Strength
+  m_Script: {fileID: 11500000, guid: feae3e6b0a0f3a24598681a252ecea13, type: 3}
+  m_Name: Lighted Door
   m_EditorClassIdentifier: 
+  _category: {fileID: 11400000, guid: f7820e9b529c6c94a950ad98bf1c34d0, type: 2}
   _description: 
-  _icon: {fileID: 0}
-  _ingredient: {fileID: 0}
-  _ingredientName: 
-  _potion: {fileID: 0}
-  _potionName: 
-  _color: {r: 0, g: 0, b: 0, a: 0}
+  _customerRate: 0.45

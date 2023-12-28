@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dad6e8587bc398f4f869ddb688355845, type: 3}
+  m_Name: Gas Flame
+  m_EditorClassIdentifier: 
+  _type: {fileID: 11400000, guid: 2fa1437c5ce2a1240ad3e1690f7afb62, type: 2}
+  _description: Increases cauldron brewing speed by +10%
+  _icon: {fileID: 0}
+  _picture: {fileID: 0}
+  _reputationCost: 5
+  _goldCost: 100
+  _attributeValues:
+  - Attribute: {fileID: 11400000, guid: 725edc994e4991b4080fba3b221f2a89, type: 2}
+    Value: 1.1

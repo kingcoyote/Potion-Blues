@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8d7383027516e74ab121307857c5ca5, type: 3}
-  m_Name: Health
+  m_Script: {fileID: 11500000, guid: 948cdb2db6dcf574eb0d19ba1997c430, type: 3}
+  m_Name: Mandrake Root
   m_EditorClassIdentifier: 
-  _active: 0
+  _category: {fileID: 11400000, guid: 70d9bec40e588fd46afbb7b3406d5a70, type: 2}
   _description: 
-  _icon: {fileID: 21300000, guid: 1732f25dc14819d479c3abe8576a1283, type: 3}
+  _dispenser: {fileID: 0}
   _ingredient: {fileID: 21300000, guid: e175a22c72795d84bb5315aadfc4f53f, type: 3}
-  _ingredientName: 
-  _potion: {fileID: 21300000, guid: 3f4d0637d7f6a1c4d98b3ccd748f24aa, type: 3}
-  _potionName: 
-  _color: {r: 0, g: 0, b: 0, a: 0}
+  _enhancer: 0
+  _value: 10

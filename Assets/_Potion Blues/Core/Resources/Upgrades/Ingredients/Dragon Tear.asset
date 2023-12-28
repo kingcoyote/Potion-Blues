@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c15725f621b9c1545b727ef67a36501e, type: 3}
+  m_Name: Dragon Tear
+  m_EditorClassIdentifier: 
+  _type: {fileID: 11400000, guid: 4261e99d3087fbd48b9a5a3dce24098f, type: 2}
+  _description: Brew potions of speed
+  _icon: {fileID: 0}
+  _picture: {fileID: 0}
+  _reputationCost: 10
+  _goldCost: 250
+  _ingredient: {fileID: 11400000, guid: e7c939aa234903340b59c1de65cabcbb, type: 2}

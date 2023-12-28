@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8d7383027516e74ab121307857c5ca5, type: 3}
-  m_Name: Speed
+  m_Name: Health
   m_EditorClassIdentifier: 
-  _active: 0
   _description: 
-  _icon: {fileID: 21300000, guid: 44ca91cfcddb28a4db331d1873a8c242, type: 3}
-  _ingredient: {fileID: 21300000, guid: f4f6a5ec1d8fbed42852009aa9361a4c, type: 3}
-  _ingredientName: 
-  _potion: {fileID: 21300000, guid: c99e91b8f52cdae48b1fd8168ae8cf15, type: 3}
-  _potionName: 
+  _value: 10
+  _icon: {fileID: 21300000, guid: 1732f25dc14819d479c3abe8576a1283, type: 3}
+  _potion: {fileID: 21300000, guid: 3f4d0637d7f6a1c4d98b3ccd748f24aa, type: 3}
   _color: {r: 0, g: 0, b: 0, a: 0}
+  _ingredients:
+  - {fileID: 11400000, guid: 85f3dd42d48fa9c4d88f6c9f9ff22a4c, type: 2}
