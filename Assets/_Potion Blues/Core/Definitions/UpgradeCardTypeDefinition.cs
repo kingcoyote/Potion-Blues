@@ -11,8 +11,11 @@ namespace PotionBlues.Definitions
         public Color Color => _color;
         public string Description => _description;
 
-        [SerializeField] private Sprite _frame;
-        [SerializeField] private Color _color;
-        [SerializeField, TextArea(3, 10)] private string _description;
+        [SerializeField, PreviewField, Tooltip("A 9-slice sprite that will be used for the upgrade card border")] 
+        private Sprite _frame;
+        [SerializeField, Tooltip("Background color used for upgrade cards of this type")] 
+        private Color _color;
+        [SerializeField, TextArea(3, 10)] 
+        private string _description;
     }
 }

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d5feec93f8963241a421f96dce67e95, type: 3}
+  m_Name: Plain Counter
+  m_EditorClassIdentifier: 
+  _type: {fileID: 0}
+  _description: Plain counter that displays 3 potion types
+  _priority: 0
+  _icon: {fileID: 0}
+  _picture: {fileID: 0}
+  _reputationCost: 0
+  _goldCost: 100
+  _shopObject: {fileID: 11400000, guid: b0e6de1637a17304ea6fc8b55f1b6994, type: 2}
