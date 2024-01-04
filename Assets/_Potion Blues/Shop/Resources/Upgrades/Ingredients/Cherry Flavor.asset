@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c15725f621b9c1545b727ef67a36501e, type: 3}
+  m_Script: {fileID: 11500000, guid: c880b0d95cde19548bfdea68add09df1, type: 3}
   m_Name: Cherry Flavor
   m_EditorClassIdentifier: 
-  _type: {fileID: 11400000, guid: 4261e99d3087fbd48b9a5a3dce24098f, type: 2}
-  _description: Add cherry flavor to make potions less gross.
+  _description: 
+  _priority: 0
   _icon: {fileID: 0}
   _picture: {fileID: 0}
-  _reputationCost: 10
-  _goldCost: 250
-  _ingredient: {fileID: 11400000, guid: 20399bfdd43dfd2408133ce900979a4a, type: 2}
+  _reputationCost: 0
+  _goldCost: 0
+  _shopObject: {fileID: 11400000, guid: 20399bfdd43dfd2408133ce900979a4a, type: 2}

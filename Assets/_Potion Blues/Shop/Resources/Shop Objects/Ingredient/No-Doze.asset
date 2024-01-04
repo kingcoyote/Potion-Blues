@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _category: {fileID: 11400000, guid: 70d9bec40e588fd46afbb7b3406d5a70, type: 2}
   _description: Makes the potion non drowsy
-  _dispenser: {fileID: 0}
+  _sprite: {fileID: 0}
+  _cost: 1
   _ingredient: {fileID: 0}
   _enhancer: 1
-  _value: 3
+  _attributes:
+  - Attribute: {fileID: 11400000, guid: 2aba5f977f92a7d42ae3ce36691eec7c, type: 2}
+    Value: 3

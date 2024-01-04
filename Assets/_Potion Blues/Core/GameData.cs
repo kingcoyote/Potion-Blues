@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using PotionBlues;
 using PotionBlues.Definitions;
 
+[Serializable]
 public class GameData
 {
     public List<UpgradeCardDefinition> Upgrades;
@@ -14,7 +15,7 @@ public class GameData
                
     }
 
-    public RunData GenerateRunData()
+    public static RunData GenerateRunData()
     {
         throw new NotImplementedException();
     }

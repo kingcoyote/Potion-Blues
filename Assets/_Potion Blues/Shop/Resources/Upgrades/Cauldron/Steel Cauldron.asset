@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d5feec93f8963241a421f96dce67e95, type: 3}
+  m_Script: {fileID: 11500000, guid: c880b0d95cde19548bfdea68add09df1, type: 3}
   m_Name: Steel Cauldron
   m_EditorClassIdentifier: 
-  _type: {fileID: 11400000, guid: 4261e99d3087fbd48b9a5a3dce24098f, type: 2}
   _description: Well crafted cauldron that brews faster and more evenly.
+  _priority: 0
   _icon: {fileID: 0}
   _picture: {fileID: 0}
   _reputationCost: 5
   _goldCost: 200
+  _rarity: {fileID: 11400000, guid: f12e1783d403e1848a6ca6151ee870f5, type: 2}
   _shopObject: {fileID: 11400000, guid: fcf131e824e4c924f8a4c488e539246f, type: 2}

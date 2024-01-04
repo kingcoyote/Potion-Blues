@@ -16,3 +16,4 @@ MonoBehaviour:
   _description: Door with lighted overhead sign, drawing attention to itself
   _sprite: {fileID: 0}
   _customerRate: 0.4
+  _customerPayout: 1

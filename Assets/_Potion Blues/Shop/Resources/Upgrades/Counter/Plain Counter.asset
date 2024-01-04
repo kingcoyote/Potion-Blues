@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d5feec93f8963241a421f96dce67e95, type: 3}
+  m_Script: {fileID: 11500000, guid: c880b0d95cde19548bfdea68add09df1, type: 3}
   m_Name: Plain Counter
   m_EditorClassIdentifier: 
-  _type: {fileID: 0}
-  _description: Plain counter that displays 3 potion types
+  _description: 
   _priority: 0
   _icon: {fileID: 0}
   _picture: {fileID: 0}
   _reputationCost: 0
-  _goldCost: 100
+  _goldCost: 0
+  _rarity: {fileID: 11400000, guid: 0cba053ab5edf3044acd2c249d0ec899, type: 2}
   _shopObject: {fileID: 11400000, guid: b0e6de1637a17304ea6fc8b55f1b6994, type: 2}

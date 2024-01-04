@@ -1,4 +1,7 @@
+using System.Linq;
 using UnityEngine;
+using System.Collections;
+using Sirenix.OdinInspector;
 
 namespace PotionBlues.Definitions
 {
@@ -10,5 +13,15 @@ namespace PotionBlues.Definitions
 
         [SerializeField, TextArea(3,10)] private string _description;
         [SerializeField] private int _max;
+
+#if UNITY_EDITOR
+        private static IEnumerable GetCategories()
+        {
+            return UnityEditor.AssetDatabase.FindAssets("t:ShopObjectCategoryDefinition")
+                .Select(x => UnityEditor.AssetDatabase.GUIDToAssetPath(x))
+                .Select(x => UnityEditor.AssetDatabase.LoadAssetAtPath<ShopObjectCategoryDefinition>(x))
+                .Select(x => new ValueDropdownItem(x.name, x));
+        }
+#endif
     }
 }

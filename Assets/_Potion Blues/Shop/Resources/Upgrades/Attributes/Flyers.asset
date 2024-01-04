@@ -9,15 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dad6e8587bc398f4f869ddb688355845, type: 3}
+  m_Script: {fileID: 11500000, guid: f281671a9fe8c394c92b8b0a9408687b, type: 3}
   m_Name: Flyers
   m_EditorClassIdentifier: 
-  _type: {fileID: 11400000, guid: 2fa1437c5ce2a1240ad3e1690f7afb62, type: 2}
   _description: Increases customer visits by +10%
+  _priority: 0
   _icon: {fileID: 0}
   _picture: {fileID: 0}
   _reputationCost: 5
   _goldCost: 100
+  _rarity: {fileID: 11400000, guid: 0cba053ab5edf3044acd2c249d0ec899, type: 2}
   _attributeValues:
   - Attribute: {fileID: 11400000, guid: f144fef757d9042488e5eb297f172a38, type: 2}
     Value: 1.1

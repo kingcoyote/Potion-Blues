@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _category: {fileID: 11400000, guid: f7820e9b529c6c94a950ad98bf1c34d0, type: 2}
   _description: 
+  _sprite: {fileID: 0}
   _customerRate: 0.25
+  _customerPayout: 1

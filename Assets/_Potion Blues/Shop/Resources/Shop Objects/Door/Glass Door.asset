@@ -16,3 +16,4 @@ MonoBehaviour:
   _description: Door with glass windows, encouraging passersby to step inside
   _sprite: {fileID: 0}
   _customerRate: 0.33
+  _customerPayout: 1
