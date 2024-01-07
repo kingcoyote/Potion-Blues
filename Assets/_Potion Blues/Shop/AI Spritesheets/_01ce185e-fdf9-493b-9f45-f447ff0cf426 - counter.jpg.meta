@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 25d1466216e35e244b79776ea6f220d6
+guid: 71306a64ddfd61545884d22544afea44
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -45,11 +45,11 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 30, y: 97, z: 28, w: 24}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: potion_icon
+      name: wide_counter
       rect:
         serializedVersion: 2
-        x: 337
-        y: 792
-        width: 61
-        height: 71
+        x: 0
+        y: 0
+        width: 199
+        height: 745
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b61f654e0be2c24d918af46217cb7b0
-      internalID: 267418238
+      spriteID: b0df5d6994743c54880ea7e5bf6d8e67
+      internalID: -1490252619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: plain_counter
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 172
+        width: 202
+        height: 573
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f07c287cc6c66e4ca9774cfbc014513
+      internalID: -1228334077
       vertices: []
       indices: 
       edges: []
@@ -134,14 +155,15 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      potion_icon: 267418238
+      plain_counter: -1228334077
+      wide_counter: -1490252619
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
