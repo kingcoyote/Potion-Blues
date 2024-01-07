@@ -5,15 +5,22 @@ using UnityEngine;
 
 namespace PotionBlues.Events
 {
-    public class CauldronEvent : ShopObjectEvent
+    public class CauldronEvent : IEvent
     {
         public CauldronEventType Type;
+        public List<ShopAttributeValue> Attributes;
         // the attributes relevant to cauldrons are:
         //  - brewing speed
         //  - brewing output
         //  - cauldron capacity
         public IngredientDefinition Ingredient;
         public PotionDefinition Potion;
+
+        public CauldronEvent(CauldronEventType t, List<ShopAttributeValue> attr)
+        {
+            Type = t;
+            Attributes = attr;
+        }
     }
 
     public enum CauldronEventType

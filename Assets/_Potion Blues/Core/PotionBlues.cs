@@ -23,12 +23,17 @@ namespace PotionBlues
         {
             if (_instance == null)
             {
-                _instance = Transform.FindObjectOfType<PotionBlues>();
+                _instance = FindObjectOfType<PotionBlues>();
             }
 
             if (_instance == null)
             {
                 _instance = CreateInstance();
+            }
+
+            if (_instance.EventBus == null)
+            {
+                _instance.Initialize();
             }
 
             return _instance;
@@ -43,15 +48,22 @@ namespace PotionBlues
                 DontDestroyOnLoad(go);
 
             var pb = go.AddComponent<PotionBlues>();
-            pb.EventBus = new GenericEventBus<IEvent, IEventNode>();
-            pb.RNG = new Unity.Mathematics.Random((uint)DateTime.Now.Ticks);
-            pb.PotionTypes = Resources.LoadAll<PotionDefinition>("Potions")
-                .ToDictionary(potion => potion.name);
-            pb.ShopObjectCategories = Resources.LoadAll<ShopObjectCategoryDefinition>("Object Categories")
-                .ToDictionary(cat => cat.name);
+
+            pb.Initialize();
             pb.GameData = new GameData();
 
             return pb;
+        }
+
+        private void Initialize()
+        {
+            EventBus = new GenericEventBus<IEvent, IEventNode>();
+            RNG = new Unity.Mathematics.Random((uint)DateTime.Now.Ticks);
+            PotionTypes = Resources.LoadAll<PotionDefinition>("Potions")
+                .ToDictionary(potion => potion.name);
+            ShopObjectCategories = Resources.LoadAll<ShopObjectCategoryDefinition>("Object Categories")
+                .ToDictionary(cat => cat.name);
+            
         }
     }
 }

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _category: {fileID: 11400000, guid: 70d9bec40e588fd46afbb7b3406d5a70, type: 2}
   _description: Makes the potion taste delicious
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 1530599500, guid: 0e24e3e45a35f2c438179cc75faf14bd, type: 3}
   _cost: 1
-  _ingredient: {fileID: 0}
+  _ingredient: {fileID: 1401588751, guid: 438fcb3edc33e2e4991c71b19aa7967a, type: 3}
   _enhancer: 1
   _attributes:
   - Attribute: {fileID: 11400000, guid: 2aba5f977f92a7d42ae3ce36691eec7c, type: 2}

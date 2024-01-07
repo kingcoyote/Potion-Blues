@@ -5,7 +5,7 @@ using GenericEventBus;
 namespace PotionBlues.Shop
 {
     [RequireComponent(typeof(SpriteRenderer))]
-    public abstract class ShopObjectScript : MonoBehaviour
+    public abstract class ShopObjectScript : MonoBehaviour, IEventNode
     {
         protected GenericEventBus<IEvent, IEventNode> _bus;
         private SpriteRenderer _sprite;
@@ -13,16 +13,17 @@ namespace PotionBlues.Shop
         protected abstract void LoadShopObject(ShopObjectDefinition definition);
 
         // Use this for initialization
-        void Start()
+        public void Start()
         {
-            _bus = PotionBlues.I().EventBus;
             _sprite = GetComponent<SpriteRenderer>();
+            LoadBus();
+
+            Debug.Log($"Starting shop object script - {name}");
         }
 
-        // Update is called once per frame
-        void Update()
+        protected void LoadBus()
         {
-
+            _bus = PotionBlues.I().EventBus;
         }
 
         public void LoadDefinition(ShopObjectDefinition definition)

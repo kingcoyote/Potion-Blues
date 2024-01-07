@@ -3,8 +3,9 @@ using UnityEngine;
 
 namespace PotionBlues.Events
 {
-    public class IngredientEvent : ShopObjectEvent
+    public class IngredientEvent : IEvent
     {
+        public List<ShopAttributeValue> Attributes;
         public IngredientEventType Type;
     }
 

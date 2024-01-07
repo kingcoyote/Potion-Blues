@@ -1,5 +1,8 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace PotionBlues.Definitions
 {
@@ -13,6 +16,30 @@ namespace PotionBlues.Definitions
         [SerializeField, TextArea(3,10)] private string _description;
         [SerializeField, PreviewField] private Sprite _icon;
         [SerializeField] private StackType _stackingType;
+
+        public float Aggregate(List<ShopAttributeValue> values)
+        {
+            Func<float, float, float> aggr;
+            switch (StackingType)
+            {
+                default:
+                case StackType.Multiply:
+                    aggr = (a, b) => a * b;
+                    break;
+                case StackType.Add:
+                    aggr = (a, b) => a + b;
+                    break;
+                case StackType.Overwrite:
+                    aggr = (a, b) => b;
+                    break;
+                case StackType.Ignore:
+                    aggr = (a, b) => a;
+                    break;
+                    
+            }
+
+            return values.Select(v => v.Value).Aggregate(aggr);
+        }
     }
 
     public enum StackType

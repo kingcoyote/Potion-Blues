@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UIElements;
 
 namespace PotionBlues
 {
@@ -19,12 +20,23 @@ namespace PotionBlues
 
         public List<ShopObjectDefinition> GetShopObjects(ShopObjectCategoryDefinition category)
         {
-            return Upgrades
-                .Where(card => card.GetType() == typeof(ShopObjectUpgradeCardDefintion))
-                .Select(card => (ShopObjectUpgradeCardDefintion)card)
+            return GetCardsOfType<ShopObjectUpgradeCardDefintion>()
                 .Where(card => card.ShopObject.Category == category)
                 .Select(card => card.ShopObject)
                 .ToList();
+        }
+
+        public List<ShopAttributeUpgradeCardDefintion> GetShopAttributeUpgrades()
+        {
+            return GetCardsOfType<ShopAttributeUpgradeCardDefintion>()
+                .ToList();
+        }
+
+        private IEnumerable<TValue> GetCardsOfType<TValue>() where TValue : UpgradeCardDefinition
+        {
+            return Upgrades
+                .Where(card => card.GetType() == typeof(TValue))
+                .Select(card => (TValue)card);
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace PotionBlues
 {
@@ -12,6 +13,23 @@ namespace PotionBlues
         [ValueDropdown("GetAttributes")]
         public ShopAttributeDefinition Attribute;
         public float Value;
+
+        public ShopAttributeValue(ShopAttributeDefinition def, float val)
+        { 
+            Attribute = def; 
+            Value = val; 
+        }
+
+        public ShopAttributeValue(string name, float val)
+        {
+            Attribute = Resources.Load<ShopAttributeDefinition>($"Shop Attributes/{name}");
+            Value = val;
+        }
+
+        public override string ToString()
+        {
+            return $"{Attribute.name} = {Value}";
+        }
 
 #if UNITY_EDITOR
         private static IEnumerable GetAttributes()

@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace PotionBlues.Events
 {
-    public class DoorEvent : ShopObjectEvent
+    public class DoorEvent : IEvent
     {
+        public List<ShopAttributeValue> Attributes;
         public DoorEventType Type;
         public PotionDefinition Potion;
     }

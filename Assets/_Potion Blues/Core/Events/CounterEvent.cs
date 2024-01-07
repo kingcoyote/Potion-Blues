@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace PotionBlues.Events
 {
-    public class CounterEvent : ShopObjectEvent
+    public class CounterEvent : IEvent
     {
+        public List<ShopAttributeValue> Attributes;
         public CounterEventType Type;
         public PotionDefinition Potion;
     }
