@@ -81,7 +81,7 @@ namespace PotionBlues.Shop {
             foreach(var attr in attributes)
             {
                 float modifier = upgradeModifiers.TryGetValue(attr.Attribute, out modifier) ? modifier : 1;
-                adjustedAttributes.Add(new ShopAttributeValue(attr.Attribute, attr.Value * modifier));
+                adjustedAttributes.Add(new ShopAttributeValue(attr.Attribute, attr.Attribute.Aggregate(attr.Value, modifier)));
             }
 
             return adjustedAttributes;

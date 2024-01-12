@@ -13,32 +13,47 @@ namespace PotionBlues.Definitions
         public Sprite Icon => _icon;
         public StackType StackingType => _stackingType;
 
-        [SerializeField, TextArea(3,10)] private string _description;
+        [SerializeField, TextArea(3, 10)] private string _description;
         [SerializeField, PreviewField] private Sprite _icon;
         [SerializeField] private StackType _stackingType;
 
+        private Func<float, float, float> _aggregate
+        {
+            get
+            {
+
+                Func<float, float, float> aggr;
+                switch (StackingType)
+                {
+                    default:
+                    case StackType.Multiply:
+                        aggr = (a, b) => a * b;
+                        break;
+                    case StackType.Add:
+                        aggr = (a, b) => a + b;
+                        break;
+                    case StackType.Overwrite:
+                        aggr = (a, b) => b;
+                        break;
+                    case StackType.Ignore:
+                        aggr = (a, b) => a;
+                        break;
+
+                }
+
+                return aggr;
+
+            }
+        }
+
         public float Aggregate(List<ShopAttributeValue> values)
         {
-            Func<float, float, float> aggr;
-            switch (StackingType)
-            {
-                default:
-                case StackType.Multiply:
-                    aggr = (a, b) => a * b;
-                    break;
-                case StackType.Add:
-                    aggr = (a, b) => a + b;
-                    break;
-                case StackType.Overwrite:
-                    aggr = (a, b) => b;
-                    break;
-                case StackType.Ignore:
-                    aggr = (a, b) => a;
-                    break;
-                    
-            }
+            return Aggregate(values.Select(v => v.Value).ToArray());
+        }
 
-            return values.Select(v => v.Value).Aggregate(aggr);
+        public float Aggregate(params float[] values)
+        {
+            return values.Aggregate(_aggregate);
         }
     }
 

@@ -9,6 +9,12 @@ namespace PotionBlues.Events
         public List<ShopAttributeValue> Attributes;
         public CounterEventType Type;
         public PotionDefinition Potion;
+
+        public CounterEvent(CounterEventType type, List<ShopAttributeValue> attrs)
+        {
+            Type = type;
+            Attributes = attrs;
+        }
     }
 
     public enum CounterEventType

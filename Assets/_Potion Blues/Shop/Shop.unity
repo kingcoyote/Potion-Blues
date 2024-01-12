@@ -726,6 +726,8 @@ MonoBehaviour:
   Cauldron: {fileID: 11400000, guid: cdf92a36f9d0c1e49bc9dbd2b48e6d48, type: 2}
   BrewingTime: 0
   BrewingOutput: 0
+  CleaningInterval: 0
+  FailureRate: 0
 --- !u!212 &568340301
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -922,6 +924,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Counter: {fileID: 11400000, guid: b0e6de1637a17304ea6fc8b55f1b6994, type: 2}
+  ShelfLife: 0
+  CounterSlots: 0
+  SlotCapacity: 0
 --- !u!212 &790788856
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1320,6 +1325,8 @@ MonoBehaviour:
   Cauldron: {fileID: 11400000, guid: fcf131e824e4c924f8a4c488e539246f, type: 2}
   BrewingTime: 0
   BrewingOutput: 0
+  CleaningInterval: 0
+  FailureRate: 0
 --- !u!212 &927489915
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1601,6 +1608,8 @@ MonoBehaviour:
   Cauldron: {fileID: 11400000, guid: a898e17bb6cdcad4b91c89d53b9a557b, type: 2}
   BrewingTime: 0
   BrewingOutput: 0
+  CleaningInterval: 0
+  FailureRate: 0
 --- !u!212 &1422267769
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2157,6 +2166,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: ba5bbe99522721946bb075ffb73c2179, type: 2}
       - {fileID: 11400000, guid: 9e533d91dd53cf143b311aae2732187d, type: 2}
       - {fileID: 11400000, guid: d70862e1bef7dcc4f95e88d745d000c8, type: 2}
+      - {fileID: 11400000, guid: 1db695826e0e99743ae27c484f43da40, type: 2}
       - {fileID: 11400000, guid: 6fe8319ae7141ca4daab6759b4c7d01b, type: 2}
       - {fileID: 11400000, guid: 87fe2619c3120c24e8a1dd5c7fb41a38, type: 2}
       - {fileID: 11400000, guid: b72ea65f72c51164c80514735b7873b9, type: 2}

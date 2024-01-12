@@ -1,18 +1,36 @@
 using PotionBlues.Definitions;
+using PotionBlues.Events;
 using Sirenix.OdinInspector;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace PotionBlues.Shop
 {
     public class IngredientScript : ShopObjectScript
     {
-        [OnValueChanged("LoadIngredient")]
+        [BoxGroup("Base"), OnValueChanged("StartIngredient")]
         public IngredientDefinition Ingredient;
 
-        // Use this for initialization
-        void Start()
-        {
+        [BoxGroup("Instance")] public float IngredientCost;
+        [BoxGroup("Instance")] public float IngredientSalvage;
+        [BoxGroup("Instance")] public float IngredientCooldown;
+        [BoxGroup("Instance")] public int IngredientQuantity;
 
+        // Use this for initialization
+        new public void Start()
+        {
+            base.Start();
+            Debug.Log($"Starting ingredient script {name}");
+
+            _bus.SubscribeToTarget<IngredientEvent>(this, OnIngredientEvent);
+
+            StartIngredient();
+        }
+
+        public void OnDestroy()
+        {
+            _bus.UnsubscribeFromTarget<IngredientEvent>(this, OnIngredientEvent);
         }
 
         // Update is called once per frame
@@ -29,12 +47,34 @@ namespace PotionBlues.Shop
             }
 
             Ingredient = (IngredientDefinition)definition;
-            LoadIngredient();
         }
 
-        public void LoadIngredient()
+        public void StartIngredient()
         {
+            var attrs = new List<ShopAttributeValue>()
+            {
+                new ShopAttributeValue("Ingredient Cost", Ingredient.IngredientCost),
+                new ShopAttributeValue("Ingredient Salvage", Ingredient.IngredientSalvage),
+                new ShopAttributeValue("Ingredient Cooldown", Ingredient.IngredientCooldown),
+                new ShopAttributeValue("Ingredient Quantity", Ingredient.IngredientQuantity),
+            };
 
+            _bus.Raise(new IngredientEvent(IngredientEventType.Spawn, attrs), this, this);
+        }
+
+        void OnIngredientEvent(ref IngredientEvent evt, IEventNode target, IEventNode source)
+        {
+            Debug.Log($"Ingredient is reacting to ingredient event from {source}");
+
+            switch (evt.Type)
+            {
+                case IngredientEventType.Spawn:
+                    IngredientCost = evt.Attributes.Find(a => a.Attribute.name == "Ingredient Cost").Value;
+                    IngredientSalvage = evt.Attributes.Find(a => a.Attribute.name == "Ingredient Salvage").Value;
+                    IngredientCooldown = evt.Attributes.Find(a => a.Attribute.name == "Ingredient Cooldown").Value;
+                    IngredientQuantity = (int)evt.Attributes.Find(a => a.Attribute.name == "Ingredient Quantity").Value;
+                    break;
+            }
         }
     }
 }

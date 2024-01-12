@@ -15,5 +15,7 @@ MonoBehaviour:
   _category: {fileID: 11400000, guid: d883f871c46bf514f9a9718bf32a70e2, type: 2}
   _description: Plain cauldron that can be used to brew a potion
   _sprite: {fileID: 21300000, guid: 5d0607c82dc2b124facd687b4cc052ba, type: 3}
-  _brewTime: 3
+  _brewingTime: 3
   _brewingOutput: 1
+  _cleaningInterval: 5
+  _failureRate: 0.1

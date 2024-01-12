@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3224637a44cd686489aac849c41ba461, type: 3}
-  m_Name: Customer Payout
+  m_Name: Cleaning Interval
   m_EditorClassIdentifier: 
-  _description: When a customer is satisfied, how much extra are they willing to
-    pay above the potion cost.
+  _description: "How many batches between cleaning\r."
   _icon: {fileID: 0}
   _stackingType: 0

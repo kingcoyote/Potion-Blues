@@ -16,6 +16,9 @@ MonoBehaviour:
   _description: 
   _sprite: {fileID: -335522233, guid: ac61ec4d6c601354d9887ff0da82544a, type: 3}
   _cost: 2
+  _salvage: 0.75
+  _cooldown: 4
+  _quantity: 10
   _ingredient: {fileID: 21300000, guid: e175a22c72795d84bb5315aadfc4f53f, type: 3}
   _enhancer: 0
   _attributes: []

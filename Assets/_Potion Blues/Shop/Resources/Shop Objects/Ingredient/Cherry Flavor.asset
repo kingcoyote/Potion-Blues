@@ -16,6 +16,9 @@ MonoBehaviour:
   _description: Makes the potion taste delicious
   _sprite: {fileID: 1530599500, guid: 0e24e3e45a35f2c438179cc75faf14bd, type: 3}
   _cost: 1
+  _salvage: 0.5
+  _cooldown: 4
+  _quantity: 10
   _ingredient: {fileID: 1401588751, guid: 438fcb3edc33e2e4991c71b19aa7967a, type: 3}
   _enhancer: 1
   _attributes:

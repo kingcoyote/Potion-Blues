@@ -9,11 +9,13 @@ namespace PotionBlues.Shop
 {
     public class CauldronScript : ShopObjectScript
     {
-        [OnValueChanged("StartCauldron")]
+        [BoxGroup("Base"), OnValueChanged("StartCauldron")]
         public CauldronDefinition Cauldron;
 
-        public float BrewingTime;
-        public float BrewingOutput;
+        [BoxGroup("Instance")] public float BrewingTime;
+        [BoxGroup("Instance")] public float BrewingOutput;
+        [BoxGroup("Instance")] public float CleaningInterval;
+        [BoxGroup("Instance")] public float FailureRate;
 
         // Use this for initialization
         new public void Start()
@@ -24,6 +26,11 @@ namespace PotionBlues.Shop
             _bus.SubscribeToTarget<CauldronEvent>(this, OnCauldronEvent);
 
             StartCauldron();
+        }
+
+        public void OnDestroy()
+        {
+            _bus.UnsubscribeFromTarget<CauldronEvent>(this, OnCauldronEvent);
         }
 
         // Update is called once per frame
@@ -49,6 +56,8 @@ namespace PotionBlues.Shop
             {
                 new ShopAttributeValue("Brewing Time", Cauldron.BrewingTime),
                 new ShopAttributeValue("Brewing Output", Cauldron.BrewingOutput),
+                new ShopAttributeValue("Cleaning Interval", Cauldron.CleaningInterval),
+                new ShopAttributeValue("Failure Rate", Cauldron.FailureRate),
             };
 
             _bus.Raise(new CauldronEvent(CauldronEventType.Spawn, attrs), this, this);
@@ -63,6 +72,8 @@ namespace PotionBlues.Shop
                 case CauldronEventType.Spawn:
                     BrewingTime = evt.Attributes.Find(a => a.Attribute.name == "Brewing Time").Value;
                     BrewingOutput = evt.Attributes.Find(a => a.Attribute.name == "Brewing Output").Value;
+                    CleaningInterval = evt.Attributes.Find(a => a.Attribute.name == "Cleaning Interval").Value;
+                    FailureRate = evt.Attributes.Find(a => a.Attribute.name == "Failure Rate").Value;
                     break;
             }
         }

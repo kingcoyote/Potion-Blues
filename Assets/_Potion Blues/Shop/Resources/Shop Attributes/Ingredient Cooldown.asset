@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3224637a44cd686489aac849c41ba461, type: 3}
-  m_Name: Potion Decay
+  m_Name: Ingredient Cooldown
   m_EditorClassIdentifier: 
-  _description: Rate at which potions spoil.
+  _description: "How long does it take to replace a basket\r of raw ingredients."
   _icon: {fileID: 0}
+  _stackingType: 0

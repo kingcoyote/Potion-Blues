@@ -7,6 +7,12 @@ namespace PotionBlues.Events
     {
         public List<ShopAttributeValue> Attributes;
         public IngredientEventType Type;
+
+        public IngredientEvent(IngredientEventType type, List<ShopAttributeValue> attributes)
+        {
+            Type = type;
+            Attributes = attributes;
+        }
     }
 
     public enum IngredientEventType
