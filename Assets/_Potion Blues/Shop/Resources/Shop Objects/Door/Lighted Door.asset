@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _category: {fileID: 11400000, guid: f7820e9b529c6c94a950ad98bf1c34d0, type: 2}
   _description: Door with lighted overhead sign, drawing attention to itself
-  _sprite: {fileID: 0}
-  _customerRate: 0.4
-  _customerPayout: 1
+  _sprite: {fileID: -1601091019, guid: 5c39b151f66364e44b187208a38d2bd3, type: 3}
+  _customerFrequency: 0.5
+  _customerTipping: 1.05
+  _customerPatience: 5
+  _reputationBonus: 1

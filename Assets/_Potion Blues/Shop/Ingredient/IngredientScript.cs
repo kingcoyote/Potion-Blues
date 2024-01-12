@@ -30,7 +30,8 @@ namespace PotionBlues.Shop
 
         public void OnDestroy()
         {
-            _bus.UnsubscribeFromTarget<IngredientEvent>(this, OnIngredientEvent);
+            if (_bus != null)
+                _bus.UnsubscribeFromTarget<IngredientEvent>(this, OnIngredientEvent);
         }
 
         // Update is called once per frame

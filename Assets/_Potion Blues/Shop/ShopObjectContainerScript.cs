@@ -31,7 +31,23 @@ namespace PotionBlues.Shop
         public void ResetShopObjects(List<ShopObjectDefinition> objects)
         {
             Debug.Log($"{name} is resetting shop objects");
+            ClearShopObjects();
 
+            _box = GetComponent<BoxCollider2D>();
+
+            var n = objects.Count();
+            for (int i = 0; i < n; i++)
+            {
+                var shopObject = Instantiate(Prefab, transform);
+                shopObject.LoadDefinition(objects[i]);
+                shopObject.name = objects[i].name;
+                var position = (_box.size.y / 2) - ((i + 1.0) / (n + 1.0) * _box.size.y);
+                shopObject.transform.localPosition = Vector3.up * (float)position;
+            }
+        }
+
+        public void ClearShopObjects()
+        {
             if (Application.isPlaying)
             {
                 for (int i = transform.childCount - 1; i >= 0; i--)
@@ -45,18 +61,6 @@ namespace PotionBlues.Shop
                 {
                     DestroyImmediate(transform.GetChild(i).gameObject);
                 }
-            }
-
-            _box = GetComponent<BoxCollider2D>();
-
-            var n = objects.Count();
-            for (int i = 0; i < n; i++)
-            {
-                var shopObject = Instantiate(Prefab, transform);
-                shopObject.LoadDefinition(objects[i]);
-                shopObject.name = objects[i].name;
-                var position = (_box.size.y / 2) - ((i + 1.0) / (n + 1.0) * _box.size.y);
-                shopObject.transform.localPosition = Vector3.up * (float)position;
             }
         }
     }

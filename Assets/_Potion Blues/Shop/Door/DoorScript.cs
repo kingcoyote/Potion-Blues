@@ -31,7 +31,8 @@ namespace PotionBlues.Shop
 
         public void OnDestroy()
         {
-            _bus.UnsubscribeFromTarget<DoorEvent>(this, OnDoorEvent);
+            if (_bus != null )
+                _bus.UnsubscribeFromTarget<DoorEvent>(this, OnDoorEvent);
         }
 
         // Update is called once per frame
@@ -63,17 +64,17 @@ namespace PotionBlues.Shop
             _bus.Raise(new CauldronEvent(CauldronEventType.Spawn, attrs), this, this);
         }
 
-        void OnCauldronEvent(ref CauldronEvent evt, IEventNode target, IEventNode source)
+        void OnDoorEvent(ref DoorEvent evt, IEventNode target, IEventNode source)
         {
-            Debug.Log($"Cauldron is reacting to cauldron event from {source}");
+            Debug.Log($"Door is reacting to door event from {source}");
 
             switch (evt.Type)
             {
-                case CauldronEventType.Spawn:
-                    BrewingTime = evt.Attributes.Find(a => a.Attribute.name == "Brewing Time").Value;
-                    BrewingOutput = evt.Attributes.Find(a => a.Attribute.name == "Brewing Output").Value;
-                    CleaningInterval = evt.Attributes.Find(a => a.Attribute.name == "Cleaning Interval").Value;
-                    FailureRate = evt.Attributes.Find(a => a.Attribute.name == "Failure Rate").Value;
+                case DoorEventType.Spawn:
+                    CustomerFrequency = evt.Attributes.Find(a => a.Attribute.name == "Customer Frequency").Value;
+                    CustomerPatience = evt.Attributes.Find(a => a.Attribute.name == "Customer Patience").Value;
+                    CustomerTipping = evt.Attributes.Find(a => a.Attribute.name == "Customer Tipping").Value;
+                    ReputationBonus = evt.Attributes.Find(a => a.Attribute.name == "Reputation Bonus").Value;
                     break;
             }
         }

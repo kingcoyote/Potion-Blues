@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Plain Door
   m_EditorClassIdentifier: 
   _category: {fileID: 11400000, guid: f7820e9b529c6c94a950ad98bf1c34d0, type: 2}
-  _description: 
-  _sprite: {fileID: 0}
-  _customerRate: 0.25
-  _customerPayout: 1
+  _description: Simple wooden door that isn't getting anyone's attention
+  _sprite: {fileID: 1392650074, guid: c52047824f3851643acddf1752773c59, type: 3}
+  _customerFrequency: 0.25
+  _customerTipping: 1
+  _customerPatience: 5
+  _reputationBonus: 1

@@ -24,6 +24,8 @@ namespace PotionBlues.Shop {
             _bus.SubscribeTo<CounterEvent>(OnCounterEvent, 100);
             _bus.SubscribeTo<CauldronEvent>(OnCauldronEvent, 100);
             _bus.SubscribeTo<IngredientEvent>(OnIngredientEvent, 100);
+
+            ClearShopObjects();
         }
 
         private void OnDestroy()
@@ -51,6 +53,15 @@ namespace PotionBlues.Shop {
             Counters.ResetShopObjects(activeRun.GetShopObjects(categories["Counter"]));
             Cauldrons.ResetShopObjects(activeRun.GetShopObjects(categories["Cauldron"]));
             Ingredients.ResetShopObjects(activeRun.GetShopObjects(categories["Ingredient"]));
+        }
+
+        [Button]
+        public void ClearShopObjects()
+        {
+            Doors.ClearShopObjects();
+            Counters.ClearShopObjects();
+            Cauldrons.ClearShopObjects();
+            Ingredients.ClearShopObjects();
         }
 
         public void OnDoorEvent(ref DoorEvent evt, IEventNode target, IEventNode source)
