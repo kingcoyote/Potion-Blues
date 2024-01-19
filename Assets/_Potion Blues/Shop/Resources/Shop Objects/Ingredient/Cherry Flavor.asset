@@ -23,4 +23,4 @@ MonoBehaviour:
   _enhancer: 1
   _attributes:
   - Attribute: {fileID: 11400000, guid: 2aba5f977f92a7d42ae3ce36691eec7c, type: 2}
-    Value: 3
+    Value: 1.5

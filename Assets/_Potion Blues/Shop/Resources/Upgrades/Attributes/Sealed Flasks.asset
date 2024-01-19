@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f281671a9fe8c394c92b8b0a9408687b, type: 3}
   m_Name: Sealed Flasks
   m_EditorClassIdentifier: 
-  _description: Reduces potion decay by 10%
+  _description: Increases potion shelf life by 10%
   _priority: 0
   _icon: {fileID: 0}
   _picture: {fileID: 0}
@@ -20,5 +20,5 @@ MonoBehaviour:
   _goldCost: 100
   _rarity: {fileID: 11400000, guid: 0cba053ab5edf3044acd2c249d0ec899, type: 2}
   _attributeValues:
-  - Attribute: {fileID: 11400000, guid: 174e43a62c639c6478d094f1336f057c, type: 2}
-    Value: 0.9
+  - Attribute: {fileID: 11400000, guid: f7c17693df20d6b49a389f3124d7a72d, type: 2}
+    Value: 1.1

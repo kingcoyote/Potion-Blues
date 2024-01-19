@@ -1,4 +1,5 @@
 using GenericEventBus;
+using Lean.Gui;
 using PotionBlues.Definitions;
 using PotionBlues.Events;
 using Sirenix.OdinInspector;
@@ -9,23 +10,41 @@ using UnityEngine;
 namespace PotionBlues.Shop {
     public class SceneManagerScript : MonoBehaviour
     {
-        [SerializeField] public ShopObjectContainerScript Doors;
-        [SerializeField] public ShopObjectContainerScript Counters;
-        [SerializeField] public ShopObjectContainerScript Cauldrons;
-        [SerializeField] public ShopObjectContainerScript Ingredients;
+        [BoxGroup("Run Settings"), MinValue(0), MaxValue(1800)] public float DayLength = 180;
+        [BoxGroup("Run Settings"), MinValue(0), MaxValue("DayLength")] public float DayTimeRemaining;
 
+        [BoxGroup("Shop Object Containers"), SerializeField] private ShopObjectContainerScript Doors;
+        [BoxGroup("Shop Object Containers"), SerializeField] private ShopObjectContainerScript Counters;
+        [BoxGroup("Shop Object Containers"), SerializeField] private ShopObjectContainerScript Cauldrons;
+        [BoxGroup("Shop Object Containers"), SerializeField] private ShopObjectContainerScript Ingredients;
+
+        [BoxGroup("UI Panels"), SerializeField] private LeanWindow _topMenu;
+        [BoxGroup("UI Panels"), SerializeField] private LeanWindow _dayPreviewPanel;
+        [BoxGroup("UI Panels"), SerializeField] private LeanWindow _dayPanel;
+        [BoxGroup("UI Panels"), SerializeField] private LeanWindow _dayReviewPanel;
+        [BoxGroup("UI Panels"), SerializeField] private LeanWindow _runReviewPanel;
+
+        public PotionBlues PotionBlues => _pb;
+
+        private PotionBlues _pb;
         private GenericEventBus<IEvent, IEventNode> _bus;
 
         // Start is called before the first frame update
         void Start()
         {
-            _bus = PotionBlues.I().EventBus;
+            _pb = PotionBlues.I();
+
+            _bus = _pb.EventBus;
             _bus.SubscribeTo<DoorEvent>(OnDoorEvent, 100);
             _bus.SubscribeTo<CounterEvent>(OnCounterEvent, 100);
             _bus.SubscribeTo<CauldronEvent>(OnCauldronEvent, 100);
             _bus.SubscribeTo<IngredientEvent>(OnIngredientEvent, 100);
+            _bus.SubscribeTo<RunEvent>(OnRunEvent);
+            _bus.SubscribeTo<UpgradeEvent>(OnUpgradeEvent, 100);
 
             ClearShopObjects();
+
+            Time.timeScale = 0;
         }
 
         private void OnDestroy()
@@ -34,15 +53,50 @@ namespace PotionBlues.Shop {
             _bus.UnsubscribeFrom<CounterEvent>(OnCounterEvent);
             _bus.UnsubscribeFrom<CauldronEvent>(OnCauldronEvent);
             _bus.UnsubscribeFrom<IngredientEvent>(OnIngredientEvent);
+            _bus.UnsubscribeFrom<RunEvent>(OnRunEvent);
         }
 
         // Update is called once per frame
         void Update()
         {
-
+            DayTimeRemaining -= Time.deltaTime;
+            if (DayTimeRemaining < 0 && Time.timeScale > 0)
+            {
+                _bus.Raise(new RunEvent(RunEventType.DayEnded));
+                Time.timeScale = 0;
+            }
         }
 
-        [Button]
+        public void Play()
+        {
+            _pb.StartNewRun();
+        }
+
+        public void StartDay()
+        {
+            InstantiateShopObjects();
+            Time.timeScale = 1;
+            DayTimeRemaining = DayLength;
+            _bus.Raise(new RunEvent(RunEventType.DayStarted));
+        }
+
+        public void EndDay()
+        {
+            _bus.Raise(new RunEvent(RunEventType.DayPreview));
+            _pb.GameData.ActiveRun.Day += 1;
+        }
+
+        public void ReviewRun()
+        {
+            _bus.Raise(new RunEvent(RunEventType.RunReview));
+        }
+
+        public void EndRun()
+        {
+            _bus.Raise(new RunEvent(RunEventType.Ended));
+        }
+
+        [HorizontalGroup("Shop Object Containers/Objects"), Button("Instantiate")]
         public void InstantiateShopObjects()
         {
             var categories = PotionBlues.I().ShopObjectCategories;
@@ -55,7 +109,7 @@ namespace PotionBlues.Shop {
             Ingredients.ResetShopObjects(activeRun.GetShopObjects(categories["Ingredient"]));
         }
 
-        [Button]
+        [HorizontalGroup("Shop Object Containers/Objects"), Button("Clear")]
         public void ClearShopObjects()
         {
             Doors.ClearShopObjects();
@@ -112,6 +166,50 @@ namespace PotionBlues.Shop {
                     group => group.Key, 
                     group => group.Key.Aggregate(group.ToList()) // group.Select(a => a.Value).Aggregate((a, b) => a * b)
                 );
+        }
+
+        private void OnRunEvent(ref RunEvent evt)
+        {
+            switch (evt.Type)
+            {
+                case RunEventType.Created:
+                case RunEventType.DayPreview:
+                    Time.timeScale = 0;
+                    _dayPreviewPanel.TurnOn();
+                    break;
+                case RunEventType.DayStarted:
+                    _dayPanel.TurnOn();
+                    break;
+                case RunEventType.DayEnded:
+                    Time.timeScale = 0;
+                    _dayReviewPanel.TurnOn();
+                    break;
+                case RunEventType.RunReview:
+                    Time.timeScale = 0;
+                    _runReviewPanel.TurnOn();
+                    break;
+                case RunEventType.Ended:
+                    Time.timeScale = 0;
+                    _topMenu.TurnOn();
+                    ClearShopObjects();
+                    break;
+            }
+        }
+
+        private void OnUpgradeEvent(ref UpgradeEvent evt)
+        {
+            switch (evt.Type)
+            {
+                case UpgradeEventType.Purchased:
+                    if (evt.Upgrade.GoldCost > _pb.GameData.ActiveRun.Gold)
+                    {
+                        _bus.ConsumeCurrentEvent();
+                        return;
+                    }
+                    _pb.GameData.ActiveRun.Gold -= evt.Upgrade.GoldCost;
+                    _pb.GameData.ActiveRun.Upgrades.Add(evt.Upgrade);
+                    break;
+            }
         }
     }
 }

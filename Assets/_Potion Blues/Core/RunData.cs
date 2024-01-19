@@ -13,15 +13,22 @@ namespace PotionBlues
         public int Gold;
         public int Reputation;
         public int Day;
+        public int RunDuration;
 
         // difficulty
         // events
         // day history
 
+        public List<ShopObjectUpgradeCardDefinition> GetShopUpgrades(ShopObjectCategoryDefinition category)
+        {
+            return GetCardsOfType<ShopObjectUpgradeCardDefinition>()
+                .Where(card => card.ShopObject.Category == category)
+                .ToList();
+        }
+
         public List<ShopObjectDefinition> GetShopObjects(ShopObjectCategoryDefinition category)
         {
-            return GetCardsOfType<ShopObjectUpgradeCardDefintion>()
-                .Where(card => card.ShopObject.Category == category)
+            return GetShopUpgrades(category)
                 .Select(card => card.ShopObject)
                 .ToList();
         }

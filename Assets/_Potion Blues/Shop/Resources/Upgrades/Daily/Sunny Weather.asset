@@ -25,3 +25,5 @@ MonoBehaviour:
     Value: 1.1
   - Attribute: {fileID: 11400000, guid: a35171580303ef14587e3d7bd6328aca, type: 2}
     Value: 1.05
+  - Attribute: {fileID: 11400000, guid: ddd0304b21a3e9341a80489156d60f69, type: 2}
+    Value: 1.1

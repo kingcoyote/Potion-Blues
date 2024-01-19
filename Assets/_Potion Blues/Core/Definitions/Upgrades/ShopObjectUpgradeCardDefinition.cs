@@ -6,7 +6,7 @@ using UnityEngine;
 namespace PotionBlues.Definitions
 {
     [CreateAssetMenu(menuName = "Potion Blues/Upgrades/Shop Object")]
-    public class ShopObjectUpgradeCardDefintion : UpgradeCardDefinition
+    public class ShopObjectUpgradeCardDefinition : UpgradeCardDefinition
     {
         public ShopObjectDefinition ShopObject => _shopObject;
 

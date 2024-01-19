@@ -50,7 +50,7 @@ namespace PotionBlues
             var pb = go.AddComponent<PotionBlues>();
 
             pb.Initialize();
-            pb.GameData = new GameData();
+            pb.GameData = GameData.Load("test");
 
             return pb;
         }
@@ -63,7 +63,20 @@ namespace PotionBlues
                 .ToDictionary(potion => potion.name);
             ShopObjectCategories = Resources.LoadAll<ShopObjectCategoryDefinition>("Object Categories")
                 .ToDictionary(cat => cat.name);
-            
+        }
+
+        public void StartNewRun()
+        {
+            GameData.ActiveRun = GameData.GenerateRunData();
+            EventBus.Raise(new RunEvent(RunEventType.Created));
+        }
+
+        public List<UpgradeCardDefinition> GetMerchantCards(int count)
+        {
+            return GameData.Upgrades
+                .Except(GameData.ActiveRun.Upgrades)
+                .OrderBy(x => Guid.NewGuid())
+                .Take(count).ToList();
         }
     }
 }
