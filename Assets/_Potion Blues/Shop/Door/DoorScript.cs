@@ -53,15 +53,7 @@ namespace PotionBlues.Shop
 
         public void StartDoor()
         {
-            var attrs = new List<ShopAttributeValue>()
-            {
-                new ShopAttributeValue("Customer Frequency", Door.CustomerFrequency),
-                new ShopAttributeValue("Customer Patience", Door.CustomerPatience),
-                new ShopAttributeValue("Customer Tipping", Door.CustomerTipping),
-                new ShopAttributeValue("Reputation Bonus", Door.ReputationBonus),
-            };
-
-            _bus.Raise(new CauldronEvent(CauldronEventType.Spawn, attrs), this, this);
+            _bus.Raise(new CauldronEvent(CauldronEventType.Spawn, Door.Attributes), this, this);
         }
 
         void OnDoorEvent(ref DoorEvent evt, IEventNode target, IEventNode source)

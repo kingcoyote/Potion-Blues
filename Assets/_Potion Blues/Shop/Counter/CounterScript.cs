@@ -50,14 +50,7 @@ namespace PotionBlues.Shop
 
         public void StartCounter()
         {
-            var attrs = new List<ShopAttributeValue>()
-            {
-                new ShopAttributeValue("Shelf Life", Counter.ShelfLife),
-                new ShopAttributeValue("Counter Capacity", Counter.SlotCapacity),
-                new ShopAttributeValue("Counter Slots", Counter.CounterSlots),
-            };
-
-            _bus.Raise(new CounterEvent(CounterEventType.Spawn, attrs), this, this);
+            _bus.Raise(new CounterEvent(CounterEventType.Spawn, Counter.Attributes), this, this);
         }
 
         void OnCounterEvent(ref CounterEvent evt, IEventNode target, IEventNode source)

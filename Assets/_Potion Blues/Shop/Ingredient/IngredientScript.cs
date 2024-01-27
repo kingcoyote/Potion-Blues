@@ -52,15 +52,7 @@ namespace PotionBlues.Shop
 
         public void StartIngredient()
         {
-            var attrs = new List<ShopAttributeValue>()
-            {
-                new ShopAttributeValue("Ingredient Cost", Ingredient.IngredientCost),
-                new ShopAttributeValue("Ingredient Salvage", Ingredient.IngredientSalvage),
-                new ShopAttributeValue("Ingredient Cooldown", Ingredient.IngredientCooldown),
-                new ShopAttributeValue("Ingredient Quantity", Ingredient.IngredientQuantity),
-            };
-
-            _bus.Raise(new IngredientEvent(IngredientEventType.Spawn, attrs), this, this);
+            _bus.Raise(new IngredientEvent(IngredientEventType.Spawn, Ingredient.Attributes), this, this);
         }
 
         void OnIngredientEvent(ref IngredientEvent evt, IEventNode target, IEventNode source)

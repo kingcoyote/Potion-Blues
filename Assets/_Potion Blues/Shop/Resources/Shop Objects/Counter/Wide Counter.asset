@@ -15,5 +15,13 @@ MonoBehaviour:
   _category: {fileID: 11400000, guid: 05d2200174cb15b4aa4a05f939dda5f9, type: 2}
   _description: Oversized counter that can hold extra potion slots
   _sprite: {fileID: -1490252619, guid: 71306a64ddfd61545884d22544afea44, type: 3}
+  _attributes:
+  - Attribute: {fileID: 11400000, guid: 5e83120dca6129149a6eb0a3cef1633e, type: 2}
+    Value: 4
+  - Attribute: {fileID: 11400000, guid: 8c937e7db7100cc4ab94329358a8d288, type: 2}
+    Value: 10
+  - Attribute: {fileID: 11400000, guid: f7c17693df20d6b49a389f3124d7a72d, type: 2}
+    Value: 1
   _counterSlots: 4
-  _decayRate: 1
+  _slotCapacity: 0
+  _shelfLife: 0

@@ -15,5 +15,13 @@ MonoBehaviour:
   _category: {fileID: 11400000, guid: 05d2200174cb15b4aa4a05f939dda5f9, type: 2}
   _description: Counter with cooled cabinets to keep potions fresh for longer
   _sprite: {fileID: 0}
+  _attributes:
+  - Attribute: {fileID: 11400000, guid: 5e83120dca6129149a6eb0a3cef1633e, type: 2}
+    Value: 3
+  - Attribute: {fileID: 11400000, guid: 8c937e7db7100cc4ab94329358a8d288, type: 2}
+    Value: 7
+  - Attribute: {fileID: 11400000, guid: f7c17693df20d6b49a389f3124d7a72d, type: 2}
+    Value: 1
   _counterSlots: 3
-  _decayRate: 0.75
+  _slotCapacity: 0
+  _shelfLife: 0

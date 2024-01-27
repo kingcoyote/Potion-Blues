@@ -15,12 +15,19 @@ MonoBehaviour:
   _category: {fileID: 11400000, guid: 70d9bec40e588fd46afbb7b3406d5a70, type: 2}
   _description: Makes the potion taste delicious
   _sprite: {fileID: 21300000, guid: 6ea36a8c4c31f764fb343d11aa83ef1e, type: 3}
+  _attributes:
+  - Attribute: {fileID: 11400000, guid: 2aba5f977f92a7d42ae3ce36691eec7c, type: 2}
+    Value: 1.5
+  - Attribute: {fileID: 11400000, guid: ddd0304b21a3e9341a80489156d60f69, type: 2}
+    Value: 1
+  - Attribute: {fileID: 11400000, guid: e2fce6c51778650459c571bed74abad7, type: 2}
+    Value: 0.5
+  - Attribute: {fileID: 11400000, guid: 550835376ed23834a939802c6be6b8a4, type: 2}
+    Value: 4
+  - Attribute: {fileID: 11400000, guid: e3f86a4487b2b734b9f36331cb13a442, type: 2}
+    Value: 10
   _cost: 1
   _salvage: 0.5
   _cooldown: 4
   _quantity: 10
   _ingredient: {fileID: 1401588751, guid: 438fcb3edc33e2e4991c71b19aa7967a, type: 3}
-  _enhancer: 1
-  _attributes:
-  - Attribute: {fileID: 11400000, guid: 2aba5f977f92a7d42ae3ce36691eec7c, type: 2}
-    Value: 1.5

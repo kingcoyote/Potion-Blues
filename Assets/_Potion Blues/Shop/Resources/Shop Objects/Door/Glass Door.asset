@@ -15,6 +15,15 @@ MonoBehaviour:
   _category: {fileID: 11400000, guid: f7820e9b529c6c94a950ad98bf1c34d0, type: 2}
   _description: Door with glass windows, encouraging passersby to step inside
   _sprite: {fileID: 1439884611, guid: 0edb7ec50c1daa14698a0a0ec4ec3fc6, type: 3}
+  _attributes:
+  - Attribute: {fileID: 11400000, guid: f144fef757d9042488e5eb297f172a38, type: 2}
+    Value: 0.33
+  - Attribute: {fileID: 11400000, guid: a35171580303ef14587e3d7bd6328aca, type: 2}
+    Value: 1
+  - Attribute: {fileID: 11400000, guid: 525b719f5b7064d44b52c24c455125ed, type: 2}
+    Value: 8
+  - Attribute: {fileID: 11400000, guid: f4803448c50f31e46bd74685c0bdac2a, type: 2}
+    Value: 1.05
   _customerFrequency: 0.33
   _customerTipping: 1
   _customerPatience: 8
