@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _category: {fileID: 11400000, guid: d883f871c46bf514f9a9718bf32a70e2, type: 2}
   _description: Oversized cauldron that can brew larger batches
-  _sprite: {fileID: 2130999188, guid: ac61ec4d6c601354d9887ff0da82544a, type: 3}
+  _sprite: {fileID: 21300000, guid: a2fb082f64b5dfc448571ec97751b1e4, type: 3}
   _attributes:
   - Attribute: {fileID: 11400000, guid: 725edc994e4991b4080fba3b221f2a89, type: 2}
     Value: 3
@@ -24,7 +24,3 @@ MonoBehaviour:
     Value: 5
   - Attribute: {fileID: 11400000, guid: 8c7f81536a8a8d348949f04f3fc6178d, type: 2}
     Value: 0.1
-  _brewingTime: 3
-  _brewingOutput: 1.25
-  _cleaningInterval: 5
-  _failureRate: 0.1

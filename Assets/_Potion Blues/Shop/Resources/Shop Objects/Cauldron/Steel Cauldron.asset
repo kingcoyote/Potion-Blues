@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _category: {fileID: 11400000, guid: d883f871c46bf514f9a9718bf32a70e2, type: 2}
   _description: Fancy cauldron that brews potions faster
-  _sprite: {fileID: -851746271, guid: 74b8713ac0025ee4abf1b03dece16e80, type: 3}
+  _sprite: {fileID: 21300000, guid: 5fc72f8c9e5fa1b4ab6f59b0020fae5d, type: 3}
   _attributes:
   - Attribute: {fileID: 11400000, guid: 725edc994e4991b4080fba3b221f2a89, type: 2}
     Value: 2.5
@@ -23,8 +23,4 @@ MonoBehaviour:
   - Attribute: {fileID: 11400000, guid: ac0cb4069dd4450408841f64c0fcf8be, type: 2}
     Value: 5
   - Attribute: {fileID: 11400000, guid: 8c7f81536a8a8d348949f04f3fc6178d, type: 2}
-    Value: 0.08
-  _brewingTime: 2.5
-  _brewingOutput: 1
-  _cleaningInterval: 5
-  _failureRate: 0.1
+    Value: 0.1
