@@ -68,7 +68,6 @@ namespace PotionBlues
         public void StartNewRun()
         {
             GameData.ActiveRun = GameData.GenerateRunData();
-            EventBus.Raise(new RunEvent(RunEventType.Created));
         }
 
         public List<UpgradeCardDefinition> GetMerchantCards(int count)

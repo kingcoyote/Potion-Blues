@@ -14,6 +14,11 @@ namespace PotionBlues.Definitions
         [SerializeField, TextArea(3,10)] private string _description;
         [SerializeField] private int _max;
 
+        public static ShopObjectCategoryDefinition Load(string name)
+        {
+            return Resources.Load<ShopObjectCategoryDefinition>($"Object Categories/{name}");
+        }
+
 #if UNITY_EDITOR
         private static IEnumerable GetCategories()
         {

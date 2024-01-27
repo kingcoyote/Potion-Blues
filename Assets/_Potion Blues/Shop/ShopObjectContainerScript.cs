@@ -2,6 +2,7 @@ using PotionBlues.Definitions;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
+using Unity;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -35,7 +36,7 @@ namespace PotionBlues.Shop
 
             _box = GetComponent<BoxCollider2D>();
 
-            var n = objects.Count();
+            var n = Mathf.Min(objects.Count(), Category.Max);
             for (int i = 0; i < n; i++)
             {
                 var shopObject = Instantiate(Prefab, transform);

@@ -1,3 +1,4 @@
+using System;
 using GenericEventBus;
 using Lean.Gui;
 using PotionBlues.Definitions;
@@ -6,6 +7,7 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Unity.VisualScripting;
 
 namespace PotionBlues.Shop {
     public class SceneManagerScript : MonoBehaviour
@@ -19,7 +21,7 @@ namespace PotionBlues.Shop {
         [BoxGroup("Shop Object Containers"), SerializeField] private ShopObjectContainerScript Ingredients;
 
         [BoxGroup("UI Panels"), SerializeField] private LeanWindow _topMenu;
-        [BoxGroup("UI Panels"), SerializeField] private LeanWindow _dayPreviewPanel;
+        [BoxGroup("UI Panels"), SerializeField] private DayPreviewPanelScript _dayPreviewPanel;
         [BoxGroup("UI Panels"), SerializeField] private LeanWindow _dayPanel;
         [BoxGroup("UI Panels"), SerializeField] private LeanWindow _dayReviewPanel;
         [BoxGroup("UI Panels"), SerializeField] private LeanWindow _runReviewPanel;
@@ -42,6 +44,11 @@ namespace PotionBlues.Shop {
             _bus.SubscribeTo<RunEvent>(OnRunEvent);
             _bus.SubscribeTo<UpgradeEvent>(OnUpgradeEvent, 100);
 
+            _dayPreviewPanel.GetComponent<DayPreviewPanelScript>().PrepareBus();
+            _dayPanel.GetComponent<DayPanelScript>().PrepareBus();
+            _dayReviewPanel.GetComponent<DayReviewPanelScript>().PrepareBus();
+            _runReviewPanel.GetComponent<RunReviewPanelScript>().PrepareBus();
+
             ClearShopObjects();
 
             Time.timeScale = 0;
@@ -54,6 +61,7 @@ namespace PotionBlues.Shop {
             _bus.UnsubscribeFrom<CauldronEvent>(OnCauldronEvent);
             _bus.UnsubscribeFrom<IngredientEvent>(OnIngredientEvent);
             _bus.UnsubscribeFrom<RunEvent>(OnRunEvent);
+            _bus.UnsubscribeFrom<UpgradeEvent>(OnUpgradeEvent);
         }
 
         // Update is called once per frame
@@ -70,10 +78,12 @@ namespace PotionBlues.Shop {
         public void Play()
         {
             _pb.StartNewRun();
+            _pb.EventBus.Raise(new RunEvent(RunEventType.Created));
         }
 
         public void StartDay()
         {
+            _pb.GameData.ActiveRun.Upgrades = _dayPreviewPanel.GetUpgrades();
             InstantiateShopObjects();
             Time.timeScale = 1;
             DayTimeRemaining = DayLength;
@@ -175,7 +185,11 @@ namespace PotionBlues.Shop {
                 case RunEventType.Created:
                 case RunEventType.DayPreview:
                     Time.timeScale = 0;
-                    _dayPreviewPanel.TurnOn();
+                    var merchantCards = _pb.GameData.Upgrades
+                       .Except(_pb.GameData.ActiveRun.Upgrades)
+                       .OrderBy(x => Guid.NewGuid())
+                       .Take(5).ToList();
+                    _dayPreviewPanel.Show(_pb.GameData.ActiveRun.Upgrades, merchantCards);
                     break;
                 case RunEventType.DayStarted:
                     _dayPanel.TurnOn();

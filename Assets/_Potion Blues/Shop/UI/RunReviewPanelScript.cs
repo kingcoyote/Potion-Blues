@@ -7,21 +7,19 @@ using TMPro;
 using UnityEngine;
 
 namespace PotionBlues.Shop {
-    public class DayReviewPanelScript : MonoBehaviour
+    public class RunReviewPanelScript : MonoBehaviour
     {
         [SerializeField] private SceneManagerScript _scene;
         [SerializeField] private LeanWindow _window;
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private TextMeshProUGUI _result;
-        [SerializeField] private LeanButton _nextDay;
-        [SerializeField] private LeanButton _endRun;
 
         private GenericEventBus<IEvent, IEventNode> _bus;
 
         // Start is called before the first frame update
         void Start()
         {
-            UpdateButtons();
+            
         }
 
         public void PrepareBus()
@@ -45,15 +43,7 @@ namespace PotionBlues.Shop {
 
         void OnRunEvent(ref RunEvent evt)
         { 
-            UpdateButtons();
-        }
-
-        void UpdateButtons()
-        {
-            var _isRunEnded = PotionBlues.I().GameData.ActiveRun.Day >= PotionBlues.I().GameData.ActiveRun.RunDuration;
-
-            _nextDay.gameObject.SetActive(!_isRunEnded);
-            _endRun.gameObject.SetActive(_isRunEnded);
+            
         }
     }
 }

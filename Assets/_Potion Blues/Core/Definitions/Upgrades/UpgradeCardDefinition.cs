@@ -14,6 +14,7 @@ namespace PotionBlues.Definitions
         public int ReputationCost => _reputationCost;
         public int GoldCost => _goldCost;
         public RarityDefinition Rarity => _rarity;
+        public bool Unique => _unique;
 
         [BoxGroup("Base"), SerializeField, TextArea(3, 10)] 
         private string _description;
@@ -29,5 +30,7 @@ namespace PotionBlues.Definitions
         private int _goldCost;
         [BoxGroup("Base"), SerializeField, ValueDropdown("@RarityDefinition.GetRarity()")]
         private RarityDefinition _rarity;
+        [BoxGroup("Base"), SerializeField]
+        private bool _unique;
     }
 }

@@ -22,9 +22,13 @@ namespace PotionBlues.Shop {
         // Start is called before the first frame update
         void Start()
         {
-            _bus = PotionBlues.I().EventBus;
             _dayProgress.minValue = 0;
             _dayProgress.maxValue = _scene.DayLength;
+        }
+
+        public void PrepareBus()
+        {
+            _bus = PotionBlues.I().EventBus;
         }
 
         private void OnDestroy()
