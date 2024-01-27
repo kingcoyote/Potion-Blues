@@ -15,6 +15,15 @@ MonoBehaviour:
   _category: {fileID: 11400000, guid: d883f871c46bf514f9a9718bf32a70e2, type: 2}
   _description: Plain cauldron that can be used to brew a potion
   _sprite: {fileID: 21300000, guid: 5d0607c82dc2b124facd687b4cc052ba, type: 3}
+  _attributes:
+  - Attribute: {fileID: 11400000, guid: 725edc994e4991b4080fba3b221f2a89, type: 2}
+    Value: 3
+  - Attribute: {fileID: 11400000, guid: 2c332c813f43fe541afba017f1672320, type: 2}
+    Value: 1
+  - Attribute: {fileID: 11400000, guid: ac0cb4069dd4450408841f64c0fcf8be, type: 2}
+    Value: 5
+  - Attribute: {fileID: 11400000, guid: 8c7f81536a8a8d348949f04f3fc6178d, type: 2}
+    Value: 0.1
   _brewingTime: 3
   _brewingOutput: 1
   _cleaningInterval: 5

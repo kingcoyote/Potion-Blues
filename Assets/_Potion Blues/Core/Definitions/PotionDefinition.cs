@@ -35,7 +35,7 @@ namespace PotionBlues.Definitions
             return UnityEditor.AssetDatabase.FindAssets("t:IngredientDefinition")
                 .Select(x => UnityEditor.AssetDatabase.GUIDToAssetPath(x))
                 .Select(x => UnityEditor.AssetDatabase.LoadAssetAtPath<IngredientDefinition>(x))
-                .Where(x => x.Enhancer == false)
+                .Where(x => x.Attributes.Count() == 0)
                 .Select(x => new ValueDropdownItem($"{x.name}", x));
         }
 #endif

@@ -53,15 +53,7 @@ namespace PotionBlues.Shop
 
         public void StartCauldron()
         {
-            var attrs = new List<ShopAttributeValue>()
-            {
-                new ShopAttributeValue("Brewing Time", Cauldron.BrewingTime),
-                new ShopAttributeValue("Brewing Output", Cauldron.BrewingOutput),
-                new ShopAttributeValue("Cleaning Interval", Cauldron.CleaningInterval),
-                new ShopAttributeValue("Failure Rate", Cauldron.FailureRate),
-            };
-
-            _bus.Raise(new CauldronEvent(CauldronEventType.Spawn, attrs), this, this);
+            _bus.Raise(new CauldronEvent(CauldronEventType.Spawn, Cauldron.Attributes), this, this);
         }
 
         void OnCauldronEvent(ref CauldronEvent evt, IEventNode target, IEventNode source)
