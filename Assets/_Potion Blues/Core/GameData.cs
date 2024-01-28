@@ -32,12 +32,12 @@ public class GameData
     public RunData GenerateRunData()
     {
         var data = new RunData();
-        data.Upgrades = new List<UpgradeCardDefinition>()
+        data.Upgrades = new List<RunUpgradeCard>()
         {
-            Resources.Load<UpgradeCardDefinition>("Upgrades/Door/Plain Door"),
-            Resources.Load<UpgradeCardDefinition>("Upgrades/Counter/Plain Counter"),
-            Resources.Load<UpgradeCardDefinition>("Upgrades/Cauldron/Plain Cauldron"),
-            Resources.Load<UpgradeCardDefinition>("Upgrades/Ingredients/Mandrake Root")
+            new RunUpgradeCard(Resources.Load<UpgradeCardDefinition>("Upgrades/Door/Plain Door")),
+            new RunUpgradeCard (Resources.Load < UpgradeCardDefinition >("Upgrades/Counter/Plain Counter")),
+            new RunUpgradeCard(Resources.Load < UpgradeCardDefinition >("Upgrades/Cauldron/Plain Cauldron")),
+            new RunUpgradeCard(Resources.Load < UpgradeCardDefinition >("Upgrades/Ingredients/Mandrake Root"))
         };
         data.Day = 1;
         data.RunDuration = 5;

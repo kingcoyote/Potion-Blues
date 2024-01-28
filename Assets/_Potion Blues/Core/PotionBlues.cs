@@ -73,7 +73,7 @@ namespace PotionBlues
         public List<UpgradeCardDefinition> GetMerchantCards(int count)
         {
             return GameData.Upgrades
-                .Except(GameData.ActiveRun.Upgrades)
+                .Except(GameData.ActiveRun.Upgrades.Select(card => card.Card))
                 .OrderBy(x => Guid.NewGuid())
                 .Take(count).ToList();
         }

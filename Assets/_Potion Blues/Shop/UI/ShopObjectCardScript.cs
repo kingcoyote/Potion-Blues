@@ -13,6 +13,7 @@ namespace PotionBlues.Shop
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private LeanTooltipData _tooltip;
         [SerializeField] private TextMeshProUGUI _gold;
+        [SerializeField] private LeanButton _enable;
 
         public void Start()
         {
@@ -20,6 +21,11 @@ namespace PotionBlues.Shop
             _tooltip.Text = UpgradeCard.Description;
 
             if (_gold != null) _gold.text = $"{UpgradeCard.GoldCost}g";
+        }
+
+        public void SetInteractable(bool interactable)
+        {
+            _enable.interactable = interactable;
         }
 
         public void Buy()

@@ -12,9 +12,9 @@ namespace PotionBlues.Shop
         public ShopObjectCardScript ShopObjectPrefab;
 
         [SerializeField] private RectTransform _layoutGroup;
-        private List<UpgradeCardDefinition> _cards;
+        private List<RunUpgradeCard> _cards;
 
-        public void SetCards(List<UpgradeCardDefinition> cards)
+        public void SetCards(List<RunUpgradeCard> cards)
         {
             _cards = cards;
             Redraw();
@@ -32,8 +32,8 @@ namespace PotionBlues.Shop
             foreach (var upgradeCard in _cards)
             {
                 var upgradeCardObject = Instantiate(ShopObjectPrefab, _layoutGroup);
-                upgradeCardObject.name = $"Upgrade [{upgradeCard.name}]";
-                upgradeCardObject.UpgradeCard = upgradeCard;
+                upgradeCardObject.name = $"Upgrade [{upgradeCard.Card.name}]";
+                upgradeCardObject.UpgradeCard = upgradeCard.Card;
                 upgradeCardObject.transform.SetAsFirstSibling();
             }
         }

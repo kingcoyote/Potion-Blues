@@ -1,4 +1,5 @@
 using Lean.Gui;
+using PotionBlues.Shop;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,10 +35,24 @@ public class LimitedSelectionScript : MonoBehaviour
             toggleChildren[i].OnOn.AddListener(UpdateToggles);
             toggleChildren[i].OnOff.AddListener(UpdateToggles);
         }
+
+        UpdateToggles();
     }
 
     public void UpdateToggles()
     {
+        var toggleChildren = GetComponentsInChildren<LeanToggle>();
+
+        var onToggles = toggleChildren.Where(x => x.On);
+        var offToggles = toggleChildren.Where(x => !x.On);
+
+        var canSelectMore = onToggles.Count() < MaximumSelection;
+
+        foreach (var offToggle in offToggles)
+        {
+            offToggle.GetComponent<ShopObjectCardScript>().SetInteractable(canSelectMore);
+        }
+
         // count enabled toggles. if less than max, set all to interactable.
         // if equal to max, set all disabled to non interactable.
     }

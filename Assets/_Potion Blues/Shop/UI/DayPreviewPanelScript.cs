@@ -11,9 +11,6 @@ using PotionBlues.Definitions;
 namespace PotionBlues.Shop {
     public class DayPreviewPanelScript : MonoBehaviour
     {
-        [BoxGroup("Upgrades")] private List<UpgradeCardDefinition> _upgradeCards;
-        [BoxGroup("Upgrades")] private List<UpgradeCardDefinition> _merchantCards;
-
         [SerializeField, BoxGroup("Day Preview Panel")] private SceneManagerScript _scene;
         [SerializeField, BoxGroup("Day Preview Panel")] public LeanWindow Window;
 
@@ -38,22 +35,10 @@ namespace PotionBlues.Shop {
             
         }
 
-        public void Show(List<UpgradeCardDefinition> upgrades, List<UpgradeCardDefinition> merchant)
+        public void Show()
         {
-            _upgradeCards = upgrades;
-            _merchantCards = merchant;
             RedrawUpgradePanels();
             Window.TurnOn();
-        }
-
-        public List<UpgradeCardDefinition> GetUpgrades()
-        {
-            return _upgradeCards;
-        }
-
-        public void BuyCard(UpgradeCardDefinition card)
-        {
-            _merchantCards.Remove(card);
         }
 
         public void PrepareBus()
@@ -81,57 +66,49 @@ namespace PotionBlues.Shop {
                 .Select(x => ShopObjectCategoryDefinition.Load(x))
                 .ToDictionary(x => x.name);
 
-            _door.SetCards(GetShopUpgrades(_upgradeCards, categories["Door"]).ToList<UpgradeCardDefinition>());
-            _counter.SetCards(GetShopUpgrades(_upgradeCards, categories["Counter"]).ToList<UpgradeCardDefinition>());
-            _cauldrons.SetCards(GetShopUpgrades(_upgradeCards, categories["Cauldron"]).ToList<UpgradeCardDefinition>());
-            _ingredients.SetCards(GetShopUpgrades(_upgradeCards, categories["Ingredient"]).ToList<UpgradeCardDefinition>());
+            _door.SetCards(GetShopUpgrades(categories["Door"]));
+            _counter.SetCards(GetShopUpgrades(categories["Counter"]));
+            _cauldrons.SetCards(GetShopUpgrades(categories["Cauldron"]));
+            _ingredients.SetCards(GetShopUpgrades(categories["Ingredient"]));
 
             _door.GetComponent<LimitedSelectionScript>().SetMaximumSelection(categories["Door"].Max);
             _counter.GetComponent<LimitedSelectionScript>().SetMaximumSelection(categories["Counter"].Max);
             _cauldrons.GetComponent<LimitedSelectionScript>().SetMaximumSelection(categories["Cauldron"].Max);
             _ingredients.GetComponent<LimitedSelectionScript>().SetMaximumSelection(categories["Ingredient"].Max);
 
-            _upgrades.SetCards(GetShopAttributeUpgrades(_upgradeCards).ToList<UpgradeCardDefinition>());
-            _merchant.SetCards(_merchantCards);
+            _upgrades.SetCards(GetShopAttributeUpgrades());
+            _merchant.SetCards(PotionBlues.I().GameData.ActiveRun.MerchantCards);
         }
 
         void OnUpgradeEvent(ref UpgradeEvent evt)
         {
-            switch (evt.Type)
-            {
-                case UpgradeEventType.Purchased:
-                    BuyCard(evt.Upgrade);
-                    break;
-            }
-
             RedrawUpgradePanels();
         }
 
-        public List<ShopAttributeUpgradeCardDefintion> GetShopAttributeUpgrades(List<UpgradeCardDefinition> upgrades)
+        public List<RunUpgradeCard> GetShopAttributeUpgrades()
         {
-            return GetCardsOfType<ShopAttributeUpgradeCardDefintion>(upgrades)
+            return GetCardsOfType<ShopAttributeUpgradeCardDefintion>()
                 .ToList();
         }
 
-        private List<ShopObjectDefinition> GetShopObjects(List<UpgradeCardDefinition> upgrades, ShopObjectCategoryDefinition category)
+        private List<ShopObjectDefinition> GetShopObjects(ShopObjectCategoryDefinition category)
         {
-            return GetShopUpgrades(upgrades, category)
-                .Select(card => card.ShopObject)
+            return GetShopUpgrades(category)
+                .Select(card => ((ShopObjectUpgradeCardDefinition)card.Card).ShopObject)
                 .ToList();
         }
 
-        private List<ShopObjectUpgradeCardDefinition> GetShopUpgrades(List<UpgradeCardDefinition> upgrades, ShopObjectCategoryDefinition category)
+        private List<RunUpgradeCard> GetShopUpgrades(ShopObjectCategoryDefinition category)
         {
-            return GetCardsOfType<ShopObjectUpgradeCardDefinition>(upgrades)
-                .Where(card => card.ShopObject.Category == category)
+            return GetCardsOfType<ShopObjectUpgradeCardDefinition>()
+                .Where(card => ((ShopObjectUpgradeCardDefinition)card.Card).ShopObject.Category == category)
                 .ToList();
         }
 
-        private IEnumerable<TValue> GetCardsOfType<TValue>(List<UpgradeCardDefinition> upgrades) where TValue : UpgradeCardDefinition
+        private IEnumerable<RunUpgradeCard> GetCardsOfType<TValue>() where TValue : UpgradeCardDefinition
         {
-            return upgrades
-                .Where(card => card.GetType() == typeof(TValue))
-                .Select(card => (TValue)card);
+            return PotionBlues.I().GameData.ActiveRun.Upgrades
+                .Where(card => card.Card.GetType() == typeof(TValue)); ;
         }
     }
 }

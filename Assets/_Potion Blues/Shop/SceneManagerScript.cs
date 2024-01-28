@@ -83,7 +83,6 @@ namespace PotionBlues.Shop {
 
         public void StartDay()
         {
-            _pb.GameData.ActiveRun.Upgrades = _dayPreviewPanel.GetUpgrades();
             InstantiateShopObjects();
             Time.timeScale = 1;
             DayTimeRemaining = DayLength;
@@ -170,7 +169,7 @@ namespace PotionBlues.Shop {
         {
             return PotionBlues.I().GameData.ActiveRun
                 .GetShopAttributeUpgrades()
-                .SelectMany(card => card.AttributeValues)
+                .SelectMany(card => ((ShopAttributeUpgradeCardDefintion)card.Card).AttributeValues)
                 .GroupBy(av => av.Attribute)
                 .ToDictionary(
                     group => group.Key, 
@@ -185,11 +184,13 @@ namespace PotionBlues.Shop {
                 case RunEventType.Created:
                 case RunEventType.DayPreview:
                     Time.timeScale = 0;
-                    var merchantCards = _pb.GameData.Upgrades
-                       .Except(_pb.GameData.ActiveRun.Upgrades)
+                    _pb.GameData.ActiveRun.MerchantCards = _pb.GameData.Upgrades
+                       .Except(_pb.GameData.ActiveRun.Upgrades.Select(card => card.Card))
                        .OrderBy(x => Guid.NewGuid())
-                       .Take(5).ToList();
-                    _dayPreviewPanel.Show(_pb.GameData.ActiveRun.Upgrades, merchantCards);
+                       .Take(5)
+                       .Select(card => new RunUpgradeCard(card))
+                       .ToList();
+                    _dayPreviewPanel.Show();
                     break;
                 case RunEventType.DayStarted:
                     _dayPanel.TurnOn();
@@ -215,13 +216,15 @@ namespace PotionBlues.Shop {
             switch (evt.Type)
             {
                 case UpgradeEventType.Purchased:
-                    if (evt.Upgrade.GoldCost > _pb.GameData.ActiveRun.Gold)
+                    var upgrade = evt.Upgrade;
+                    if (upgrade.GoldCost > _pb.GameData.ActiveRun.Gold)
                     {
                         _bus.ConsumeCurrentEvent();
                         return;
                     }
-                    _pb.GameData.ActiveRun.Gold -= evt.Upgrade.GoldCost;
-                    _pb.GameData.ActiveRun.Upgrades.Add(evt.Upgrade);
+                    _pb.GameData.ActiveRun.Gold -= upgrade.GoldCost;
+                    _pb.GameData.ActiveRun.Upgrades.Add(new RunUpgradeCard(upgrade));
+                    _pb.GameData.ActiveRun.MerchantCards = _pb.GameData.ActiveRun.MerchantCards.Where(card => card.Card != upgrade).ToList();
                     break;
             }
         }
