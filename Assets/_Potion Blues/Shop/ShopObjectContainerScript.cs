@@ -29,21 +29,22 @@ namespace PotionBlues.Shop
 
         }
 
-        public void ResetShopObjects(List<ShopObjectDefinition> objects)
+        public void ResetShopObjects(List<RunUpgradeCard> objects)
         {
-            Debug.Log($"{name} is resetting shop objects");
             ClearShopObjects();
 
             _box = GetComponent<BoxCollider2D>();
+            var selectedObjects = objects.Where(card => card.IsSelected);
+            int i = 0;
 
-            var n = Mathf.Min(objects.Count(), Category.Max);
-            for (int i = 0; i < n; i++)
-            {
+            foreach (var card in selectedObjects) {
+                var objectDefinition = ((ShopObjectUpgradeCardDefinition)card.Card).ShopObject;
                 var shopObject = Instantiate(Prefab, transform);
-                shopObject.LoadDefinition(objects[i]);
-                shopObject.name = objects[i].name;
-                var position = (_box.size.y / 2) - ((i + 1.0) / (n + 1.0) * _box.size.y);
+                shopObject.LoadDefinition(objectDefinition);
+                shopObject.name = objectDefinition.name;
+                var position = (_box.size.y / 2) - ((i + 1.0) / (selectedObjects.Count() + 1.0) * _box.size.y);
                 shopObject.transform.localPosition = Vector3.up * (float)position;
+                i++;
             }
         }
 

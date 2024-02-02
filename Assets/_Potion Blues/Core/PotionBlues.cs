@@ -12,6 +12,7 @@ namespace PotionBlues
         [SerializeField]
         public GameData GameData;
 
+        public List<UpgradeCardDefinition> Upgrades = new();
         public Dictionary<string, PotionDefinition> PotionTypes = new();
         public Dictionary<string, ShopObjectCategoryDefinition> ShopObjectCategories = new();
 
@@ -31,7 +32,7 @@ namespace PotionBlues
                 _instance = CreateInstance();
             }
 
-            if (_instance.EventBus == null)
+            if (_instance.EventBus == null || _instance.Upgrades.Count() == 0)
             {
                 _instance.Initialize();
             }
@@ -63,6 +64,7 @@ namespace PotionBlues
                 .ToDictionary(potion => potion.name);
             ShopObjectCategories = Resources.LoadAll<ShopObjectCategoryDefinition>("Object Categories")
                 .ToDictionary(cat => cat.name);
+            Upgrades = Resources.LoadAll<UpgradeCardDefinition>("Upgrades").ToList();
         }
 
         public void StartNewRun()

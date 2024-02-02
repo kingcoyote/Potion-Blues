@@ -174,7 +174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7663746bc6d85fe4d91fa764694b614e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpgradeCard: {fileID: 0}
+  UpgradeCard:
+    Card: {fileID: 0}
+    IsSelected: 0
   _title: {fileID: 9019311721397692207}
   _tooltip: {fileID: 6523939418087660855}
   _gold: {fileID: 0}
@@ -213,10 +215,34 @@ MonoBehaviour:
       aliases: []
   onOn:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5241236044044159198}
+        m_TargetAssemblyTypeName: PotionBlues.Shop.ShopObjectCardScript, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onOff:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5241236044044159198}
+        m_TargetAssemblyTypeName: PotionBlues.Shop.ShopObjectCardScript, Assembly-CSharp
+        m_MethodName: Deselect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5443071421879756745
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Alias: 
   Data:
-    Duration: 0.1
+    Duration: 0
     Target: {fileID: 5985011699270266807}
     Value: {r: 1, g: 1, b: 1, a: 1}
     Ease: 100
@@ -455,7 +481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Alias: 
   Data:
-    Duration: 0.1
+    Duration: 0
     Target: {fileID: 5985011699270266807}
     Value: {r: 0.4666667, g: 0.44705886, b: 0.44705886, a: 1}
     Ease: 100

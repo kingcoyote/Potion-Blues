@@ -24,7 +24,7 @@ namespace PotionBlues.Shop {
         [BoxGroup("UI Panels"), SerializeField] private DayPreviewPanelScript _dayPreviewPanel;
         [BoxGroup("UI Panels"), SerializeField] private LeanWindow _dayPanel;
         [BoxGroup("UI Panels"), SerializeField] private LeanWindow _dayReviewPanel;
-        [BoxGroup("UI Panels"), SerializeField] private LeanWindow _runReviewPanel;
+        [BoxGroup("UI Panels"), SerializeField] private RunReviewPanelScript _runReviewPanel;
 
         public PotionBlues PotionBlues => _pb;
 
@@ -201,7 +201,11 @@ namespace PotionBlues.Shop {
                     break;
                 case RunEventType.RunReview:
                     Time.timeScale = 0;
-                    _runReviewPanel.TurnOn();
+                    var unlockables = _pb.Upgrades.Except(_pb.GameData.Upgrades)
+                       .OrderBy(x => Guid.NewGuid())
+                       .Take(5)
+                       .ToList();
+                    _runReviewPanel.Show(unlockables);
                     break;
                 case RunEventType.Ended:
                     Time.timeScale = 0;
@@ -213,18 +217,28 @@ namespace PotionBlues.Shop {
 
         private void OnUpgradeEvent(ref UpgradeEvent evt)
         {
+            var upgrade = evt.Upgrade;
             switch (evt.Type)
             {
                 case UpgradeEventType.Purchased:
-                    var upgrade = evt.Upgrade;
                     if (upgrade.GoldCost > _pb.GameData.ActiveRun.Gold)
                     {
                         _bus.ConsumeCurrentEvent();
                         return;
                     }
                     _pb.GameData.ActiveRun.Gold -= upgrade.GoldCost;
-                    _pb.GameData.ActiveRun.Upgrades.Add(new RunUpgradeCard(upgrade));
+                    var upgradeCard = new RunUpgradeCard(upgrade);
+                    _pb.GameData.ActiveRun.Upgrades.Add(upgradeCard);
                     _pb.GameData.ActiveRun.MerchantCards = _pb.GameData.ActiveRun.MerchantCards.Where(card => card.Card != upgrade).ToList();
+                    break;
+                case UpgradeEventType.Unlocked:
+                    if (upgrade.ReputationCost > _pb.GameData.ActiveRun.Reputation)
+                    {
+                        _bus.ConsumeCurrentEvent();
+                        return;
+                    }
+                    _pb.GameData.ActiveRun.Reputation -= upgrade.ReputationCost;
+                    _pb.GameData.Upgrades.Add(upgrade);
                     break;
             }
         }

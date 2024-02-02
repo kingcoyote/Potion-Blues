@@ -34,10 +34,10 @@ public class GameData
         var data = new RunData();
         data.Upgrades = new List<RunUpgradeCard>()
         {
-            new RunUpgradeCard(Resources.Load<UpgradeCardDefinition>("Upgrades/Door/Plain Door")),
-            new RunUpgradeCard (Resources.Load < UpgradeCardDefinition >("Upgrades/Counter/Plain Counter")),
-            new RunUpgradeCard(Resources.Load < UpgradeCardDefinition >("Upgrades/Cauldron/Plain Cauldron")),
-            new RunUpgradeCard(Resources.Load < UpgradeCardDefinition >("Upgrades/Ingredients/Mandrake Root"))
+            new RunUpgradeCard(Resources.Load<UpgradeCardDefinition>("Upgrades/Door/Plain Door")) { IsSelected = true },
+            new RunUpgradeCard (Resources.Load < UpgradeCardDefinition >("Upgrades/Counter/Plain Counter")) { IsSelected = true },
+            new RunUpgradeCard(Resources.Load < UpgradeCardDefinition >("Upgrades/Cauldron/Plain Cauldron")) { IsSelected = true },
+            new RunUpgradeCard(Resources.Load < UpgradeCardDefinition >("Upgrades/Ingredients/Mandrake Root")) { IsSelected = true }    
         };
         data.Day = 1;
         data.RunDuration = 5;

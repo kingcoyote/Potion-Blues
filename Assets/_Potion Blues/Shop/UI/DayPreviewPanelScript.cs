@@ -71,10 +71,10 @@ namespace PotionBlues.Shop {
             _cauldrons.SetCards(GetShopUpgrades(categories["Cauldron"]));
             _ingredients.SetCards(GetShopUpgrades(categories["Ingredient"]));
 
-            _door.GetComponent<LimitedSelectionScript>().SetMaximumSelection(categories["Door"].Max);
-            _counter.GetComponent<LimitedSelectionScript>().SetMaximumSelection(categories["Counter"].Max);
-            _cauldrons.GetComponent<LimitedSelectionScript>().SetMaximumSelection(categories["Cauldron"].Max);
-            _ingredients.GetComponent<LimitedSelectionScript>().SetMaximumSelection(categories["Ingredient"].Max);
+            _door.MaxSelectable = categories["Door"].Max;
+            _counter.MaxSelectable = categories["Counter"].Max;
+            _cauldrons.MaxSelectable = categories["Cauldron"].Max;
+            _ingredients.MaxSelectable = categories["Ingredient"].Max;
 
             _upgrades.SetCards(GetShopAttributeUpgrades());
             _merchant.SetCards(PotionBlues.I().GameData.ActiveRun.MerchantCards);

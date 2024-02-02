@@ -1,4 +1,5 @@
 ﻿using PotionBlues.Definitions;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,9 @@ namespace PotionBlues
     [Serializable]
     public class RunData
     {
+        [TableList]
         public List<RunUpgradeCard> Upgrades = new();
+        [TableList]
         public List<RunUpgradeCard> MerchantCards = new();
         public int Gold;
         public int Reputation;
@@ -20,10 +23,9 @@ namespace PotionBlues
         // events
         // day history
 
-        public List<ShopObjectDefinition> GetShopObjects(ShopObjectCategoryDefinition category)
+        public List<RunUpgradeCard> GetShopObjects(ShopObjectCategoryDefinition category)
         {
             return GetShopUpgrades(category)
-                .Select(card => ((ShopObjectUpgradeCardDefinition)card.Card).ShopObject)
                 .ToList();
         }
 
@@ -47,6 +49,7 @@ namespace PotionBlues
         }
     }
 
+    [Serializable]
     public class RunUpgradeCard
     {
         public UpgradeCardDefinition Card;
