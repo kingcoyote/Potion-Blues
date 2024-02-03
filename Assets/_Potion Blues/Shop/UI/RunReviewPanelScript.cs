@@ -25,11 +25,13 @@ namespace PotionBlues.Shop {
             _bus = PotionBlues.I().EventBus;
 
             _bus.SubscribeTo<RunEvent>(OnRunEvent);
+            _bus.SubscribeTo<UpgradeEvent>(OnUpgradeEvent);
         }
 
         private void OnDestroy()
         {
             _bus.UnsubscribeFrom<RunEvent>(OnRunEvent);
+            _bus.UnsubscribeFrom<UpgradeEvent>(OnUpgradeEvent);
         }
 
         public void Show(List<UpgradeCardDefinition> unlockables)
