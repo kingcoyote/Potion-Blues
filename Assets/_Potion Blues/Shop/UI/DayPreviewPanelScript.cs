@@ -55,7 +55,7 @@ namespace PotionBlues.Shop {
         // Update is called once per frame
         void Update()
         {
-            _dayNumber.text = $"Day: {_scene.PotionBlues.GameData.ActiveRun.Day}";
+            _dayNumber.text = $"Day: {_scene.PotionBlues.GameData.ActiveRun.Day} / {_scene.PotionBlues.GameData.ActiveRun.RunDuration}";
             _gold.text = $"Gold: {_scene.PotionBlues.GameData.ActiveRun.Gold}";
             _reputation.text = $"Rep: {_scene.PotionBlues.GameData.ActiveRun.Reputation}";
         }

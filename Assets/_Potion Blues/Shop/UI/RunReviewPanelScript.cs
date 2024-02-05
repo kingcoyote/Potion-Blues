@@ -36,7 +36,7 @@ namespace PotionBlues.Shop {
 
         public void Show(List<UpgradeCardDefinition> unlockables)
         {
-            _title.text = $"Day {_scene.PotionBlues.GameData.ActiveRun.Day} Complete";
+            _title.text = $"Run Complete";
             _result.text = "Did stuff.\nClick Next Day";
 
             _window.TurnOn();

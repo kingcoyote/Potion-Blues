@@ -50,7 +50,9 @@ namespace PotionBlues.Shop {
 
         void UpdateButtons()
         {
-            var _isRunEnded = PotionBlues.I().GameData.ActiveRun.Day > PotionBlues.I().GameData.ActiveRun.RunDuration;
+            var activeRun = PotionBlues.I().GameData.ActiveRun;
+            if (activeRun == null) return;
+            var _isRunEnded = activeRun.Day > activeRun.RunDuration;
 
             _nextDay.gameObject.SetActive(!_isRunEnded);
             _endRun.gameObject.SetActive(_isRunEnded);

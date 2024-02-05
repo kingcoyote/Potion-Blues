@@ -77,7 +77,7 @@ namespace PotionBlues.Shop {
 
         public void Play()
         {
-            if (_pb.GameData.ActiveRun.Day > 0)
+            if (_pb.GameData.ActiveRun != null && _pb.GameData.ActiveRun.Day > 0 && _pb.GameData.ActiveRun.Day <= _pb.GameData.ActiveRun.RunDuration)
             {
                 Debug.Log("Resuming");
                 _pb.EventBus.Raise(new RunEvent(RunEventType.DayPreview));
@@ -222,6 +222,8 @@ namespace PotionBlues.Shop {
                     Time.timeScale = 0;
                     _topMenu.TurnOn();
                     ClearShopObjects();
+                    _pb.GameData.RunHistory.Add(_pb.GameData.ActiveRun);
+                    _pb.GameData.ActiveRun = null;
                     break;
             }
         }
