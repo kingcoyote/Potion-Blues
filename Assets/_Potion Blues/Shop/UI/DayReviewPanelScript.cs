@@ -39,7 +39,7 @@ namespace PotionBlues.Shop {
         // Update is called once per frame
         void Update()
         {
-            _title.text = $"Day {_scene.PotionBlues.GameData.ActiveRun.Day} Complete";
+            _title.text = $"Day {_scene.PotionBlues.GameData.ActiveRun.Day - 1} Complete";
             _result.text = "Did stuff.\nClick Next Day";
         }
 
@@ -50,7 +50,7 @@ namespace PotionBlues.Shop {
 
         void UpdateButtons()
         {
-            var _isRunEnded = PotionBlues.I().GameData.ActiveRun.Day >= PotionBlues.I().GameData.ActiveRun.RunDuration;
+            var _isRunEnded = PotionBlues.I().GameData.ActiveRun.Day > PotionBlues.I().GameData.ActiveRun.RunDuration;
 
             _nextDay.gameObject.SetActive(!_isRunEnded);
             _endRun.gameObject.SetActive(_isRunEnded);

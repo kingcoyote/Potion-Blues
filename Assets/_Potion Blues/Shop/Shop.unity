@@ -1016,34 +1016,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameData:
-    Upgrades:
-    - {fileID: 11400000, guid: 1db695826e0e99743ae27c484f43da40, type: 2}
-    - {fileID: 11400000, guid: 12a803c12e9840a4ebfdbb82397a62a5, type: 2}
-    - {fileID: 11400000, guid: 422f5fffad6761c4c810fc3eb0c43d1b, type: 2}
-    - {fileID: 11400000, guid: 6fe8319ae7141ca4daab6759b4c7d01b, type: 2}
-    - {fileID: 11400000, guid: 51ff24e417831604487855a417945158, type: 2}
-    - {fileID: 11400000, guid: 87fe2619c3120c24e8a1dd5c7fb41a38, type: 2}
-    - {fileID: 11400000, guid: b72ea65f72c51164c80514735b7873b9, type: 2}
-    - {fileID: 11400000, guid: 9e533d91dd53cf143b311aae2732187d, type: 2}
-    - {fileID: 11400000, guid: ba5bbe99522721946bb075ffb73c2179, type: 2}
-    - {fileID: 11400000, guid: ccd17993e688cf44080f7070c5f58391, type: 2}
-    - {fileID: 11400000, guid: a031847519ba27f409dadb680c9172d4, type: 2}
-    - {fileID: 11400000, guid: 1a93853c245ed32499362c83f9b47837, type: 2}
-    - {fileID: 11400000, guid: bfea0fb418a091949b07f912b6989b50, type: 2}
-    - {fileID: 11400000, guid: 6fecdcdf4dffba44aaa6ac4f7c827d66, type: 2}
-    - {fileID: 11400000, guid: d70862e1bef7dcc4f95e88d745d000c8, type: 2}
-    - {fileID: 11400000, guid: 9ca251b199d496542bd7eda37130747e, type: 2}
+    ProfileName: default
+    Upgrades: []
     ActiveRun:
-      Upgrades: []
+      Upgrades:
+      - Card: {fileID: 11400000, guid: 1a93853c245ed32499362c83f9b47837, type: 2}
+        IsSelected: 0
+      - Card: {fileID: 11400000, guid: ba5bbe99522721946bb075ffb73c2179, type: 2}
+        IsSelected: 0
+      - Card: {fileID: 11400000, guid: b72ea65f72c51164c80514735b7873b9, type: 2}
+        IsSelected: 0
+      - Card: {fileID: 11400000, guid: d70862e1bef7dcc4f95e88d745d000c8, type: 2}
+        IsSelected: 0
       MerchantCards: []
-      Gold: 0
+      Gold: 100
       Reputation: 0
       Day: 0
       RunDuration: 0
     RunHistory: []
-  Upgrades: []
+  Upgrades:
+  - {fileID: 11400000, guid: 3684078dda508de4ea0cc0e17ac1b494, type: 2}
+  - {fileID: 11400000, guid: 964a692d326afc244ab30943b855c423, type: 2}
+  - {fileID: 11400000, guid: 1db695826e0e99743ae27c484f43da40, type: 2}
+  - {fileID: 11400000, guid: 12a803c12e9840a4ebfdbb82397a62a5, type: 2}
+  - {fileID: 11400000, guid: 422f5fffad6761c4c810fc3eb0c43d1b, type: 2}
+  - {fileID: 11400000, guid: 6fe8319ae7141ca4daab6759b4c7d01b, type: 2}
+  - {fileID: 11400000, guid: 51ff24e417831604487855a417945158, type: 2}
+  - {fileID: 11400000, guid: 87fe2619c3120c24e8a1dd5c7fb41a38, type: 2}
+  - {fileID: 11400000, guid: b72ea65f72c51164c80514735b7873b9, type: 2}
+  - {fileID: 11400000, guid: 9e533d91dd53cf143b311aae2732187d, type: 2}
+  - {fileID: 11400000, guid: ba5bbe99522721946bb075ffb73c2179, type: 2}
+  - {fileID: 11400000, guid: a091c6221268a6d4abd8f9bbd04fd66d, type: 2}
+  - {fileID: 11400000, guid: ccd17993e688cf44080f7070c5f58391, type: 2}
+  - {fileID: 11400000, guid: a6138c44a0d17214f82bfe3ebe7fba02, type: 2}
+  - {fileID: 11400000, guid: 9fc722fe2f28ebb4bb8990e645deda5d, type: 2}
+  - {fileID: 11400000, guid: ff7de0d8130046e4eb901fc79eb2b33e, type: 2}
+  - {fileID: 11400000, guid: a031847519ba27f409dadb680c9172d4, type: 2}
+  - {fileID: 11400000, guid: 645c4ac4d8d3fee4884f97c15a7b45ac, type: 2}
+  - {fileID: 11400000, guid: 1a93853c245ed32499362c83f9b47837, type: 2}
+  - {fileID: 11400000, guid: a9153a734521ec34d9079dd40dd494f4, type: 2}
+  - {fileID: 11400000, guid: bfea0fb418a091949b07f912b6989b50, type: 2}
+  - {fileID: 11400000, guid: 6fecdcdf4dffba44aaa6ac4f7c827d66, type: 2}
+  - {fileID: 11400000, guid: d70862e1bef7dcc4f95e88d745d000c8, type: 2}
+  - {fileID: 11400000, guid: 457ff0a9f9afc5547aec53f8b9c5838b, type: 2}
+  - {fileID: 11400000, guid: 9ca251b199d496542bd7eda37130747e, type: 2}
   RNG:
-    state: 450618699
+    state: 891726982
 --- !u!4 &500296195
 Transform:
   m_ObjectHideFlags: 0
@@ -4367,8 +4385,8 @@ Camera:
   m_GameObject: {fileID: 1509832969}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.23899364, g: 0.23899364, b: 0.23899364, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

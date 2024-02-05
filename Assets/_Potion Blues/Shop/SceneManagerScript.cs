@@ -77,8 +77,17 @@ namespace PotionBlues.Shop {
 
         public void Play()
         {
-            _pb.StartNewRun();
-            _pb.EventBus.Raise(new RunEvent(RunEventType.Created));
+            if (_pb.GameData.ActiveRun.Day > 0)
+            {
+                Debug.Log("Resuming");
+                _pb.EventBus.Raise(new RunEvent(RunEventType.DayPreview));
+            }
+            else
+            {
+                Debug.Log("Starting new run");
+                _pb.StartNewRun();
+                _pb.EventBus.Raise(new RunEvent(RunEventType.Created));
+            }
         }
 
         public void StartDay()
@@ -92,7 +101,6 @@ namespace PotionBlues.Shop {
         public void EndDay()
         {
             _bus.Raise(new RunEvent(RunEventType.DayPreview));
-            _pb.GameData.ActiveRun.Day += 1;
         }
 
         public void ReviewRun()
@@ -183,6 +191,7 @@ namespace PotionBlues.Shop {
             {
                 case RunEventType.Created:
                 case RunEventType.DayPreview:
+                    Debug.Log("Day Preview");
                     Time.timeScale = 0;
                     _pb.GameData.ActiveRun.MerchantCards = _pb.GameData.Upgrades
                        .Except(_pb.GameData.ActiveRun.Upgrades.Select(card => card.Card))
@@ -198,6 +207,8 @@ namespace PotionBlues.Shop {
                 case RunEventType.DayEnded:
                     Time.timeScale = 0;
                     _dayReviewPanel.TurnOn();
+                    _pb.GameData.ActiveRun.Day += 1;
+                    _pb.Save();
                     break;
                 case RunEventType.RunReview:
                     Time.timeScale = 0;

@@ -1,49 +1,45 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using PotionBlues;
 using PotionBlues.Definitions;
-using UnityEditor.Rendering.Universal;
 using UnityEngine;
 
-[Serializable]
-public class GameData
+namespace PotionBlues
 {
-    public List<UpgradeCardDefinition> Upgrades;
-    public RunData ActiveRun;
-    public List<RunData> RunHistory;
-
-    public static GameData Load(string name)
+    [Serializable]
+    public class GameData
     {
-        var gd = new GameData();
-        gd.Upgrades = Resources.LoadAll<UpgradeCardDefinition>("Upgrades")
-            .Where(x => x.GetType() != typeof(DailyUpgradeDefinition))
-            .Where(x => x.Rarity.Weight >= 0.5)
-            .ToList();
+        public string ProfileName;
 
-        return gd;
-    }
+        public List<UpgradeCardDefinition> Upgrades;
+        public RunData ActiveRun;
+        public List<RunData> RunHistory;
 
-    public void Save(string name)
-    {
-
-    }
-
-    public RunData GenerateRunData()
-    {
-        var data = new RunData();
-        data.Upgrades = new List<RunUpgradeCard>()
+        public GameData(string profileName)
         {
-            new RunUpgradeCard(Resources.Load<UpgradeCardDefinition>("Upgrades/Door/Plain Door")) { IsSelected = true },
-            new RunUpgradeCard (Resources.Load < UpgradeCardDefinition >("Upgrades/Counter/Plain Counter")) { IsSelected = true },
-            new RunUpgradeCard(Resources.Load < UpgradeCardDefinition >("Upgrades/Cauldron/Plain Cauldron")) { IsSelected = true },
-            new RunUpgradeCard(Resources.Load < UpgradeCardDefinition >("Upgrades/Ingredients/Mandrake Root")) { IsSelected = true }    
-        };
-        data.Day = 1;
-        data.RunDuration = 5;
-        data.Gold = 100;
-        data.Reputation = 100;
+            ProfileName = profileName;
+            Upgrades = PotionBlues.I().Upgrades
+                .Where(x => x.GetType() != typeof(DailyUpgradeDefinition))
+                .Where(x => x.Rarity.Weight >= 0.5)
+                .ToList();
+        }
 
-        return data;
+        public RunData GenerateRunData()
+        {
+            var data = new RunData();
+            data.Upgrades = new List<RunUpgradeCard>()
+            {
+                new RunUpgradeCard(Resources.Load<UpgradeCardDefinition>("Upgrades/Door/Plain Door")) { IsSelected = true },
+                new RunUpgradeCard (Resources.Load < UpgradeCardDefinition >("Upgrades/Counter/Plain Counter")) { IsSelected = true },
+                new RunUpgradeCard(Resources.Load < UpgradeCardDefinition >("Upgrades/Cauldron/Plain Cauldron")) { IsSelected = true },
+                new RunUpgradeCard(Resources.Load < UpgradeCardDefinition >("Upgrades/Ingredients/Mandrake Root")) { IsSelected = true }
+            };
+            data.Day = 1;
+            data.RunDuration = 5;
+            data.Gold = 100;
+            data.Reputation = 5;
+
+            return data;
+        }
     }
 }
