@@ -87,7 +87,7 @@ namespace PotionBlues
 
             var context = new SerializationContext()
             {
-                IndexReferenceResolver = new ScriptableObjectIndexReferenceResolver()
+                StringReferenceResolver = new UpgradeCardResolver()
             };
             var data = SerializationUtility.SerializeValue(GameData, DataFormat.JSON, context);
 
@@ -114,14 +114,14 @@ namespace PotionBlues
             var bytes = File.ReadAllBytes(filename);
             var context = new DeserializationContext()
             {
-                IndexReferenceResolver = new ScriptableObjectIndexReferenceResolver()
+                StringReferenceResolver = new UpgradeCardResolver()
             };
             GameData = SerializationUtility.DeserializeValue<GameData>(bytes, DataFormat.JSON, context);
         }
 
         private static string GetFilePath(string name)
         {
-            return Path.Join(Application.persistentDataPath, name);
+            return Path.Join(Application.persistentDataPath, $"{name}.game");
         }
 
         public List<UpgradeCardDefinition> GetMerchantCards(int count)
@@ -133,26 +133,26 @@ namespace PotionBlues
         }
     }
 
-    public class ScriptableObjectIndexReferenceResolver : IExternalIndexReferenceResolver
+    public class UpgradeCardResolver : IExternalStringReferenceResolver
     {
         // Multiple string reference resolvers can be chained together.
         public IExternalStringReferenceResolver NextResolver { get; set; }
 
-        public bool CanReference(object value, out int id)
+        public bool CanReference(object value, out string id)
         {
             if (value is UpgradeCardDefinition)
             {
-                id = (value as UpgradeCardDefinition).GetInstanceID();
+                id = (value as UpgradeCardDefinition).Reference;
                 return true;
             }
 
-            id = -1;
+            id = "";
             return false;
         }
 
-        public bool TryResolveReference(int id, out object value)
+        public bool TryResolveReference(string id, out object value)
         {
-            value = Resources.InstanceIDToObject(id);
+            value = Resources.Load<UpgradeCardDefinition>($"Upgrades/{id}");
             return value != null;
         }
     }

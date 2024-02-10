@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c880b0d95cde19548bfdea68add09df1, type: 3}
   m_Name: Giant Fungus
   m_EditorClassIdentifier: 
+  _reference: Ingredients/Giant Fungus
   _description: 
   _priority: 0
   _icon: {fileID: 0}
@@ -19,4 +20,5 @@ MonoBehaviour:
   _reputationCost: 0
   _goldCost: 0
   _rarity: {fileID: 11400000, guid: f12e1783d403e1848a6ca6151ee870f5, type: 2}
+  _unique: 0
   _shopObject: {fileID: 11400000, guid: cdfe9a3b0c438c0489b78099ded625e6, type: 2}

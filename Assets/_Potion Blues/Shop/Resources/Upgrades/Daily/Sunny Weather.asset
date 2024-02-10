@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5650bd0407b8a14eb3a20656671dcc2, type: 3}
   m_Name: Sunny Weather
   m_EditorClassIdentifier: 
+  _reference: Daily/Sunny Weather
   _description: It's a beautiful day and the villagers are out. Expect more customers,
     and more cheerful tips.
   _priority: 0
@@ -20,6 +21,7 @@ MonoBehaviour:
   _reputationCost: 0
   _goldCost: 0
   _rarity: {fileID: 11400000, guid: 0cba053ab5edf3044acd2c249d0ec899, type: 2}
+  _unique: 0
   _attributeValues:
   - Attribute: {fileID: 11400000, guid: f144fef757d9042488e5eb297f172a38, type: 2}
     Value: 1.1

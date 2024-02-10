@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f281671a9fe8c394c92b8b0a9408687b, type: 3}
   m_Name: Efficient Counters
   m_EditorClassIdentifier: 
+  _reference: Attributes/Efficient Counters
   _description: Store extra potions on a counter.
   _priority: 0
   _icon: {fileID: 0}
@@ -19,6 +20,7 @@ MonoBehaviour:
   _reputationCost: 10
   _goldCost: 300
   _rarity: {fileID: 11400000, guid: f12e1783d403e1848a6ca6151ee870f5, type: 2}
+  _unique: 0
   _attributeValues:
   - Attribute: {fileID: 11400000, guid: 5e83120dca6129149a6eb0a3cef1633e, type: 2}
     Value: 1

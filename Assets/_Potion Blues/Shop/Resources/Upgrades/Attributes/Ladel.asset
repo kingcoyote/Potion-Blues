@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f281671a9fe8c394c92b8b0a9408687b, type: 3}
   m_Name: Ladel
   m_EditorClassIdentifier: 
+  _reference: Attributes/Ladel
   _description: Increases chance of brewing an extra potion by +10%
   _priority: 0
   _icon: {fileID: 0}
@@ -19,6 +20,7 @@ MonoBehaviour:
   _reputationCost: 5
   _goldCost: 100
   _rarity: {fileID: 11400000, guid: 0cba053ab5edf3044acd2c249d0ec899, type: 2}
+  _unique: 0
   _attributeValues:
   - Attribute: {fileID: 11400000, guid: 2c332c813f43fe541afba017f1672320, type: 2}
     Value: 1.1

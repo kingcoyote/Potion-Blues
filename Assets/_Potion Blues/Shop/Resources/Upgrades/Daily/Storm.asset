@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5650bd0407b8a14eb3a20656671dcc2, type: 3}
   m_Name: Storm
   m_EditorClassIdentifier: 
+  _reference: Daily/Storm
   _description: A storm has covered the village. Fewer customers will come to your
     shop and potions will spoil faster in the wet weather.
   _priority: 0
@@ -20,6 +21,7 @@ MonoBehaviour:
   _reputationCost: 0
   _goldCost: 0
   _rarity: {fileID: 11400000, guid: f12e1783d403e1848a6ca6151ee870f5, type: 2}
+  _unique: 0
   _attributeValues:
   - Attribute: {fileID: 11400000, guid: f144fef757d9042488e5eb297f172a38, type: 2}
     Value: 0.8

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c880b0d95cde19548bfdea68add09df1, type: 3}
   m_Name: Deep Cauldron
   m_EditorClassIdentifier: 
+  _reference: Cauldron/Deep Cauldron
   _description: Well crafted cauldron that brews faster and more evenly.
   _priority: 0
   _icon: {fileID: 0}
@@ -19,4 +20,5 @@ MonoBehaviour:
   _reputationCost: 5
   _goldCost: 200
   _rarity: {fileID: 11400000, guid: f12e1783d403e1848a6ca6151ee870f5, type: 2}
+  _unique: 0
   _shopObject: {fileID: 11400000, guid: cdf92a36f9d0c1e49bc9dbd2b48e6d48, type: 2}

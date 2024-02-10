@@ -7,6 +7,7 @@ namespace PotionBlues.Definitions
 {
     public class UpgradeCardDefinition : ScriptableObject
     {
+        public string Reference => _reference;
         public string Description => _description;
         public int Priority => _priority;
         public Sprite Icon => _icon;
@@ -16,6 +17,8 @@ namespace PotionBlues.Definitions
         public RarityDefinition Rarity => _rarity;
         public bool Unique => _unique;
 
+        [BoxGroup("Base"), SerializeField]
+        private string _reference;
         [BoxGroup("Base"), SerializeField, TextArea(3, 10)] 
         private string _description;
         [BoxGroup("Base"), SerializeField, Tooltip("The order that upgrades are processed, from lowest to highest")] 

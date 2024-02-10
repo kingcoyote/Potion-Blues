@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c880b0d95cde19548bfdea68add09df1, type: 3}
   m_Name: Salt
   m_EditorClassIdentifier: 
+  _reference: Ingredients/Salt
   _description: Preservative that increases potion shelf life
   _priority: 0
   _icon: {fileID: 0}
@@ -19,4 +20,5 @@ MonoBehaviour:
   _reputationCost: 5
   _goldCost: 250
   _rarity: {fileID: 11400000, guid: f12e1783d403e1848a6ca6151ee870f5, type: 2}
+  _unique: 0
   _shopObject: {fileID: 11400000, guid: c4351a8e16db3204d951c490b709cd2d, type: 2}
