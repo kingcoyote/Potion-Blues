@@ -3106,7 +3106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d576e715c62a884ea64e2364d78c20c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DayLength: 3
+  DayLength: 180
   DayTimeRemaining: 0
   Doors: {fileID: 2113053858}
   Counters: {fileID: 469008206}
