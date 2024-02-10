@@ -68,6 +68,10 @@ namespace PotionBlues.Shop {
         void Update()
         {
             DayTimeRemaining -= Time.deltaTime;
+            if (DayTimeRemaining < 10)
+            {
+                _bus.Raise(new RunEvent(RunEventType.ShopClosed));
+            }
             if (DayTimeRemaining < 0 && Time.timeScale > 0)
             {
                 _bus.Raise(new RunEvent(RunEventType.DayEnded));

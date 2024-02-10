@@ -15,8 +15,9 @@ namespace PotionBlues
         Created,
         DayPreview,
         DayStarted,
-        DayReview,
+        ShopClosed,
         DayEnded,
+        DayReview,
         RunReview,
         Ended
     }
