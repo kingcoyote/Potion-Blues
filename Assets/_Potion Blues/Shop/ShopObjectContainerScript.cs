@@ -38,10 +38,8 @@ namespace PotionBlues.Shop
             int i = 0;
 
             foreach (var card in selectedObjects) {
-                var objectDefinition = ((ShopObjectUpgradeCardDefinition)card.Card).ShopObject;
                 var shopObject = Instantiate(Prefab, transform);
-                shopObject.LoadDefinition(objectDefinition);
-                shopObject.name = objectDefinition.name;
+                shopObject.SetDefinition(((ShopObjectUpgradeCardDefinition)card.Card).ShopObject);
                 var position = (_box.size.y / 2) - ((i + 1.0) / (selectedObjects.Count() + 1.0) * _box.size.y);
                 shopObject.transform.localPosition = Vector3.up * (float)position;
                 i++;

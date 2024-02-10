@@ -9,24 +9,18 @@ namespace PotionBlues.Shop
 {
     public class DoorScript : ShopObjectScript
     {
-        [BoxGroup("Base"), OnValueChanged("StartDoor")]
-        public DoorDefinition Door;
-
         [BoxGroup("Instance")] public float CustomerFrequency;
         [BoxGroup("Instance")] public float CustomerPatience;
         [BoxGroup("Instance")] public float CustomerTipping;
         [BoxGroup("Instance")] public float ReputationBonus;
 
-
         // Use this for initialization
         new public void Start()
         {
             base.Start();
-            Debug.Log($"Starting door script {name}");
 
             _bus.SubscribeToTarget<DoorEvent>(this, OnDoorEvent);
-
-            StartDoor();
+            _bus.Raise(new DoorEvent(DoorEventType.Spawn, Definition.Attributes), this, this);
         }
 
         public void OnDestroy()
@@ -41,24 +35,8 @@ namespace PotionBlues.Shop
 
         }
 
-        protected override void LoadShopObject(ShopObjectDefinition definition)
-        {
-            if (definition.GetType() != typeof(DoorDefinition))
-            {
-                throw new ArgumentException($"DoorScript cannot load an object of type {definition.GetType()}");
-            }
-
-            Door = (DoorDefinition)definition;
-        }
-
-        public void StartDoor()
-        {
-            _bus.Raise(new CauldronEvent(CauldronEventType.Spawn, Door.Attributes), this, this);
-        }
-
         void OnDoorEvent(ref DoorEvent evt, IEventNode target, IEventNode source)
         {
-            Debug.Log($"Door is reacting to door event from {source}");
 
             switch (evt.Type)
             {

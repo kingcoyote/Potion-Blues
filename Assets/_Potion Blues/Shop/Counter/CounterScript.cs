@@ -9,9 +9,6 @@ namespace PotionBlues.Shop
 {
     public class CounterScript : ShopObjectScript
     {
-        [BoxGroup("Base"), OnValueChanged("StartCounter")]
-        public CounterDefinition Counter;
-
         [BoxGroup("Instance")] public float ShelfLife;
         [BoxGroup("Instance")] public int CounterSlots;
         [BoxGroup("Instance")] public int SlotCapacity;
@@ -19,11 +16,9 @@ namespace PotionBlues.Shop
         new public void Start()
         {
             base.Start();
-            Debug.Log($"Starting counter script {name}");
 
             _bus.SubscribeToTarget<CounterEvent>(this, OnCounterEvent);
-
-            StartCounter();
+            _bus.Raise(new CounterEvent(CounterEventType.Spawn, Definition.Attributes), this, this);
         }
 
         public void OnDestroy()
@@ -36,21 +31,6 @@ namespace PotionBlues.Shop
         void Update()
         {
 
-        }
-
-        protected override void LoadShopObject(ShopObjectDefinition definition)
-        {
-            if (definition.GetType() != typeof(CounterDefinition))
-            {
-                throw new ArgumentException($"CounterScript cannot load an object of type {definition.GetType()}");
-            }
-
-            Counter = (CounterDefinition)definition;
-        }
-
-        public void StartCounter()
-        {
-            _bus.Raise(new CounterEvent(CounterEventType.Spawn, Counter.Attributes), this, this);
         }
 
         void OnCounterEvent(ref CounterEvent evt, IEventNode target, IEventNode source)

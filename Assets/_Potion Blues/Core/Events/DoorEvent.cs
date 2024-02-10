@@ -1,6 +1,5 @@
 ﻿using PotionBlues.Definitions;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace PotionBlues.Events
 {
@@ -9,6 +8,12 @@ namespace PotionBlues.Events
         public List<ShopAttributeValue> Attributes;
         public DoorEventType Type;
         public PotionDefinition Potion;
+
+        public DoorEvent(DoorEventType type, List<ShopAttributeValue> attributes)
+        {
+            Attributes = attributes;
+            Type = type;
+        }
     }
 
     public enum DoorEventType

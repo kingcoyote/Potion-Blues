@@ -7,36 +7,20 @@ namespace PotionBlues.Shop
     [RequireComponent(typeof(SpriteRenderer))]
     public abstract class ShopObjectScript : MonoBehaviour, IEventNode
     {
+        protected ShopObjectDefinition Definition;
         protected GenericEventBus<IEvent, IEventNode> _bus;
-        private SpriteRenderer _sprite;
 
-        protected abstract void LoadShopObject(ShopObjectDefinition definition);
-
-        // Use this for initialization
         public void Start()
-        {
-            _sprite = GetComponent<SpriteRenderer>();
-            LoadBus();
-
-            Debug.Log($"Starting shop object script - {name}");
-        }
-
-        protected void LoadBus()
         {
             _bus = PotionBlues.I().EventBus;
         }
 
-        public void LoadDefinition(ShopObjectDefinition definition)
+        public void SetDefinition(ShopObjectDefinition definition)
         {
-            LoadSprite(definition);
-            LoadShopObject(definition);
-        }
+            name = definition.name;
+            GetComponent<SpriteRenderer>().sprite = definition.Sprite;
 
-        void LoadSprite(ShopObjectDefinition definition)
-        {
-            _sprite = GetComponent<SpriteRenderer>();
-            _sprite.sprite = definition.Sprite;
+            Definition = definition;
         }
-
     }
 }
