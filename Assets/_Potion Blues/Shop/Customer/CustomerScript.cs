@@ -14,7 +14,7 @@ namespace PotionBlues.Shop
         public float ReputationBonus;
 
         private float _walkSpeed;
-        private bool _potionBought = false;
+        private PotionScript _potion;
 
         [SerializeField] private Animator _anim;
         [SerializeField] private SpriteRenderer _icon;
@@ -46,7 +46,7 @@ namespace PotionBlues.Shop
                 CustomerPatience -= Time.deltaTime;
             }
 
-            if (CustomerPatience < 0 || _potionBought)
+            if (CustomerPatience < 0 || _potion != null)
             {
                 _walkSpeed = -WalkSpeed;
                 var xdir = _walkSpeed >= 0 ? 1 : -1;
@@ -84,14 +84,14 @@ namespace PotionBlues.Shop
             _walkSpeed = 0;
         }
 
-        public bool BuyPotion(PotionDefinition potion)
+        public bool BuyPotion(PotionScript potion)
         {
-            if (potion != DesiredPotion)
+            if (potion.Definition != DesiredPotion)
             {
                 return false;
             }
 
-            _potionBought = true;
+            _potion = potion;
 
             return true;
         }

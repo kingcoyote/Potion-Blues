@@ -1,51 +1,49 @@
+﻿using UnityEngine;
 using PotionBlues.Definitions;
-using PotionBlues.Events;
-using Sirenix.OdinInspector;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.InputSystem;
+using VectorSwizzling;
 
 namespace PotionBlues.Shop
 {
-    public class IngredientScript : ShopObjectScript
+    public class IngredientScript : MonoBehaviour
     {
-        [BoxGroup("Instance")] public float IngredientCost;
-        [BoxGroup("Instance")] public float IngredientSalvage;
-        [BoxGroup("Instance")] public float IngredientCooldown;
-        [BoxGroup("Instance")] public int IngredientQuantity;
+        public IngredientDefinition Ingredient;
+
+        [SerializeField] private SpriteRenderer _sprite;
+        [SerializeField] private BoxCollider2D _box;
+        private PlayerInput _player;
+        private bool _isSelected;
 
         // Use this for initialization
-        new public void Start()
+        void Start()
         {
-            base.Start();
-
-            _bus.SubscribeToTarget<IngredientEvent>(this, OnIngredientEvent);
-            _bus.Raise(new IngredientEvent(IngredientEventType.Spawn, Definition.Attributes), this, this);
+            _player = GameObject.Find("Player").GetComponent<PlayerInput>();
+            _player.actions["Select"].performed += OnSelect;
+            _player.actions["Select"].canceled += OnDeselect;
+            _isSelected = true;
+            _sprite.sprite = Ingredient.Ingredient;
         }
 
-        public void OnDestroy()
+        private void OnSelect(InputAction.CallbackContext context)
         {
-            if (_bus != null)
-                _bus.UnsubscribeFromTarget<IngredientEvent>(this, OnIngredientEvent);
+            var cursor = _player.camera.ScreenToWorldPoint(_player.actions["Cursor"].ReadValue<Vector2>()).xy();
+            if (_box.bounds.Contains(cursor))
+            {
+                _isSelected = true;
+            }
         }
+
+        void OnDeselect(InputAction.CallbackContext _context)
+        {
+            _isSelected = false;
+        }    
 
         // Update is called once per frame
         void Update()
         {
-
-        }
-
-        void OnIngredientEvent(ref IngredientEvent evt, IEventNode target, IEventNode source)
-        {
-            switch (evt.Type)
-            {
-                case IngredientEventType.Spawn:
-                    IngredientCost = evt.Attributes.Find(a => a.Attribute.name == "Ingredient Cost").Value;
-                    IngredientSalvage = evt.Attributes.Find(a => a.Attribute.name == "Ingredient Salvage").Value;
-                    IngredientCooldown = evt.Attributes.Find(a => a.Attribute.name == "Ingredient Cooldown").Value;
-                    IngredientQuantity = (int)evt.Attributes.Find(a => a.Attribute.name == "Ingredient Quantity").Value;
-                    break;
-            }
+            if (!_isSelected) return;
+            var cursor = _player.camera.ScreenToWorldPoint(_player.actions["Cursor"].ReadValue<Vector2>()).xy();
+            transform.position = cursor;
         }
     }
 }

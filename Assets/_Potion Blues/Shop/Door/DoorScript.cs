@@ -20,6 +20,7 @@ namespace PotionBlues.Shop
         [BoxGroup("Customers")] public BoxCollider2D DoorBox;
 
         private bool _shopOpen;
+        private float _nextCustomer;
 
         // Use this for initialization
         new public void Start()
@@ -32,28 +33,6 @@ namespace PotionBlues.Shop
             _bus.SubscribeTo<RunEvent>(OnRunEvent);
 
             _shopOpen = true;
-            StartCoroutine(SpawnCustomers());
-        }
-
-        private IEnumerator SpawnCustomers()
-        {
-            while (_shopOpen)
-            {
-                SpawnCustomer();
-                yield return new WaitForSeconds(1 / CustomerFrequency);
-            }
-            Debug.Log("Shop closed");
-        }
-
-        private void SpawnCustomer()
-        {
-            Debug.Log("Spawning customer");
-            var customer = Instantiate(CustomerPrefab, transform);
-            var offsety = (PotionBlues.I().RNG.NextFloat() - 0.5f) * DoorBox.size.y / 2;
-            customer.transform.position += new Vector2(DoorBox.offset.x, offsety).xy0();
-            customer.CustomerPatience = CustomerPatience;
-            customer.CustomerTipping = CustomerTipping;
-            customer.ReputationBonus = ReputationBonus;
         }
 
         public void OnDestroy()
@@ -68,20 +47,33 @@ namespace PotionBlues.Shop
         // Update is called once per frame
         void Update()
         {
-
+            if (!_shopOpen) return;
+            _nextCustomer -= Time.deltaTime;
+            if (_nextCustomer <= 0)
+            {
+                _bus.Raise(new DoorEvent(DoorEventType.CustomerArrive, Definition.Attributes), this, this);
+            }
         }
 
         void OnDoorEvent(ref DoorEvent evt, IEventNode target, IEventNode source)
         {
+            CustomerFrequency = evt.Attributes.Find(a => a.Attribute.name == "Customer Frequency").Value;
+            CustomerPatience = evt.Attributes.Find(a => a.Attribute.name == "Customer Patience").Value;
+            CustomerTipping = evt.Attributes.Find(a => a.Attribute.name == "Customer Tipping").Value;
+            ReputationBonus = evt.Attributes.Find(a => a.Attribute.name == "Reputation Bonus").Value;
 
             switch (evt.Type)
             {
                 case DoorEventType.Spawn:
-                    CustomerFrequency = evt.Attributes.Find(a => a.Attribute.name == "Customer Frequency").Value;
-                    CustomerPatience = evt.Attributes.Find(a => a.Attribute.name == "Customer Patience").Value;
-                    CustomerTipping = evt.Attributes.Find(a => a.Attribute.name == "Customer Tipping").Value;
-                    ReputationBonus = evt.Attributes.Find(a => a.Attribute.name == "Reputation Bonus").Value;
                     break;
+                case DoorEventType.CustomerArrive:
+                    SpawnCustomer();
+                    _nextCustomer = 1 / CustomerFrequency;
+                    break;
+                case DoorEventType.CustomerLeave:
+                    DespawnCustomer();
+                    break;
+
             }
         }
 
@@ -93,6 +85,22 @@ namespace PotionBlues.Shop
                     _shopOpen = false;
                     break;
             }
+        }
+
+        private void SpawnCustomer()
+        {
+            // Debug.Log("Spawning customer");
+            var customer = Instantiate(CustomerPrefab, transform);
+            var offsety = (PotionBlues.I().RNG.NextFloat() - 0.5f) * DoorBox.size.y / 2;
+            customer.transform.position += new Vector2(DoorBox.offset.x, offsety).xy0();
+            customer.CustomerPatience = CustomerPatience;
+            customer.CustomerTipping = CustomerTipping;
+            customer.ReputationBonus = ReputationBonus;
+        }
+
+        private void DespawnCustomer()
+        {
+
         }
     }
 }

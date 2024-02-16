@@ -1,9 +1,12 @@
+using PotionBlues.Definitions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PotionScript : MonoBehaviour
 {
+    public PotionDefinition Definition;
+
     // Start is called before the first frame update
     void Start()
     {

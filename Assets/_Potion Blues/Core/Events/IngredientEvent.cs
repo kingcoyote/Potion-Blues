@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PotionBlues.Definitions;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace PotionBlues.Events
@@ -7,6 +8,7 @@ namespace PotionBlues.Events
     {
         public List<ShopAttributeValue> Attributes;
         public IngredientEventType Type;
+        public IngredientDefinition Definition;
 
         public IngredientEvent(IngredientEventType type, List<ShopAttributeValue> attributes)
         {
@@ -19,7 +21,10 @@ namespace PotionBlues.Events
     {
         Spawn,
         Despawn,
-        // when the player picks an ingredient (for ingredient cost)
-        IngredientSelect
+        Select,
+        Use,
+        Deselect,
+        Salvage,
+        Restock
     }
 }
