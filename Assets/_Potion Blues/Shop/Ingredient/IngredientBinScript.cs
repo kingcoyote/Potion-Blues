@@ -1,10 +1,10 @@
-using PotionBlues.Definitions;
-using PotionBlues.Events;
-using PotionBlues.Prototypes.Autodispense;
-using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Sirenix.OdinInspector;
 using VectorSwizzling;
+using PotionBlues.Definitions;
+using PotionBlues.Events;
 
 namespace PotionBlues.Shop
 {
@@ -66,18 +66,19 @@ namespace PotionBlues.Shop
             }
         }
 
-        public void SpawnIngredient(IngredientDefinition ingredient)
+        public void SpawnIngredient(IngredientDefinition ingredient, List<ShopAttributeValue> attributes)
         {
-            Debug.Log($"Spawning ingredient {ingredient.name}");
             var go = Instantiate(IngredientPrefab);
             go.Ingredient = ingredient;
+            go.IngredientBin = this;
+            go.Attributes = attributes;
 
             Quantity -= 1;
         }
 
         public void OnDeselect(InputAction.CallbackContext _context)
         {
-            Debug.Log("Releasing ingredient");
+            
         }
 
         void OnIngredientEvent(ref IngredientEvent evt, IEventNode target, IEventNode source)
@@ -90,11 +91,12 @@ namespace PotionBlues.Shop
             switch (evt.Type)
             {
                 case IngredientEventType.Spawn:
+                    Quantity = IngredientQuantity;
                     break;
                 case IngredientEventType.Select:
                     if (target != this) return;
                     if (Quantity <= 0) return;
-                    SpawnIngredient(evt.Definition);
+                    SpawnIngredient(evt.Definition, evt.Attributes);
                     break;
             }
         }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7868827326406194856}
   - component: {fileID: -1723731571166352206}
   - component: {fileID: 3338394368882000523}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: IngredientBin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,6 +104,7 @@ MonoBehaviour:
   IngredientCooldown: 0
   IngredientQuantity: 0
   IngredientPrefab: {fileID: 8251102858560138347, guid: 7def7e7d961dc2e409fdcbd2a395b13d, type: 3}
+  Quantity: 0
 --- !u!61 &-1723731571166352206
 BoxCollider2D:
   m_ObjectHideFlags: 0
