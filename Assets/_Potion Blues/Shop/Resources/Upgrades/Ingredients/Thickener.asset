@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c880b0d95cde19548bfdea68add09df1, type: 3}
-  m_Name: No-Doze
+  m_Name: Thickener
   m_EditorClassIdentifier: 
-  _reference: Ingredients/No-Doze
-  _description: 
+  _reference: Ingredients/Thickener
+  _description: Thickens a potion slightly, increasing brewing time but with a chance
+    to make a double potion.
   _priority: 0
   _icon: {fileID: 0}
   _picture: {fileID: 0}

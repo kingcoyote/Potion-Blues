@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 948cdb2db6dcf574eb0d19ba1997c430, type: 3}
-  m_Name: No-Doze
+  m_Name: Thickener
   m_EditorClassIdentifier: 
   _category: {fileID: 11400000, guid: 70d9bec40e588fd46afbb7b3406d5a70, type: 2}
-  _description: Makes the potion non drowsy
+  _description: Thickens the potion slightly, increasing brewing time but with a
+    chance to make a double potion
   _sprite: {fileID: 21300000, guid: 8b290d4cbfa9dad4f98e159a8f2fccda, type: 3}
   _attributes:
-  - Attribute: {fileID: 11400000, guid: 2aba5f977f92a7d42ae3ce36691eec7c, type: 2}
-    Value: 1.25
   - Attribute: {fileID: 11400000, guid: ddd0304b21a3e9341a80489156d60f69, type: 2}
     Value: 1
   - Attribute: {fileID: 11400000, guid: e2fce6c51778650459c571bed74abad7, type: 2}
@@ -26,8 +25,8 @@ MonoBehaviour:
     Value: 4
   - Attribute: {fileID: 11400000, guid: e3f86a4487b2b734b9f36331cb13a442, type: 2}
     Value: 10
-  _cost: 1
-  _salvage: 0.5
-  _cooldown: 4
-  _quantity: 10
+  - Attribute: {fileID: 11400000, guid: 725edc994e4991b4080fba3b221f2a89, type: 2}
+    Value: 1.25
+  - Attribute: {fileID: 11400000, guid: 2c332c813f43fe541afba017f1672320, type: 2}
+    Value: 1.25
   _ingredient: {fileID: 804809362, guid: 438fcb3edc33e2e4991c71b19aa7967a, type: 3}
