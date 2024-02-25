@@ -102,6 +102,8 @@ MonoBehaviour:
   BrewingOutput: 0
   CleaningInterval: 0
   FailureRate: 0
+  Potion: {fileID: 0}
+  PotionPrefab: {fileID: 8197004058008483037, guid: 5c341cc663e4e354ca1114089481123e, type: 3}
 --- !u!61 &-252551737761217197
 BoxCollider2D:
   m_ObjectHideFlags: 0

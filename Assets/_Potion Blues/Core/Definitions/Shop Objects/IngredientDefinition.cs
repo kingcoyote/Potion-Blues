@@ -8,8 +8,19 @@ namespace PotionBlues.Definitions
     public class IngredientDefinition : ShopObjectDefinition
     {
         public Sprite Ingredient => _ingredient;
+        public IngredientType Type { get
+            {
+                return Attributes.Count == 4 ? IngredientType.Primary : IngredientType.Secondary;
+            } 
+        }
 
         [BoxGroup("Ingredient"), SerializeField, PreviewField, Tooltip("Sprite used as the ingredient picked up from the dispenser")] 
         private Sprite _ingredient;
+
+        public enum IngredientType
+        {
+            Primary,
+            Secondary
+        }
     }
 }

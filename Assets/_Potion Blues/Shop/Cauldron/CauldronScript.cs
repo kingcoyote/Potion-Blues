@@ -9,13 +9,12 @@ namespace PotionBlues.Shop
 {
     public class CauldronScript : ShopObjectScript
     {
-        [BoxGroup("Instance")] public float BrewingTime;
-        [BoxGroup("Instance")] public float BrewingOutput;
-        [BoxGroup("Instance")] public float CleaningInterval;
-        [BoxGroup("Instance")] public float FailureRate;
+        [BoxGroup("Instance")] public List<ShopAttributeValue> Attributes;
 
         [BoxGroup("Potion")] public PotionScript Potion;
         [BoxGroup("Potion")] public PotionScript PotionPrefab;
+
+        public float BrewTime;
 
         // Use this for initialization
         new public void Start()
@@ -25,7 +24,7 @@ namespace PotionBlues.Shop
             _bus.SubscribeToTarget<CauldronEvent>(this, OnCauldronEvent);
             _bus.Raise(new CauldronEvent(CauldronEventType.Spawn, Definition.Attributes), this, this);
 
-            Potion = Instantiate(PotionPrefab);
+            Potion = Instantiate(PotionPrefab, transform);
         }
 
         public void OnDestroy()
@@ -37,7 +36,17 @@ namespace PotionBlues.Shop
         // Update is called once per frame
         void Update()
         {
+            if (Potion.State != PotionScript.PotionState.Brewing) return;
+        }
 
+        [Button]
+        public void StartBrewing()
+        {
+            if (Potion.State != PotionScript.PotionState.Mixed) return;
+            Potion.Attributes = Potion.Attributes.Stack(Attributes);
+            Potion.State = PotionScript.PotionState.Brewing;
+            BrewTime = Potion.Attributes.TryGet("Brewing Time");
+            // if potion is ready to be brewed
         }
 
         void OnCauldronEvent(ref CauldronEvent evt, IEventNode target, IEventNode source)
@@ -45,12 +54,17 @@ namespace PotionBlues.Shop
             switch (evt.Type)
             {
                 case CauldronEventType.Spawn:
-                    BrewingTime = evt.Attributes.Find(a => a.Attribute.name == "Brewing Time").Value;
-                    BrewingOutput = evt.Attributes.Find(a => a.Attribute.name == "Brewing Output").Value;
-                    CleaningInterval = evt.Attributes.Find(a => a.Attribute.name == "Cleaning Interval").Value;
-                    FailureRate = evt.Attributes.Find(a => a.Attribute.name == "Failure Rate").Value;
+                    Attributes = evt.Attributes;
                     break;
                 case CauldronEventType.IngredientAdd:
+                    if (Potion.AddIngredient(evt.Ingredient))
+                    {
+                        Potion.Attributes = Potion.Attributes.Stack(evt.Attributes);
+                        _bus.ConsumeCurrentEvent();
+                    } else
+                    {
+                        Debug.LogError("Duplicate ingredient added to potion - inventory consumed incorrectly. FIXME");
+                    }
                     // copy the attributes into the potion script being staged
                     // if there is a potion that
                     break;

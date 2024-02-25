@@ -7,6 +7,7 @@ using PotionBlues.Definitions;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using System.IO;
+using PotionBlues.Shop;
 
 namespace PotionBlues
 {
@@ -18,6 +19,7 @@ namespace PotionBlues
         public List<UpgradeCardDefinition> Upgrades = new();
         public Dictionary<string, PotionDefinition> PotionTypes = new();
         public Dictionary<string, ShopObjectCategoryDefinition> ShopObjectCategories = new();
+        public Dictionary<string, ShopAttributeDefinition> ShopAttributeDefinitions = new();
 
         public GenericEventBus<IEvent, IEventNode> EventBus;
         public Unity.Mathematics.Random RNG;
@@ -70,6 +72,8 @@ namespace PotionBlues
                 .ToDictionary(potion => potion.name);
             ShopObjectCategories = Resources.LoadAll<ShopObjectCategoryDefinition>("Object Categories")
                 .ToDictionary(cat => cat.name);
+            ShopAttributeDefinitions = Resources.LoadAll<ShopAttributeDefinition>("Shop Attributes")
+                .ToDictionary(sad => sad.name);
             Upgrades = Resources.LoadAll<UpgradeCardDefinition>("Upgrades").ToList();
 
             LoadProfile("default");
@@ -130,6 +134,17 @@ namespace PotionBlues
                 .Except(GameData.ActiveRun.Upgrades.Select(card => card.Card))
                 .OrderBy(x => Guid.NewGuid())
                 .Take(count).ToList();
+        }
+
+        public PotionDefinition GetPotionType(List<IngredientDefinition> ingredients)
+        {
+            var primaryIngredients = ingredients.Where(i => i.Type == IngredientDefinition.IngredientType.Primary);
+
+            var potionType = PotionTypes
+                .Select(p => p.Value)
+                .First(p => p.Ingredients.SequenceEqual(primaryIngredients));
+
+            return potionType;
         }
     }
 

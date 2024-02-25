@@ -1,8 +1,9 @@
-using PotionBlues.Definitions;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using PotionBlues.Definitions;
 using UnityEngine;
 
 namespace PotionBlues
@@ -40,5 +41,40 @@ namespace PotionBlues
                 .Select(x => new ValueDropdownItem(x.name, x));
         }
 #endif
+    }
+
+    public static class ShopAttributeValueUtilities
+    {
+        public static List<ShopAttributeValue> Stack(this List<ShopAttributeValue> left, List<ShopAttributeValue> right)
+        {
+            var keys = left.Select(av => av.Attribute).Union(right.Select(av => av.Attribute));
+            var leftDict = left.ToDictionary();
+            var rightDict = right.ToDictionary();
+
+            return keys
+                .Select(k => new ShopAttributeValue(k, k.Stack(leftDict.TryGet(k), rightDict.TryGet(k))))
+                .ToList();
+        }
+
+        public static Dictionary<ShopAttributeDefinition, float> ToDictionary(this List<ShopAttributeValue> input)
+        {
+            return input
+                .GroupBy(av => av.Attribute)
+                .Select(group => new ShopAttributeValue(
+                    group.Key,
+                    group.Select(av => av.Value).Aggregate((a, b) => group.Key.Stack(a, b))
+                ))
+                .ToDictionary(av => av.Attribute, av=> av.Value);
+        }
+
+        public static float TryGet(this Dictionary<ShopAttributeDefinition, float> input, ShopAttributeDefinition key)
+        {
+            return input.ContainsKey(key) ? input[key] : key.Identity;
+        }
+
+        public static float TryGet(this List<ShopAttributeValue> input, string key)
+        {
+            return input.ToDictionary().TryGet(PotionBlues.I().ShopAttributeDefinitions[key]);
+        }
     }
 }

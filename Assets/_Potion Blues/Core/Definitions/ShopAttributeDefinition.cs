@@ -12,12 +12,29 @@ namespace PotionBlues.Definitions
         public string Description => _description;
         public Sprite Icon => _icon;
         public StackType StackingType => _stackingType;
+        public float Identity { get
+            {
+                switch (_stackingType)
+                {
+                    case StackType.Multiply: 
+                        return 1;
+                    case StackType.Add:
+                        return 0;
+                    case StackType.Overwrite:
+                        return 0;
+                    case StackType.Ignore: 
+                        return 0;
+                }
+
+                return 0;
+            } 
+        }
 
         [SerializeField, TextArea(3, 10)] private string _description;
         [SerializeField, PreviewField] private Sprite _icon;
         [SerializeField] private StackType _stackingType;
 
-        private Func<float, float, float> _aggregate
+        private Func<float, float, float> _stack
         {
             get
             {
@@ -46,14 +63,14 @@ namespace PotionBlues.Definitions
             }
         }
 
-        public float Aggregate(List<ShopAttributeValue> values)
+        public float Stack(List<ShopAttributeValue> values)
         {
-            return Aggregate(values.Select(v => v.Value).ToArray());
+            return Stack(values.Select(v => v.Value).ToArray());
         }
 
-        public float Aggregate(params float[] values)
+        public float Stack(params float[] values)
         {
-            return values.Aggregate(_aggregate);
+            return values.Aggregate(_stack);
         }
     }
 

@@ -161,32 +161,25 @@ namespace PotionBlues.Shop {
 
         private List<ShopAttributeValue> AdjustAttributes(List<ShopAttributeValue> attributes)
         {
-            var adjustedAttributes = new List<ShopAttributeValue>();
             var upgradeModifiers = GetAttributeModifiers();
 
-            foreach(var attr in attributes)
-            {
-                float modifier = upgradeModifiers.TryGetValue(attr.Attribute, out modifier) ? modifier : 1;
-                adjustedAttributes.Add(new ShopAttributeValue(attr.Attribute, attr.Attribute.Aggregate(attr.Value, modifier)));
-            }
-
-            return adjustedAttributes;
+            return attributes.Stack(upgradeModifiers);
         }
 
         /**
-         * Process the current run's shop attribute upgrades to return a flattened dict of each attribute
-         * and the total value, either a sum or product.
+         * Process the current run's shop attribute upgrades to return a flattened List<ShopAttributeValue>
          */
-        private Dictionary<ShopAttributeDefinition, float> GetAttributeModifiers()
+        private List<ShopAttributeValue> GetAttributeModifiers()
         {
             return PotionBlues.I().GameData.ActiveRun
                 .GetShopAttributeUpgrades()
                 .SelectMany(card => ((ShopAttributeUpgradeCardDefintion)card.Card).AttributeValues)
                 .GroupBy(av => av.Attribute)
-                .ToDictionary(
-                    group => group.Key, 
-                    group => group.Key.Aggregate(group.ToList()) // group.Select(a => a.Value).Aggregate((a, b) => a * b)
-                );
+                .Select(group => new ShopAttributeValue(
+                    group.Key, 
+                    group.Select(av => av.Value).Aggregate((a, b) => group.Key.Stack(a, b))
+                ))
+                .ToList();
         }
 
         private void OnRunEvent(ref RunEvent evt)

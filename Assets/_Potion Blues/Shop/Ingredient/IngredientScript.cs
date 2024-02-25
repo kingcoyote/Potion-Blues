@@ -31,31 +31,34 @@ namespace PotionBlues.Shop
         void OnDeselect(InputAction.CallbackContext _context)
         {
             _isSelected = false;
+            _player.actions["Select"].canceled -= OnDeselect;
 
-            // dropping the ingredient can either place it in a cauldron, or revert it back to the bin
+            // check if the ingredient is currently overlapping a shop object
             var filter = new ContactFilter2D();
             filter.SetLayerMask(1 << LayerMask.NameToLayer("Shop Object"));
-            Collider2D[] results = new Collider2D[4];
-            if (_box.OverlapCollider(filter, results) > 0)
-            {
-                var cauldron = results[0].GetComponent<CauldronScript>();
-                if (cauldron == null) return;
-
-                Destroy(gameObject);
-                PotionBlues.I().EventBus.Raise(
-                    new CauldronEvent(CauldronEventType.IngredientAdd, Attributes)
-                    {
-                        Ingredient = Ingredient
-                    }
-                );
-
-                Debug.Log($"Trying to place {Ingredient.name} in {cauldron.gameObject.name}.");
-            } else
+            Collider2D[] results = new Collider2D[1];
+            if (_box.OverlapCollider(filter, results) == 0)
             {
                 StartCoroutine(ReturnToBin());
-                _player.actions["Select"].canceled -= OnDeselect;
+                return;
             }
 
+            var cauldron = results[0].GetComponent<CauldronScript>();
+            if (cauldron == null)
+            {
+                StartCoroutine(ReturnToBin());
+                return;
+            }
+            
+            PotionBlues.I().EventBus.Raise(
+                new CauldronEvent(CauldronEventType.IngredientAdd, Attributes)
+                {
+                    Ingredient = Ingredient
+                },
+                cauldron,
+                IngredientBin
+            );
+            Destroy(gameObject);
         }    
 
         public IEnumerator ReturnToBin()
