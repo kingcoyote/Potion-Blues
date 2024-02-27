@@ -5,6 +5,7 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using PotionBlues.Definitions;
 using UnityEngine;
+using Unity.VisualScripting;
 
 namespace PotionBlues
 {
@@ -75,6 +76,19 @@ namespace PotionBlues
         public static float TryGet(this List<ShopAttributeValue> input, string key)
         {
             return input.ToDictionary().TryGet(PotionBlues.I().ShopAttributeDefinitions[key]);
+        }
+
+        public static void Set(this List<ShopAttributeValue> input, string key, float value)
+        {
+            for (var i = 0; i < input.Count; i++)
+            {
+                var item = input[i];
+                if (item.Attribute.name == key)
+                {
+                    item.Value = value;
+                    input[i] = item;
+                }
+            }
         }
     }
 }

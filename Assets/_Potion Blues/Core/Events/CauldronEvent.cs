@@ -36,6 +36,8 @@ namespace PotionBlues.Events
         BrewStart,
         // when brewing is complete and potions are reading to be removed (brewing output modified)
         BrewFinish,
+        // when a brew failed and the ingredients have to be scrapped
+        BrewFailed,
         // when potions are removed from the cauldron
         PotionRemove,
     }
