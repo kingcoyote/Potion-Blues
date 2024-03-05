@@ -62,7 +62,7 @@ namespace PotionBlues.Shop
 
         public void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.GetComponent<CounterScript>() != null)
+            if (other.gameObject.tag == "Queue")
             {
                 StartCoroutine(StopWalking());
             }

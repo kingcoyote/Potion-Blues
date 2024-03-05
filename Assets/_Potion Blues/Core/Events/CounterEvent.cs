@@ -1,6 +1,5 @@
 ﻿using PotionBlues.Definitions;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace PotionBlues.Events
 {

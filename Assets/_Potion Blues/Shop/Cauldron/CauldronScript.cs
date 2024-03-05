@@ -1,9 +1,9 @@
-﻿using PotionBlues.Definitions;
 using PotionBlues.Events;
 using Sirenix.OdinInspector;
-using System;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
+using VectorSwizzling;
 
 namespace PotionBlues.Shop
 {
@@ -15,8 +15,10 @@ namespace PotionBlues.Shop
         [BoxGroup("Potion")] public PotionScript PotionPrefab;
 
         public int RemainingPotions;
-
         public float BrewTime;
+
+        private PlayerInput _input;
+        private BoxCollider2D _box;
 
         // Use this for initialization
         new public void Start()
@@ -27,12 +29,49 @@ namespace PotionBlues.Shop
             _bus.Raise(new CauldronEvent(CauldronEventType.Spawn, Definition.Attributes), this, this);
 
             Potion = Instantiate(PotionPrefab, transform);
+            Potion.Cauldron = this;
+
+            _input = GameObject.Find("Player").GetComponent<PlayerInput>();
+            _input.actions["Select"].performed += OnSelect;
+            _input.actions["Select"].canceled += OnDeselect;
+
+            _box = GetComponent<BoxCollider2D>();
         }
 
         public void OnDestroy()
         {
             if (_bus != null)
                 _bus.UnsubscribeFromTarget<CauldronEvent>(this, OnCauldronEvent);
+
+            if (_input != null)
+            {
+                _input.actions["Select"].performed -= OnSelect;
+                _input.actions["Select"].canceled -= OnDeselect;
+            }
+        }
+
+        public void OnSelect(InputAction.CallbackContext _context)
+        {
+            var cursor = Camera.main.ScreenToWorldPoint(_input.actions["Cursor"].ReadValue<Vector2>()).xy();
+            if (_box.bounds.Contains(cursor))
+            {
+                switch (Potion.State)
+                {
+                    case PotionScript.PotionState.Mixed:
+                        StartBrewing();
+                        break;
+                    case PotionScript.PotionState.Ready:
+                        _bus.Raise(new CauldronEvent(CauldronEventType.PotionRemove, Potion.Attributes), this, this);
+                        break;
+                }
+            }
+        }
+
+        private void SpawnPotion()
+        {
+            Debug.Log("Spawning potions");
+            Potion.Select();
+            Potion.Show();
         }
 
         // Update is called once per frame
@@ -95,13 +134,18 @@ namespace PotionBlues.Shop
                     if (Potion.AddIngredient(evt.Ingredient))
                     {
                         Potion.Attributes = Potion.Attributes.Stack(evt.Attributes);
-                        _bus.ConsumeCurrentEvent();
+                        evt.Accepted = true;
                     } else
                     {
                         Debug.LogError("Duplicate ingredient added to potion - inventory consumed incorrectly. FIXME");
                     }
                     // copy the attributes into the potion script being staged
                     // if there is a potion that
+                    break;
+                case CauldronEventType.PotionRemove:
+                    // BUG? ignoring the evt.Attributes here because that could cause extra application of certain
+                    // modifiers, such as potion value being set by ingredients, but a card setting it again
+                    SpawnPotion();
                     break;
             }
         }

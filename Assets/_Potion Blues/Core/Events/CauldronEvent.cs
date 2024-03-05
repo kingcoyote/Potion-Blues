@@ -15,6 +15,7 @@ namespace PotionBlues.Events
         //  - cauldron capacity
         public IngredientDefinition Ingredient;
         public PotionDefinition Potion;
+        public bool Accepted;
 
         public CauldronEvent(CauldronEventType t, List<ShopAttributeValue> attr)
         {

@@ -83,7 +83,7 @@ namespace PotionBlues.Shop {
         {
             if (_pb.GameData.ActiveRun != null && _pb.GameData.ActiveRun.Day > 0 && _pb.GameData.ActiveRun.Day <= _pb.GameData.ActiveRun.RunDuration)
             {
-                Debug.Log("Resuming");
+                Debug.Log("Resuming existing run");
                 _pb.EventBus.Raise(new RunEvent(RunEventType.DayPreview));
             }
             else
@@ -188,7 +188,6 @@ namespace PotionBlues.Shop {
             {
                 case RunEventType.Created:
                 case RunEventType.DayPreview:
-                    Debug.Log("Day Preview");
                     Time.timeScale = 0;
                     _pb.GameData.ActiveRun.MerchantCards = _pb.GameData.Upgrades
                        .Except(_pb.GameData.ActiveRun.Upgrades.Select(card => card.Card))

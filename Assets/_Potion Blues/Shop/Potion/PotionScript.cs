@@ -1,7 +1,11 @@
 using PotionBlues.Definitions;
+using PotionBlues.Events;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using VectorSwizzling;
 
 namespace PotionBlues.Shop
 {
@@ -10,30 +14,40 @@ namespace PotionBlues.Shop
         public PotionDefinition Definition;
         public List<ShopAttributeValue> Attributes = new();
         public List<IngredientDefinition> Ingredients = new();
-
+        public CauldronScript Cauldron;
         public PotionState State = PotionState.Mixing;
 
-        private float _brewTime = 0;
+        [SerializeField] private SpriteRenderer _sprite;
+        [SerializeField] private BoxCollider2D _box;
+        private PlayerInput _input;
+        private bool _isSelected;
 
         // Start is called before the first frame update
         void Start()
         {
             // TODO mark state as being prepared
             State = PotionState.Mixing;
+            _input = GameObject.Find("Player").GetComponent<PlayerInput>();
+            _input.actions["Select"].canceled += OnDeselect;
             name = "New Potion";
+
+            _sprite.enabled = false;
         }
 
         // Update is called once per frame
         void Update()
         {
-            // if state is brewing, reduce brew time
-            // if brewing complete, mark state as done
+            if (!_isSelected) return;
+            var cursor = _input.camera.ScreenToWorldPoint(_input.actions["Cursor"].ReadValue<Vector2>()).xy();
+            transform.position = cursor;
         }
 
-        public void StartBrewing()
+        private void OnDestroy()
         {
-            _brewTime = Attributes.TryGet("Brewing Speed");
-            Debug.Log($"Setting brewing speed to {_brewTime}");
+            if (_input != null)
+            {
+                _input.actions["Select"].canceled -= OnDeselect;
+        }
         }
 
         public bool AddIngredient(IngredientDefinition ingredient)
@@ -59,13 +73,84 @@ namespace PotionBlues.Shop
             if (Definition != null)
             {
                 State = PotionState.Mixed;
+                _sprite.sprite = Definition.Potion;
+
                 var secondaryCount = Ingredients.Where(i => i.Type == IngredientDefinition.IngredientType.Secondary).Count();
                 name = $"Potion ({Definition.name}{string.Concat(Enumerable.Repeat('+', secondaryCount))})";
             }
 
-            // TODO - if the ingredients now define a potion, mark state as ready to brew
-
             return true;
+        }
+
+        public void Show()
+        {
+            _sprite.enabled = true;
+        }
+
+        public void Hide()
+        {
+            _sprite.enabled = false;
+        }
+
+        public void Select()
+        {
+            _isSelected = true;
+        }
+
+        void OnDeselect(InputAction.CallbackContext _context)
+        {
+            if (_isSelected == false) return;
+
+            Debug.Log("Deselecting potion");
+
+            _isSelected = false;
+
+            // check if the ingredient is currently overlapping a shop object
+            var filter = new ContactFilter2D();
+            filter.SetLayerMask(1 << LayerMask.NameToLayer("Shop Object"));
+            Collider2D[] results = new Collider2D[1];
+            if (_box.OverlapCollider(filter, results) == 0)
+            {
+                Debug.Log("Dropping on nothing, returning to cauldron");
+                StartCoroutine(ReturnToCauldron());
+                return;
+            }
+
+            var counter = results[0].GetComponent<CounterScript>();
+            if (counter == null)
+            {
+                Debug.Log("dropped on something, but not a counter. returning to cauldron");
+                StartCoroutine(ReturnToCauldron());
+                return;
+            }
+
+            Debug.Log($"Dropping potion into counter {counter.name}");
+            // TODO signal to cauldron that it can create a new potion or require cleaning
+            // what happens if the counter rejects the potion?
+            PotionBlues.I().EventBus.Raise(
+                new CounterEvent(CounterEventType.PotionAdd, Attributes)
+                {
+                    Potion = Definition
+                },
+                counter,
+                Cauldron
+            );
+
+            Destroy(gameObject);
+        }
+
+        private IEnumerator ReturnToCauldron()
+        {
+            var startTime = Time.fixedTime;
+            var endTime = startTime + 0.25f;
+            var startPos = transform.position;
+            var endPos = Cauldron.transform.position;
+            while (endTime > Time.fixedTime)
+            {
+                yield return null;
+                transform.position = Vector2.Lerp(startPos, endPos, Mathf.InverseLerp(startTime, endTime, Time.fixedTime));
+            }
+            Hide();
         }
 
         public enum PotionState
@@ -73,8 +158,7 @@ namespace PotionBlues.Shop
             Mixing,
             Mixed,
             Brewing,
-            Ready,
-            Sold
+            Ready
         }
     }
 }

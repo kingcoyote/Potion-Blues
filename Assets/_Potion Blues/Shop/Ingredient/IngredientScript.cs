@@ -16,22 +16,25 @@ namespace PotionBlues.Shop
 
         [SerializeField] private SpriteRenderer _sprite;
         [SerializeField] private BoxCollider2D _box;
-        private PlayerInput _player;
+        private PlayerInput _input;
         private bool _isSelected;
 
         // Use this for initialization
         void Start()
         {
-            _player = GameObject.Find("Player").GetComponent<PlayerInput>();
-            _player.actions["Select"].canceled += OnDeselect;
+            _input = GameObject.Find("Player").GetComponent<PlayerInput>();
+            _input.actions["Select"].canceled += OnDeselect;
             _isSelected = true;
             _sprite.sprite = Ingredient.Ingredient;
         }
 
         void OnDeselect(InputAction.CallbackContext _context)
         {
+            if (_isSelected == false) return;
+
             _isSelected = false;
-            _player.actions["Select"].canceled -= OnDeselect;
+            // removed OnDeselect because either this ingredient is returning to the bin, or being added to a cauldron
+            _input.actions["Select"].canceled -= OnDeselect;
 
             // check if the ingredient is currently overlapping a shop object
             var filter = new ContactFilter2D();
@@ -50,6 +53,7 @@ namespace PotionBlues.Shop
                 return;
             }
             
+            // what happens if the cauldron rejects the ingredient?
             PotionBlues.I().EventBus.Raise(
                 new CauldronEvent(CauldronEventType.IngredientAdd, Attributes)
                 {
@@ -80,7 +84,7 @@ namespace PotionBlues.Shop
         void Update()
         {
             if (!_isSelected) return;
-            var cursor = _player.camera.ScreenToWorldPoint(_player.actions["Cursor"].ReadValue<Vector2>()).xy();
+            var cursor = _input.camera.ScreenToWorldPoint(_input.actions["Cursor"].ReadValue<Vector2>()).xy();
             transform.position = cursor;
         }
     }
