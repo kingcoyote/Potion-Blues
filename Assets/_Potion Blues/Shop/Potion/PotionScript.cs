@@ -25,12 +25,8 @@ namespace PotionBlues.Shop
         // Start is called before the first frame update
         void Start()
         {
-            // TODO mark state as being prepared
-            State = PotionState.Mixing;
             _input = GameObject.Find("Player").GetComponent<PlayerInput>();
             _input.actions["Select"].canceled += OnDeselect;
-            name = "New Potion";
-
             _sprite.enabled = false;
         }
 
@@ -126,7 +122,7 @@ namespace PotionBlues.Shop
 
             Debug.Log($"Dropping potion into counter {counter.name}");
             // TODO signal to cauldron that it can create a new potion or require cleaning
-            // what happens if the counter rejects the potion?
+            // BUG - what happens if the counter rejects the potion?
             PotionBlues.I().EventBus.Raise(
                 new CounterEvent(CounterEventType.PotionAdd, Attributes)
                 {
@@ -141,6 +137,7 @@ namespace PotionBlues.Shop
 
         private IEnumerator ReturnToCauldron()
         {
+            Cauldron.Potion = this;
             var startTime = Time.fixedTime;
             var endTime = startTime + 0.25f;
             var startPos = transform.position;

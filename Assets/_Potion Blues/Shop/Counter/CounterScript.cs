@@ -13,7 +13,6 @@ namespace PotionBlues.Shop
         [BoxGroup("Instance")] public int CounterSlots;
         [BoxGroup("Instance")] public int SlotCapacity;
 
-        // TODO - wtf
         // events can't store potionscript because its in the wrong namespace
         // but definitions don't store details of a specific potion, including
         // the applied attributes and spoil time
