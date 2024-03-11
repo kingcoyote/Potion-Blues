@@ -103,6 +103,7 @@ MonoBehaviour:
   SlotCapacity: 0
   _sprite: {fileID: 7514929969971906250}
   _box: {fileID: 547790612682855511}
+  _slotPrefab: {fileID: 6762540120900010109, guid: f8e4d9f81245b104e81c911f84d91380, type: 3}
 --- !u!61 &547790612682855511
 BoxCollider2D:
   m_ObjectHideFlags: 0
