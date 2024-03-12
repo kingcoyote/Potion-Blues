@@ -13,7 +13,7 @@ namespace PotionBlues.Shop
         public List<ShopAttributeValue> Attributes;
 
         private float _walkSpeed;
-        private PotionScript _potion;
+        private PotionData _potion;
 
         [SerializeField] private Animator _anim;
         [SerializeField] private SpriteRenderer _icon;
@@ -89,9 +89,9 @@ namespace PotionBlues.Shop
             _walkSpeed = 0;
         }
 
-        public bool BuyPotion(PotionScript potion)
+        public bool BuyPotion(PotionData potion)
         {
-            if (potion.Definition != DesiredPotion)
+            if (potion.Potion != DesiredPotion)
             {
                 return false;
             }

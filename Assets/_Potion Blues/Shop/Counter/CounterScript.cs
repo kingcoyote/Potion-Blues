@@ -15,7 +15,7 @@ namespace PotionBlues.Shop
         [SerializeField] private SpriteRenderer _sprite;
         [SerializeField] private BoxCollider2D _box;
 
-        private List<CounterSlotScript> _slots = new();
+        public List<CounterSlotScript> Slots = new();
         [SerializeField] private CounterSlotScript _slotPrefab;
 
         new public void Start()
@@ -58,12 +58,12 @@ namespace PotionBlues.Shop
             Attributes = evt.Attributes;
             var counterSlots = (int)(Attributes.TryGet("Counter Slots"));
 
-            foreach (var slot in _slots)
+            foreach (var slot in Slots)
             {
                 Destroy(slot.gameObject);
             }
 
-            _slots = new List<CounterSlotScript>();
+            Slots = new List<CounterSlotScript>();
             for (int i = 0; i < counterSlots; i++)
             {
                 var newSlot = Instantiate(_slotPrefab, transform);
@@ -80,15 +80,15 @@ namespace PotionBlues.Shop
                     i / (counterSlots - 1f)
                 );
                 newSlot.name = $"Counter Slot #{i + 1}";
-                _slots.Add(newSlot);
+                Slots.Add(newSlot);
             }
         }
 
         private void AddPotion(ref CounterEvent evt)
         {
             var potionType = evt.Potion;
-            var existingSlots = _slots.Where(slot => slot.PotionType == potionType);
-            var openSlots = _slots.Where(slot => slot.PotionType == null);
+            var existingSlots = Slots.Where(slot => slot.PotionType == potionType);
+            var openSlots = Slots.Where(slot => slot.PotionType == null);
             var slotCapacity = Attributes.TryGet("Counter Capacity");
 
             if (existingSlots.Count() > 0)
@@ -96,8 +96,12 @@ namespace PotionBlues.Shop
                 var slot = existingSlots.First();
                 if (slot.Potions.Count < slotCapacity)
                 {
-                    // BUG - need to add it more than once if brewing output > 1
-                    slot.Potions.Enqueue(evt.Attributes.Stack(Attributes));
+                    var output = evt.Attributes.TryGet("Brewing Output");
+                    var quantity = PotionBlues.I().RNG.NextFloat() < (output % 1) ? Mathf.Floor(output) : Mathf.Ceil(output);
+                    for (var i = 0; i < quantity; i++)
+                    {
+                        slot.Potions.Enqueue(new PotionData(potionType, evt.Attributes.Stack(Attributes)));
+                    }
                     // Debug.Log($"Adding {evt.Potion.name} to existing queue");
                 } else
                 {
@@ -108,7 +112,7 @@ namespace PotionBlues.Shop
             {
                 var slot = openSlots.First();
                 slot.PotionType = evt.Potion;
-                slot.Potions.Enqueue(evt.Attributes.Stack(Attributes));
+                slot.Potions.Enqueue(new PotionData(potionType, evt.Attributes.Stack(Attributes)));
                 // Debug.Log($"Creating new queue for {evt.Potion.name}");
             }
             else

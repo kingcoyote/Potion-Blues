@@ -58,6 +58,7 @@ namespace PotionBlues.Shop
 
         public void OnSelect(InputAction.CallbackContext _context)
         {
+            if (Potion == null) return;
             var cursor = Camera.main.ScreenToWorldPoint(_input.actions["Cursor"].ReadValue<Vector2>()).xy();
             if (_box.bounds.Contains(cursor))
             {

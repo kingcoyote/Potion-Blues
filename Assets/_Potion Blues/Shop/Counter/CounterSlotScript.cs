@@ -11,16 +11,17 @@ namespace PotionBlues.Shop
     public class CounterSlotScript : MonoBehaviour
     {
         public PotionDefinition PotionType;
-        [SerializeField]
-        public Queue<List<ShopAttributeValue>> Potions = new();
+        public Queue<PotionData> Potions = new();
 
         [SerializeField] private SpriteRenderer _potion;
+        [SerializeField] private TextMeshProUGUI _quantity;
 
         // Update is called once per frame
         void Update()
         {
             if (PotionType == null)
             {
+                _quantity.text = string.Empty;
                 return;
             }
 
@@ -36,14 +37,16 @@ namespace PotionBlues.Shop
                 _potion.sprite = PotionType.Potion;
             }
 
+            _quantity.text = $"{Potions.Count}";
+
             foreach (var potion in Potions)
             {
-                var shelfLife = potion.TryGet("Shelf Life");
+                var shelfLife = potion.Attributes.TryGet("Shelf Life");
                 shelfLife -= Time.deltaTime;
-                potion.Set("Shelf Life", shelfLife);
+                potion.Attributes.Set("Shelf Life", shelfLife);
             }
 
-            if (Potions.Peek().TryGet("Shelf Life") < 0)
+            if (Potions.Peek().Attributes.TryGet("Shelf Life") < 0)
             {
                 Debug.Log($"Potion {PotionType.name} spoiled, discarding");
                 Potions.Dequeue();
