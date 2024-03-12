@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using PotionBlues.Definitions;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 namespace PotionBlues.Shop
 {
@@ -16,7 +17,7 @@ namespace PotionBlues.Shop
         private PotionData _potion;
 
         [SerializeField] private Animator _anim;
-        [SerializeField] private SpriteRenderer _icon;
+        [SerializeField] private Image _icon;
 
         // Start is called before the first frame update
         void Start()
@@ -29,6 +30,8 @@ namespace PotionBlues.Shop
             renderer.GetPropertyBlock(matProps);
             matProps.SetColor("_VestColor", new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
             renderer.SetPropertyBlock(matProps);
+
+            _icon.sprite = DesiredPotion.Potion;
 
             Refresh();
         }
