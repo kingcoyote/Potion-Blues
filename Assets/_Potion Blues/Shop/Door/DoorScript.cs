@@ -11,10 +11,6 @@ namespace PotionBlues.Shop
 {
     public class DoorScript : ShopObjectScript
     {
-        //[BoxGroup("Instance")] public float CustomerFrequency;
-        //[BoxGroup("Instance")] public float CustomerPatience;
-        //[BoxGroup("Instance")] public float CustomerTipping;
-        //[BoxGroup("Instance")] public float ReputationBonus;
         [BoxGroup("Instance")] public List<ShopAttributeValue> Attributes;
 
         [BoxGroup("Customers")] public CustomerScript CustomerPrefab;
@@ -93,6 +89,7 @@ namespace PotionBlues.Shop
             var offsety = (PotionBlues.I().RNG.NextFloat() - 0.5f) * DoorBox.size.y / 2;
             customer.transform.position += new Vector2(DoorBox.offset.x, offsety).xy0();
             customer.Attributes = Attributes;
+            customer.DesiredPotion = PotionBlues.I().GameData.ActiveRun.GetRandomPotion();
         }
 
         private void DespawnCustomer()

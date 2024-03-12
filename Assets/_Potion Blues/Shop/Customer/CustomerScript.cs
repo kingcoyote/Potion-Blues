@@ -78,6 +78,8 @@ namespace PotionBlues.Shop
 
         private IEnumerator StopWalking()
         {
+            yield return new WaitForSeconds(Random.Range(0.05f, 0.25f));
+
             for (int i = 0; i < 10; i++)
             {
                 _walkSpeed -= WalkSpeed / 10;
