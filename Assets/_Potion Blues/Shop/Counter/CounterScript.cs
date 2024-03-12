@@ -10,9 +10,7 @@ namespace PotionBlues.Shop
 {
     public class CounterScript : ShopObjectScript
     {
-        [BoxGroup("Instance")] public float ShelfLife;
-        [BoxGroup("Instance")] public int CounterSlots;
-        [BoxGroup("Instance")] public int SlotCapacity;
+        [BoxGroup("Instance")] public List<ShopAttributeValue> Attributes;
 
         [SerializeField] private SpriteRenderer _sprite;
         [SerializeField] private BoxCollider2D _box;
@@ -57,9 +55,8 @@ namespace PotionBlues.Shop
         {
             _box.size = new Vector2(_sprite.sprite.textureRect.width, _sprite.sprite.textureRect.height) / _sprite.sprite.pixelsPerUnit;
 
-            ShelfLife = evt.Attributes.Find(a => a.Attribute.name == "Shelf Life").Value;
-            SlotCapacity = (int)evt.Attributes.Find(a => a.Attribute.name == "Counter Capacity").Value;
-            CounterSlots = (int)evt.Attributes.Find(a => a.Attribute.name == "Counter Slots").Value;
+            Attributes = evt.Attributes;
+            var counterSlots = (int)(Attributes.TryGet("Counter Slots"));
 
             foreach (var slot in _slots)
             {
@@ -67,7 +64,7 @@ namespace PotionBlues.Shop
             }
 
             _slots = new List<CounterSlotScript>();
-            for (int i = 0; i < CounterSlots; i++)
+            for (int i = 0; i < counterSlots; i++)
             {
                 var newSlot = Instantiate(_slotPrefab, transform);
                 // evenly distribute counter slots from -1 to 1, such as:
@@ -75,12 +72,12 @@ namespace PotionBlues.Shop
                 // 4 = -0.6, 0.2, 0.2, 0.6 (-3/5, -1/5, 1/5, 3/5)
                 // 5 = -0.66, -0.33, 0, 0.33, 0.66 (-4/6, -2/6, 0, 2/6, 4/6)
                 // 6 = -5/7, -3/7, -1/7, 1/7, 3/7, 5/7
-                var counterSize = _box.size.y / 2.0f * (CounterSlots - 1.0f) / (CounterSlots + 1.0f);
+                var counterSize = _box.size.y / 2.0f * (counterSlots - 1.0f) / (counterSlots + 1.0f);
                 var boxOffset = Vector3.up * counterSize;
                 newSlot.transform.localPosition = Vector3.Lerp(
                     boxOffset,
                     -boxOffset,
-                    i / (CounterSlots - 1f)
+                    i / (counterSlots - 1f)
                 );
                 newSlot.name = $"Counter Slot #{i + 1}";
                 _slots.Add(newSlot);
@@ -92,15 +89,16 @@ namespace PotionBlues.Shop
             var potionType = evt.Potion;
             var existingSlots = _slots.Where(slot => slot.PotionType == potionType);
             var openSlots = _slots.Where(slot => slot.PotionType == null);
+            var slotCapacity = Attributes.TryGet("Counter Capacity");
 
             if (existingSlots.Count() > 0)
             {
                 var slot = existingSlots.First();
-                if (slot.Potions.Count < SlotCapacity)
+                if (slot.Potions.Count < slotCapacity)
                 {
                     // BUG - need to add it more than once if brewing output > 1
-                    slot.Potions.Enqueue(evt.Attributes);
-                    Debug.Log($"Adding {evt.Potion.name} to existing queue");
+                    slot.Potions.Enqueue(evt.Attributes.Stack(Attributes));
+                    // Debug.Log($"Adding {evt.Potion.name} to existing queue");
                 } else
                 {
                     Debug.LogError("Unable to store potion that is beyond slot capacity, deleting it. FIXME");
@@ -110,8 +108,8 @@ namespace PotionBlues.Shop
             {
                 var slot = openSlots.First();
                 slot.PotionType = evt.Potion;
-                slot.Potions.Enqueue(evt.Attributes);
-                Debug.Log($"Creating new queue for {evt.Potion.name}");
+                slot.Potions.Enqueue(evt.Attributes.Stack(Attributes));
+                // Debug.Log($"Creating new queue for {evt.Potion.name}");
             }
             else
             {

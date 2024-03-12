@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using PotionBlues.Definitions;
+using System.Collections.Generic;
 
 namespace PotionBlues.Shop
 {
@@ -9,9 +10,7 @@ namespace PotionBlues.Shop
         public float WalkSpeed = 2;
         public PotionDefinition DesiredPotion;
 
-        public float CustomerPatience;
-        public float CustomerTipping;
-        public float ReputationBonus;
+        public List<ShopAttributeValue> Attributes;
 
         private float _walkSpeed;
         private PotionScript _potion;
@@ -41,17 +40,21 @@ namespace PotionBlues.Shop
 
             transform.position += Vector3.right * _walkSpeed * Time.deltaTime;
 
+            var customerPatience = Attributes.TryGet("Customer Patience");
+
             if (Mathf.Abs(_walkSpeed) < 0.01f)
             {
-                CustomerPatience -= Time.deltaTime;
+                customerPatience -= Time.deltaTime;
             }
 
-            if (CustomerPatience < 0 || _potion != null)
+            if (customerPatience < 0 || _potion != null)
             {
                 _walkSpeed = -WalkSpeed;
                 var xdir = _walkSpeed >= 0 ? 1 : -1;
                 transform.localScale = new Vector3(xdir, 1, 1);
             }
+
+            Attributes.Set("Customer Patience", customerPatience);
         }
 
         void Refresh()
@@ -67,7 +70,7 @@ namespace PotionBlues.Shop
                 StartCoroutine(StopWalking());
             }
 
-            if (other.gameObject.GetComponent<DoorScript>() != null && CustomerPatience <= 0.01f)
+            if (other.gameObject.GetComponent<DoorScript>() != null && Attributes.TryGet("Customer Patience") <= 0.01f)
             {
                 Destroy(gameObject);
             }

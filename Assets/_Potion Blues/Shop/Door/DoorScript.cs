@@ -11,10 +11,11 @@ namespace PotionBlues.Shop
 {
     public class DoorScript : ShopObjectScript
     {
-        [BoxGroup("Instance")] public float CustomerFrequency;
-        [BoxGroup("Instance")] public float CustomerPatience;
-        [BoxGroup("Instance")] public float CustomerTipping;
-        [BoxGroup("Instance")] public float ReputationBonus;
+        //[BoxGroup("Instance")] public float CustomerFrequency;
+        //[BoxGroup("Instance")] public float CustomerPatience;
+        //[BoxGroup("Instance")] public float CustomerTipping;
+        //[BoxGroup("Instance")] public float ReputationBonus;
+        [BoxGroup("Instance")] public List<ShopAttributeValue> Attributes;
 
         [BoxGroup("Customers")] public CustomerScript CustomerPrefab;
         [BoxGroup("Customers")] public BoxCollider2D DoorBox;
@@ -57,18 +58,16 @@ namespace PotionBlues.Shop
 
         void OnDoorEvent(ref DoorEvent evt, IEventNode target, IEventNode source)
         {
-            CustomerFrequency = evt.Attributes.Find(a => a.Attribute.name == "Customer Frequency").Value;
-            CustomerPatience = evt.Attributes.Find(a => a.Attribute.name == "Customer Patience").Value;
-            CustomerTipping = evt.Attributes.Find(a => a.Attribute.name == "Customer Tipping").Value;
-            ReputationBonus = evt.Attributes.Find(a => a.Attribute.name == "Reputation Bonus").Value;
+            Attributes = evt.Attributes;
 
             switch (evt.Type)
             {
                 case DoorEventType.Spawn:
+                    _nextCustomer = 3 * (1 / Attributes.TryGet("Customer Frequency"));
                     break;
                 case DoorEventType.CustomerArrive:
                     SpawnCustomer();
-                    _nextCustomer = 1 / CustomerFrequency;
+                    _nextCustomer = 1 / Attributes.TryGet("Customer Frequency");
                     break;
                 case DoorEventType.CustomerLeave:
                     DespawnCustomer();
@@ -93,9 +92,7 @@ namespace PotionBlues.Shop
             var customer = Instantiate(CustomerPrefab, transform);
             var offsety = (PotionBlues.I().RNG.NextFloat() - 0.5f) * DoorBox.size.y / 2;
             customer.transform.position += new Vector2(DoorBox.offset.x, offsety).xy0();
-            customer.CustomerPatience = CustomerPatience;
-            customer.CustomerTipping = CustomerTipping;
-            customer.ReputationBonus = ReputationBonus;
+            customer.Attributes = Attributes;
         }
 
         private void DespawnCustomer()
