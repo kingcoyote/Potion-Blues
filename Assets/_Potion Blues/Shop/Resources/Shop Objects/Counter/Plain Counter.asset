@@ -21,7 +21,4 @@ MonoBehaviour:
   - Attribute: {fileID: 11400000, guid: 8c937e7db7100cc4ab94329358a8d288, type: 2}
     Value: 10
   - Attribute: {fileID: 11400000, guid: f7c17693df20d6b49a389f3124d7a72d, type: 2}
-    Value: 1
-  _counterSlots: 3
-  _slotCapacity: 10
-  _shelfLife: 1
+    Value: 15
