@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _reference: Ingredients/Thickener
   _description: Thickens a potion slightly, increasing brewing time but with a chance
-    to make a double potion.
+    to make a extra potions.
   _priority: 0
   _icon: {fileID: 0}
   _picture: {fileID: 0}

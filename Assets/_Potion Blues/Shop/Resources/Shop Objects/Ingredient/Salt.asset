@@ -25,9 +25,5 @@ MonoBehaviour:
   - Attribute: {fileID: 11400000, guid: 550835376ed23834a939802c6be6b8a4, type: 2}
     Value: 2
   - Attribute: {fileID: 11400000, guid: e3f86a4487b2b734b9f36331cb13a442, type: 2}
-    Value: 20
-  _cost: 1
-  _salvage: 0.5
-  _cooldown: 2
-  _quantity: 20
+    Value: 1000
   _ingredient: {fileID: -1294993409, guid: 0e24e3e45a35f2c438179cc75faf14bd, type: 3}
