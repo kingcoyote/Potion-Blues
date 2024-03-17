@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _category: {fileID: 11400000, guid: d883f871c46bf514f9a9718bf32a70e2, type: 2}
   _description: Fancy cauldron that brews potions faster
-  _sprite: {fileID: 21300000, guid: 5fc72f8c9e5fa1b4ab6f59b0020fae5d, type: 3}
+  _sprite: {fileID: 21300000, guid: a42cdb8328d207a4f98e29d3d173fbb9, type: 3}
   _attributes:
   - Attribute: {fileID: 11400000, guid: 725edc994e4991b4080fba3b221f2a89, type: 2}
     Value: 2.5

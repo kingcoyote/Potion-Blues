@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _category: {fileID: 11400000, guid: 05d2200174cb15b4aa4a05f939dda5f9, type: 2}
   _description: Plain counter that can display 3 potions
-  _sprite: {fileID: 21300000, guid: 6c56ea5da29276346a6a963372827003, type: 3}
+  _sprite: {fileID: 21300000, guid: 15f05264af41d3345a5590500e07e9d3, type: 3}
   _attributes:
   - Attribute: {fileID: 11400000, guid: 5e83120dca6129149a6eb0a3cef1633e, type: 2}
     Value: 3
