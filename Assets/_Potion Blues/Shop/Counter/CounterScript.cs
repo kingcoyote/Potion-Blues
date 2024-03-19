@@ -117,9 +117,15 @@ namespace PotionBlues.Shop
 
             var output = evt.Attributes.TryGet("Brewing Output");
             var quantity = PotionBlues.I().RNG.NextFloat() < (output % 1) ? Mathf.Floor(output) : Mathf.Ceil(output);
+            var potion = evt.Attributes
+                .Stack(Attributes)
+                .Stack(new List<ShopAttributeValue>() { 
+                    new ShopAttributeValue("Potion Value", potionType.Value) 
+                });
+
             for (var i = 0; i < quantity; i++)
             {
-                slot.Potions.Enqueue(new PotionData(potionType, evt.Attributes.Stack(Attributes)));
+                slot.Potions.Enqueue(new PotionData(potionType, potion));
             }
         }
     }

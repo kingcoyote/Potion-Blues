@@ -146,7 +146,10 @@ namespace PotionBlues.Shop {
             switch (evt.Type)
             {
                 case DoorEventType.CustomerLeave:
-                    Debug.Log(evt.Potion.Attributes.ToString());
+                    if (evt.Potion != null)
+                    {
+                        PotionBlues.I().GameData.ActiveRun.Gold += (int)(evt.Potion.Attributes.TryGet("Potion Value"));
+                    }
                     break;
             }
         }
