@@ -142,6 +142,13 @@ namespace PotionBlues.Shop {
         public void OnDoorEvent(ref DoorEvent evt, IEventNode target, IEventNode source)
         {
             evt.Attributes = AdjustAttributes(evt.Attributes);
+
+            switch (evt.Type)
+            {
+                case DoorEventType.CustomerLeave:
+                    Debug.Log(evt.Potion.Attributes.ToString());
+                    break;
+            }
         }
 
         public void OnCounterEvent(ref CounterEvent evt, IEventNode target, IEventNode source)

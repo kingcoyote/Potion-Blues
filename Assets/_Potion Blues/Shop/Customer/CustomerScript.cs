@@ -3,6 +3,7 @@ using System.Collections;
 using PotionBlues.Definitions;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using PotionBlues.Events;
 
 namespace PotionBlues.Shop
 {
@@ -10,6 +11,8 @@ namespace PotionBlues.Shop
     {
         public float WalkSpeed = 2;
         public PotionDefinition DesiredPotion;
+        public bool NeedsPotion => _potion == null;
+        public bool IsWaiting => Mathf.Abs(_walkSpeed) <= 0.01f;
 
         public List<ShopAttributeValue> Attributes;
 
@@ -73,8 +76,23 @@ namespace PotionBlues.Shop
                 StartCoroutine(StopWalking());
             }
 
-            if (other.gameObject.GetComponent<DoorScript>() != null && Attributes.TryGet("Customer Patience") <= 0.01f)
+            var isReadyToLeave = Attributes.TryGet("Customer Patience") <= 0.01f || _potion != null;
+
+            if (other.gameObject.GetComponent<DoorScript>() != null && isReadyToLeave)
             {
+                DoorEvent evt;
+
+                if (_potion == null)
+                {
+                    evt = new DoorEvent(DoorEventType.CustomerLeave, Attributes);
+                } else {
+                    evt = new DoorEvent(DoorEventType.CustomerLeave, Attributes)
+                    {
+                        Potion = _potion
+                    };
+                }
+
+                PotionBlues.I().EventBus.Raise(evt);
                 Destroy(gameObject);
             }
         }
