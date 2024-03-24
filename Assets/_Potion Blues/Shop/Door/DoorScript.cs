@@ -59,7 +59,7 @@ namespace PotionBlues.Shop
             switch (evt.Type)
             {
                 case DoorEventType.Spawn:
-                    _nextCustomer = 3 * (1 / Attributes.TryGet("Customer Frequency"));
+                    _nextCustomer = (1 / Attributes.TryGet("Customer Frequency"));
                     break;
                 case DoorEventType.CustomerArrive:
                     SpawnCustomer();

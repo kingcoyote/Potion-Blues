@@ -35,6 +35,8 @@ namespace PotionBlues.Shop
             renderer.SetPropertyBlock(matProps);
 
             _icon.sprite = DesiredPotion.Potion;
+            // scale desired potion icon to be 64px high, while still maintaing correct aspect ratio
+            _icon.GetComponent<RectTransform>().sizeDelta = DesiredPotion.Potion.textureRect.size * (64 / DesiredPotion.Potion.textureRect.size.y);
 
             Refresh();
         }

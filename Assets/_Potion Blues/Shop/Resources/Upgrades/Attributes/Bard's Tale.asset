@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Bard's Tale
   m_EditorClassIdentifier: 
   _reference: Attributes/Bard's Tale
-  _description: A bard is singing your praises at the local tavern.
+  _description: A bard is singing your praises at the local tavern, increasing customer
+    frequency.
   _priority: 0
   _icon: {fileID: 0}
   _picture: {fileID: 0}
-  _reputationCost: 10
+  _reputationCost: 150
   _goldCost: 250
   _rarity: {fileID: 11400000, guid: 30a4bb62aaeac744ba437380b9434f85, type: 2}
   _unique: 0
