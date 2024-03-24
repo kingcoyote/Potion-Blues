@@ -160,6 +160,13 @@ namespace PotionBlues.Shop
                 Destroy(Potion.gameObject);
                 Potion = Instantiate(_potionPrefab, transform);
                 _bus.Raise(new CauldronEvent(CauldronEventType.BrewFailed, Potion.Attributes));
+
+                if (RemainingPotions <= 0)
+                {
+                    _sprite.sprite = Cauldron.Dirty;
+                    State = CauldronState.Dirty;
+                    return;
+                }
             }
 
             quantity = quantity % 1 < rng.NextFloat() ? Mathf.Floor(quantity) : Mathf.Ceil(quantity);

@@ -117,14 +117,16 @@ namespace PotionBlues.Shop
 
             var output = evt.Attributes.TryGet("Brewing Output");
             var quantity = PotionBlues.I().RNG.NextFloat() < (output % 1) ? Mathf.Floor(output) : Mathf.Ceil(output);
-            var potion = evt.Attributes
-                .Stack(Attributes)
-                .Stack(new List<ShopAttributeValue>() { 
-                    new ShopAttributeValue("Potion Value", potionType.Value) 
-                });
 
             for (var i = 0; i < quantity; i++)
             {
+                // make the potion inside the loop, otherwise we end up sharing references to things like Shelf Life
+                var potion = evt.Attributes
+                    .Stack(Attributes)
+                    .Stack(new List<ShopAttributeValue>() {
+                        new ShopAttributeValue("Potion Value", potionType.Value)
+                    });
+
                 slot.Potions.Enqueue(new PotionData(potionType, potion));
             }
         }

@@ -43,6 +43,12 @@ namespace PotionBlues.Shop
         {
             if (_bus != null)
                 _bus.UnsubscribeFromTarget<IngredientEvent>(this, OnIngredientEvent);
+            
+            if (_input != null)
+            {
+                _input.actions["Select"].performed -= OnSelect;
+                _input.actions["Select"].canceled -= OnDeselect;
+            }
         }
 
         // Update is called once per frame
