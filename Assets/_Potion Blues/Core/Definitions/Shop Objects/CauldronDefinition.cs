@@ -8,7 +8,11 @@ namespace PotionBlues.Definitions
     public class CauldronDefinition : ShopObjectDefinition
     {
         public Sprite Fill => _fill;
+        public Sprite Dirty => _dirty;
 
-        [SerializeField, BoxGroup("Cauldron"), Tooltip("Sprite used to show when the cauldron has liquid in it")] private Sprite _fill;
+        [SerializeField, BoxGroup("Cauldron"), Tooltip("Sprite used to show when the cauldron has liquid in it"), PreviewField] 
+        private Sprite _fill;
+        [SerializeField, BoxGroup("Cauldron"), Tooltip("Sprite used to show when the cauldron is dirty"), PreviewField] 
+        private Sprite _dirty;
     }
 }

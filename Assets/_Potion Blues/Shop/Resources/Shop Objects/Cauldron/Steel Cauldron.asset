@@ -24,4 +24,7 @@ MonoBehaviour:
     Value: 5
   - Attribute: {fileID: 11400000, guid: 8c7f81536a8a8d348949f04f3fc6178d, type: 2}
     Value: 0.1
+  - Attribute: {fileID: 11400000, guid: b9cefe63802ef704a8e54dbc84435763, type: 2}
+    Value: 3.5
   _fill: {fileID: 21300000, guid: dd3aa90ad78f6344683ec1773b040abe, type: 3}
+  _dirty: {fileID: 21300000, guid: d2ddba9d168bec54b8e86e24f9e902c5, type: 3}
