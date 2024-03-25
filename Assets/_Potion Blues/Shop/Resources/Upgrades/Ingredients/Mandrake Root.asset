@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Mandrake Root
   m_EditorClassIdentifier: 
   _reference: Ingredients/Mandrake Root
-  _description: 
+  _description: Special ingredient used to brew potions of health.
   _priority: 0
   _icon: {fileID: 0}
   _picture: {fileID: 0}
   _reputationCost: 0
-  _goldCost: 0
+  _goldCost: 75
   _rarity: {fileID: 11400000, guid: f12e1783d403e1848a6ca6151ee870f5, type: 2}
   _unique: 0
   _shopObject: {fileID: 11400000, guid: 85f3dd42d48fa9c4d88f6c9f9ff22a4c, type: 2}

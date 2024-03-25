@@ -1,12 +1,9 @@
 using GenericEventBus;
 using Lean.Gui;
-using PotionBlues;
 using PotionBlues.Definitions;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 namespace PotionBlues.Shop {

@@ -7,7 +7,7 @@ namespace PotionBlues.Events
     {
         public List<ShopAttributeValue> Attributes;
         public DoorEventType Type;
-        public PotionDefinition Potion;
+        public PotionData Potion;
 
         public DoorEvent(DoorEventType type, List<ShopAttributeValue> attributes)
         {

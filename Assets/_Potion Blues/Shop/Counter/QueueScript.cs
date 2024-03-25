@@ -37,7 +37,7 @@ namespace PotionBlues.Shop
         public void OnTriggerStay2D(Collider2D collision)
         {
             var customer = collision.gameObject.GetComponent<CustomerScript>();
-            if (customer != null)
+            if (customer != null && customer.NeedsPotion && customer.IsWaiting)
             {
                 ServeCustomer(customer);
             }

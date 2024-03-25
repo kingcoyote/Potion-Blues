@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Plain Door
   m_EditorClassIdentifier: 
   _reference: Door/Plain Door
-  _description: 
+  _description: Simple, unassuming door.
   _priority: 0
   _icon: {fileID: 0}
   _picture: {fileID: 0}
   _reputationCost: 0
-  _goldCost: 0
+  _goldCost: 100
   _rarity: {fileID: 11400000, guid: 0cba053ab5edf3044acd2c249d0ec899, type: 2}
   _unique: 0
   _shopObject: {fileID: 11400000, guid: bfb86b04dd1289b47b254f0415538ce5, type: 2}

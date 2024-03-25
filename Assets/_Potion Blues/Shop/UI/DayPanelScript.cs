@@ -16,6 +16,7 @@ namespace PotionBlues.Shop {
 
         [SerializeField] private TextMeshProUGUI _dayNumber;
         [SerializeField] private TextMeshProUGUI _gold;
+        [SerializeField] private TextMeshProUGUI _reputation;
 
         private GenericEventBus<IEvent, IEventNode> _bus;
 
@@ -42,6 +43,7 @@ namespace PotionBlues.Shop {
             _dayProgress.value = _scene.DayTimeRemaining;
             _dayNumber.text = $"Day {_scene.PotionBlues.GameData.ActiveRun.Day}";
             _gold.text = $"{_scene.PotionBlues.GameData.ActiveRun.Gold}g";
+            _reputation.text = $"{_scene.PotionBlues.GameData.ActiveRun.Reputation} rep";
         }
     }
 }

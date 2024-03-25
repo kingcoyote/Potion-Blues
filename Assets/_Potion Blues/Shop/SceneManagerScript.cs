@@ -102,6 +102,13 @@ namespace PotionBlues.Shop {
             _bus.Raise(new RunEvent(RunEventType.DayStarted));
         }
 
+        public void AbandonRun()
+        {
+            _pb.GameData.ActiveRun = null;
+            _topMenu.TurnOn();
+            _bus.Raise(new RunEvent(RunEventType.Ended));
+        }
+
         public void EndDay()
         {
             _bus.Raise(new RunEvent(RunEventType.DayPreview));
@@ -142,6 +149,20 @@ namespace PotionBlues.Shop {
         public void OnDoorEvent(ref DoorEvent evt, IEventNode target, IEventNode source)
         {
             evt.Attributes = AdjustAttributes(evt.Attributes);
+
+            switch (evt.Type)
+            {
+                case DoorEventType.CustomerLeave:
+                    if (evt.Potion != null)
+                    {
+                        PotionBlues.I().GameData.ActiveRun.Gold += (int)(evt.Potion.Attributes.TryGet("Potion Value"));
+                        PotionBlues.I().GameData.ActiveRun.Reputation += (int)(evt.Attributes.TryGet("Reputation Bonus"));
+                    } else
+                    {
+                        PotionBlues.I().GameData.ActiveRun.Reputation -= (int)(evt.Attributes.TryGet("Reputation Bonus"));
+                    }
+                    break;
+            }
         }
 
         public void OnCounterEvent(ref CounterEvent evt, IEventNode target, IEventNode source)
@@ -218,8 +239,11 @@ namespace PotionBlues.Shop {
                     Time.timeScale = 0;
                     _topMenu.TurnOn();
                     ClearShopObjects();
-                    _pb.GameData.RunHistory.Add(_pb.GameData.ActiveRun);
-                    _pb.GameData.ActiveRun = null;
+                    if (_pb.GameData.ActiveRun != null)
+                    {
+                        _pb.GameData.RunHistory.Add(_pb.GameData.ActiveRun);
+                        _pb.GameData.ActiveRun = null;
+                    }
                     break;
             }
         }

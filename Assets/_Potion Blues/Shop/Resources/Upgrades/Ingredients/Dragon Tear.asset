@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Dragon Tear
   m_EditorClassIdentifier: 
   _reference: Ingredients/Dragon Tear
-  _description: 
+  _description: Special ingredient used to brew potions of luck.
   _priority: 0
   _icon: {fileID: 0}
   _picture: {fileID: 0}
-  _reputationCost: 0
-  _goldCost: 0
+  _reputationCost: 50
+  _goldCost: 150
   _rarity: {fileID: 11400000, guid: 0cba053ab5edf3044acd2c249d0ec899, type: 2}
   _unique: 0
   _shopObject: {fileID: 11400000, guid: e7c939aa234903340b59c1de65cabcbb, type: 2}

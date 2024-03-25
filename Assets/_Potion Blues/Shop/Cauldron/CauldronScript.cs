@@ -1,29 +1,33 @@
-﻿using PotionBlues.Events;
-using Sirenix.OdinInspector;
+﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
-using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using Sirenix.OdinInspector;
 using VectorSwizzling;
-using System;
+using PotionBlues.Events;
 using PotionBlues.Definitions;
 
 namespace PotionBlues.Shop
 {
     public class CauldronScript : ShopObjectScript
     {
+        public CauldronDefinition Cauldron => (CauldronDefinition)Definition;
+
         [BoxGroup("Instance")] public List<ShopAttributeValue> Attributes;
 
-        [BoxGroup("Potion")] public PotionScript Potion;
-        [BoxGroup("Potion")] public PotionScript PotionPrefab;
+        [BoxGroup("State")] public PotionScript Potion;
+        [BoxGroup("State")] public int RemainingPotions;
+        [BoxGroup("State")] public float BrewTime;
+        [BoxGroup("State")] public CauldronState State;
 
-        public int RemainingPotions;
-        public float BrewTime;
-
-        [SerializeField] public SpriteRenderer _fill;
-        [SerializeField] public ParticleSystem _bubbles;
+        [BoxGroup("Prefab"), SerializeField] private PotionScript _potionPrefab;
+        [BoxGroup("Prefab"), SerializeField] private BoxCollider2D _box;
+        [BoxGroup("Prefab"), SerializeField] private SpriteRenderer _fill;
+        [BoxGroup("Prefab"), SerializeField] private SpriteRenderer _sprite;
+        [BoxGroup("Prefab/Effects"), SerializeField] private ParticleSystem _brewing;
+        [BoxGroup("Prefab/Effects"), SerializeField] private ParticleSystem _cleaning;
 
         private PlayerInput _input;
-        private BoxCollider2D _box;
 
         // Use this for initialization
         new public void Start()
@@ -36,10 +40,7 @@ namespace PotionBlues.Shop
             _input = GameObject.Find("Player").GetComponent<PlayerInput>();
             _input.actions["Select"].performed += OnSelect;
 
-            _box = GetComponent<BoxCollider2D>();
-
-            var sprite = GetComponent<SpriteRenderer>().sprite;
-            var fillOffset = (sprite.textureRect.height / sprite.pixelsPerUnit) / 2;
+            var fillOffset = (_sprite.sprite.textureRect.height / _sprite.sprite.pixelsPerUnit) / 2;
             _fill.sprite = ((CauldronDefinition)Definition).Fill;
             _fill.transform.localPosition = Vector3.up * fillOffset;
             _fill.enabled = false;
@@ -58,20 +59,40 @@ namespace PotionBlues.Shop
 
         public void OnSelect(InputAction.CallbackContext _context)
         {
-            if (Potion == null) return;
             var cursor = Camera.main.ScreenToWorldPoint(_input.actions["Cursor"].ReadValue<Vector2>()).xy();
-            if (_box.bounds.Contains(cursor))
+            if (_box.bounds.Contains(cursor) == false) return;
+            
+            switch (State)
             {
-                switch (Potion.State)
-                {
-                    case PotionScript.PotionState.Mixed:
-                        StartBrewing();
-                        break;
-                    case PotionScript.PotionState.Ready:
-                        _bus.Raise(new CauldronEvent(CauldronEventType.PotionRemove, Potion.Attributes), this, this);
-                        break;
-                }
+                case CauldronState.Dirty:
+                    StartCoroutine(CleanCauldron());
+                    break;
+                case CauldronState.Ready:
+                    if (Potion == null) return;
+                    switch (Potion.State)
+                    {
+                        case PotionScript.PotionState.Mixed:
+                            StartBrewing();
+                            break;
+                        case PotionScript.PotionState.Ready:
+                            _bus.Raise(new CauldronEvent(CauldronEventType.PotionRemove, Potion.Attributes), this, this);
+                            break;
+                    }
+                    break;
             }
+        }
+
+        private IEnumerator CleanCauldron()
+        {
+            var cleaningTime = Attributes.TryGet("Cleaning Time");
+            var bubbleProperties = _cleaning.main;
+            bubbleProperties.duration = cleaningTime;
+            _cleaning.Play();
+            State = CauldronState.Cleaning;
+            yield return new WaitForSeconds(cleaningTime);
+            State = CauldronState.Ready;
+            _sprite.sprite = Cauldron.Sprite;
+            RemainingPotions = (int)Attributes.TryGet("Cleaning Interval");
         }
 
         private void SpawnPotion()
@@ -80,6 +101,13 @@ namespace PotionBlues.Shop
             Potion.Select();
             Potion.Show();
             Potion = null;
+
+            if (RemainingPotions <= 0)
+            {
+                _sprite.sprite = Cauldron.Dirty;
+                State = CauldronState.Dirty;
+                return;
+            }
         }
 
         // Update is called once per frame
@@ -109,10 +137,10 @@ namespace PotionBlues.Shop
             Potion.Attributes = Potion.Attributes.Stack(Attributes);
             Potion.State = PotionScript.PotionState.Brewing;
             BrewTime = Potion.Attributes.TryGet("Brewing Time");
-            var bubbleProperties = _bubbles.main;
+            var bubbleProperties = _brewing.main;
             bubbleProperties.duration = BrewTime;
             // bubbleProperties.startColor = Potion.Definition.Color;
-            _bubbles.Play();
+            _brewing.Play();
             // if potion is ready to be brewed
         }
 
@@ -130,8 +158,15 @@ namespace PotionBlues.Shop
             {
                 Debug.Log("Potion failed. Starting over");
                 Destroy(Potion.gameObject);
-                Potion = Instantiate(PotionPrefab, transform);
+                Potion = Instantiate(_potionPrefab, transform);
                 _bus.Raise(new CauldronEvent(CauldronEventType.BrewFailed, Potion.Attributes));
+
+                if (RemainingPotions <= 0)
+                {
+                    _sprite.sprite = Cauldron.Dirty;
+                    State = CauldronState.Dirty;
+                    return;
+                }
             }
 
             quantity = quantity % 1 < rng.NextFloat() ? Mathf.Floor(quantity) : Mathf.Ceil(quantity);
@@ -155,13 +190,14 @@ namespace PotionBlues.Shop
 
                     if (Potion == null)
                     {
-                        Potion = Instantiate(PotionPrefab, transform);
+                        Potion = Instantiate(_potionPrefab, transform);
                         Potion.Cauldron = this;
                     }
 
                     if (Potion.AddIngredient(evt.Ingredient))
                     {
                         Potion.Attributes = Potion.Attributes.Stack(evt.Attributes);
+                        State = Potion.State == PotionScript.PotionState.Mixed ? CauldronState.Ready : CauldronState.Empty;
                         evt.Accepted = true;
                     } else
                     {
@@ -177,5 +213,14 @@ namespace PotionBlues.Shop
                     break;
             }
         }
+    }
+
+    public enum CauldronState
+    {
+        Empty,
+        Ready,
+        Brewing,
+        Dirty,
+        Cleaning
     }
 }

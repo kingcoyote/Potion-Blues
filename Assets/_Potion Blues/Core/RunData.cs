@@ -73,6 +73,7 @@ namespace PotionBlues
             var pb = PotionBlues.I();
 
             var primaryIngredients = GetShopUpgrades(pb.ShopObjectCategories["Ingredient"])
+                .Where(card => card.IsSelected)
                 .Select(card => ((ShopObjectUpgradeCardDefinition)card.Card).ShopObject)
                 .Select(card => (IngredientDefinition)card)
                 .Where(ingredient => ingredient.Type == IngredientDefinition.IngredientType.Primary)

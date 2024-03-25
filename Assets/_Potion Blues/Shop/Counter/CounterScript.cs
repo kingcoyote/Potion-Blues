@@ -89,35 +89,45 @@ namespace PotionBlues.Shop
             var potionType = evt.Potion;
             var existingSlots = Slots.Where(slot => slot.PotionType == potionType);
             var openSlots = Slots.Where(slot => slot.PotionType == null);
-            var slotCapacity = Attributes.TryGet("Counter Capacity");
+
+            CounterSlotScript slot = null;
 
             if (existingSlots.Count() > 0)
             {
-                var slot = existingSlots.First();
-                if (slot.Potions.Count < slotCapacity)
-                {
-                    var output = evt.Attributes.TryGet("Brewing Output");
-                    var quantity = PotionBlues.I().RNG.NextFloat() < (output % 1) ? Mathf.Floor(output) : Mathf.Ceil(output);
-                    for (var i = 0; i < quantity; i++)
-                    {
-                        slot.Potions.Enqueue(new PotionData(potionType, evt.Attributes.Stack(Attributes)));
-                    }
-                    // Debug.Log($"Adding {evt.Potion.name} to existing queue");
-                } else
-                {
-                    Debug.LogError("Unable to store potion that is beyond slot capacity, deleting it. FIXME");
-                }
-            }
+                slot = existingSlots.First();
+            } 
             else if (openSlots.Count() > 0)
             {
-                var slot = openSlots.First();
+                slot = openSlots.First();
                 slot.PotionType = evt.Potion;
-                slot.Potions.Enqueue(new PotionData(potionType, evt.Attributes.Stack(Attributes)));
+                
                 // Debug.Log($"Creating new queue for {evt.Potion.name}");
             }
-            else
+
+            if (slot == null)
             {
                 Debug.LogError("Unable to store potion that doesn't have a free slot, deleting it. FIXME");
+            }
+
+            var slotCapacity = Attributes.TryGet("Counter Capacity");
+            if (slot.Potions.Count > slotCapacity)
+            {
+                Debug.LogError("Unable to store potion that is beyond slot capacity, deleting it. FIXME");
+            }
+
+            var output = evt.Attributes.TryGet("Brewing Output");
+            var quantity = PotionBlues.I().RNG.NextFloat() < (output % 1) ? Mathf.Floor(output) : Mathf.Ceil(output);
+
+            for (var i = 0; i < quantity; i++)
+            {
+                // make the potion inside the loop, otherwise we end up sharing references to things like Shelf Life
+                var potion = evt.Attributes
+                    .Stack(Attributes)
+                    .Stack(new List<ShopAttributeValue>() {
+                        new ShopAttributeValue("Potion Value", potionType.Value)
+                    });
+
+                slot.Potions.Enqueue(new PotionData(potionType, potion));
             }
         }
     }
