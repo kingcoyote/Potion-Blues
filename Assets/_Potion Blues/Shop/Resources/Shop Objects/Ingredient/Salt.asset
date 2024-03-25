@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _category: {fileID: 11400000, guid: 70d9bec40e588fd46afbb7b3406d5a70, type: 2}
   _description: Preservative increases potion shelf life by 25%
-  _sprite: {fileID: 21300000, guid: 1bbc3086c75a60e479e647e0712a771a, type: 3}
+  _sprite: {fileID: 21300000, guid: 8cffcc98429c8d240b400dc0816c6f59, type: 3}
   _attributes:
   - Attribute: {fileID: 11400000, guid: f7c17693df20d6b49a389f3124d7a72d, type: 2}
     Value: 1.25
@@ -26,4 +26,4 @@ MonoBehaviour:
     Value: 2
   - Attribute: {fileID: 11400000, guid: e3f86a4487b2b734b9f36331cb13a442, type: 2}
     Value: 1000
-  _ingredient: {fileID: -1294993409, guid: 0e24e3e45a35f2c438179cc75faf14bd, type: 3}
+  _ingredient: {fileID: 21300000, guid: 44bcb402bd326754da6c26ce56e6cd7e, type: 3}
