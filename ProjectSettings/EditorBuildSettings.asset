@@ -5,8 +5,8 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/_Potion Blues/Shop/Shop.unity
+    guid: 2ea93b52a1174fb4f9a9a265f114bb05
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1ab61dde454192f4da1fb80c24abf198, type: 2}

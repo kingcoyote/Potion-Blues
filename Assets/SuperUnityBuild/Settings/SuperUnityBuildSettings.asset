@@ -1,45 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8420321826938944615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2786f6b2301a94f4288672ff5305244c, type: 3}
-  m_Name: PC
-  m_EditorClassIdentifier: 
-  enabled: 1
-  distributionList:
-    distributions: []
-  architectures:
-  - target: 5
-    name: Windows x86
-    enabled: 1
-    binaryNameFormat: '{0}.exe'
-  - target: 19
-    name: Windows x64
-    enabled: 0
-    binaryNameFormat: '{0}.exe'
-  variants:
-  - variantName: Build Output
-    selectedIndex: 0
-    values:
-    - App
-    - Visual Studio Solution
-    isFlag: 0
-  scriptingBackends:
-  - scriptingImplementation: 0
-    name: Mono
-    enabled: 1
-  - scriptingImplementation: 1
-    name: IL2CPP
-    enabled: 0
-  platformName: PC
-  targetGroup: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,8 +18,8 @@ MonoBehaviour:
     openFolderPostBuild: 1
     constantsFileLocation: Assets\SuperUnityBuild
   _productParameters:
-    buildCounter: 2
-    buildVersion: 0.1.2
+    buildCounter: 4
+    buildVersion: 0.1.4
     versionTemplate: 0.1.$BUILD
     autoGenerate: 1
     syncWithPlayerSettings: 0
@@ -68,31 +28,31 @@ MonoBehaviour:
     - typeName: Standard
       bundleIdentifier: com.block16.potion-blues
       companyName: Block 16 Games
-      productName: Call Me Potion Blues
+      productName: Potion Blues
       syncAppNameWithProduct: 1
-      appBuildName: Call Me Potion Blues
+      appBuildName: Potion Blues
       buildOptions: 0
       customDefines: 
       sceneList:
         releaseScenes:
-        - fileGUID: bc8f049b98affdd45b12c277ae2d3687
+        - fileGUID: 2ea93b52a1174fb4f9a9a265f114bb05
           sceneActive: 1
   _platformList:
     platforms:
-    - {fileID: -8420321826938944615}
+    - {fileID: 5159576429345873867}
   _projectConfigurations:
     configSet:
-      _Buckets: 00000000ffffffffffffffffffffffff02000000ffffffff03000000
-      _HashCodes: 31237f1345a55f5f5f1e9b04a36f0e55000000000000000000000000
-      _Next: ffffffffffffffffffffffff01000000000000000000000000000000
+      _Buckets: 0200000000000000ffffffff01000000ffffffffffffffff03000000
+      _HashCodes: 66426a6da301036efba14315a36f0e55000000000000000000000000
+      _Next: ffffffffffffffffffffffffffffffff000000000000000000000000
       _Count: 4
       _Version: 4
       _FreeList: -1
       _FreeCount: 0
       _Keys:
-      - Standard/PC/Windows x86 (App)/Mono
-      - Standard/PC/Windows x86 (App)
-      - Standard/PC
+      - Standard/WebGL/WebGL/IL2CPP
+      - Standard/WebGL/WebGL
+      - Standard/WebGL
       - Standard
       - 
       - 
@@ -102,13 +62,13 @@ MonoBehaviour:
         childKeys: []
       - enabled: 1
         childKeys:
-        - Standard/PC/Windows x86 (App)/Mono
+        - Standard/WebGL/WebGL/IL2CPP
       - enabled: 1
         childKeys:
-        - Standard/PC/Windows x86 (App)
+        - Standard/WebGL/WebGL
       - enabled: 1
         childKeys:
-        - Standard/PC
+        - Standard/WebGL
       - enabled: 1
         childKeys: []
       - enabled: 1
@@ -127,6 +87,7 @@ MonoBehaviour:
     buildActions:
     - {fileID: 560305880882397444}
     - {fileID: 221259615018964726}
+    - {fileID: 2408513911706986407}
 --- !u!114 &221259615018964726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,11 +126,65 @@ MonoBehaviour:
   actionType: 1
   actionName: FolderOperation
   note: 
+  actionEnabled: 0
+  configureEditor: 0
+  filter:
+    condition: 0
+    clauses: []
+  inputPath: $BUILDPATH/Potion Blues_BurstDebugInformation_DoNotShip
+  outputPath: 
+  operation: 2
+--- !u!114 &2408513911706986407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d88f7d353534a4fbdeb11196057db7, type: 3}
+  m_Name: UploadItch
+  m_EditorClassIdentifier: 
+  actionType: 1
+  actionName: UploadItch
+  note: 
   actionEnabled: 1
   configureEditor: 0
   filter:
     condition: 0
     clauses: []
-  inputPath: $BUILDPATH/Call Me Potion Blues_BurstDebugInformation_DoNotShip
-  outputPath: 
-  operation: 2
+  pathToButlerExe: C:\Users\silve\AppData\Roaming\itch\broth\butler\versions\15.21.0\butler.exe
+  nameOfItchUser: block16games
+  nameOfItchGame: potion-blues
+  useGeneratedBuildVersion: 0
+  channelName: $PLATFORM-$ARCHITECTURE
+  showUploadProgress: 1
+  itchChannelOverride: 
+--- !u!114 &5159576429345873867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0acaf75cc66fc934ea46bf602fc7c245, type: 3}
+  m_Name: WebGL
+  m_EditorClassIdentifier: 
+  enabled: 1
+  distributionList:
+    distributions: []
+  architectures:
+  - target: 20
+    name: WebGL
+    enabled: 1
+    binaryNameFormat: '{0}'
+  variants: []
+  scriptingBackends:
+  - scriptingImplementation: 1
+    name: IL2CPP
+    enabled: 1
+  platformName: WebGL
+  targetGroup: 13
