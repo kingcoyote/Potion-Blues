@@ -15,7 +15,7 @@ MonoBehaviour:
   _category: {fileID: 11400000, guid: 70d9bec40e588fd46afbb7b3406d5a70, type: 2}
   _description: Thickens the potion slightly, increasing brewing time but with a
     chance to make a extra potions.
-  _sprite: {fileID: 21300000, guid: 8b290d4cbfa9dad4f98e159a8f2fccda, type: 3}
+  _sprite: {fileID: 21300000, guid: 7d76cdf47ba9f3c4196660f8364d7d55, type: 3}
   _attributes:
   - Attribute: {fileID: 11400000, guid: ddd0304b21a3e9341a80489156d60f69, type: 2}
     Value: 1
@@ -29,4 +29,4 @@ MonoBehaviour:
     Value: 1.25
   - Attribute: {fileID: 11400000, guid: 2c332c813f43fe541afba017f1672320, type: 2}
     Value: 1.25
-  _ingredient: {fileID: 804809362, guid: 438fcb3edc33e2e4991c71b19aa7967a, type: 3}
+  _ingredient: {fileID: 21300000, guid: 97b182f4661d24d43b161beaf8335696, type: 3}
