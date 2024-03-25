@@ -149,17 +149,26 @@ namespace PotionBlues.Shop {
         public void OnDoorEvent(ref DoorEvent evt, IEventNode target, IEventNode source)
         {
             evt.Attributes = AdjustAttributes(evt.Attributes);
+            var activeRun = PotionBlues.I().GameData.ActiveRun;
+            
 
             switch (evt.Type)
             {
                 case DoorEventType.CustomerLeave:
+                    var transaction = new CustomerTransaction(
+                        evt.Potion.Potion,
+                        evt.Potion.Attributes.TryGet("Potion Value"),
+                        evt.Attributes.TryGet("Reputation Bonus"),
+                        activeRun.Day);
+                    activeRun.CustomerTransactions.Add(transaction);
                     if (evt.Potion != null)
                     {
-                        PotionBlues.I().GameData.ActiveRun.Gold += (int)(evt.Potion.Attributes.TryGet("Potion Value"));
-                        PotionBlues.I().GameData.ActiveRun.Reputation += (int)(evt.Attributes.TryGet("Reputation Bonus"));
+                        activeRun.Gold += (int)transaction.Gold;
+                        activeRun.Reputation += (int)transaction.Reputation;
+                        
                     } else
                     {
-                        PotionBlues.I().GameData.ActiveRun.Reputation -= (int)(evt.Attributes.TryGet("Reputation Bonus"));
+                        activeRun.Reputation -= (int)transaction.Reputation;
                     }
                     break;
             }

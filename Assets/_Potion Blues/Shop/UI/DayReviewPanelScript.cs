@@ -1,8 +1,7 @@
 using GenericEventBus;
 using Lean.Gui;
-using PotionBlues;
-using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -39,8 +38,16 @@ namespace PotionBlues.Shop {
         // Update is called once per frame
         void Update()
         {
-            _title.text = $"Day {_scene.PotionBlues.GameData.ActiveRun.Day - 1} Complete";
-            _result.text = "Did stuff.\nClick Next Day";
+            var dayNumber = _scene.PotionBlues.GameData.ActiveRun.Day - 1;
+            _title.text = $"Day {dayNumber} Complete";
+            var result = new StringBuilder();
+            var customers = _scene.PotionBlues.GameData.ActiveRun.CustomerTransactions.Where(t => t.Day == dayNumber);
+            result.Append($"Total Customers: {customers.Count()}\n");
+            result.Append($" - Satisfied: {customers.Where(c => c.Potion != null).Count()}\n");
+            result.Append($" - Unsatisfied: {customers.Where(c => c.Potion == null).Count()}\n");
+            result.Append($"Gold: {customers.Select(c => c.Gold).Sum()}g\n");
+            result.Append($"Reputation: {customers.Select(c => c.Reputation).Sum()}\n");
+            _result.text = result.ToString();
         }
 
         void OnRunEvent(ref RunEvent evt)

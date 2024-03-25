@@ -17,6 +17,7 @@ namespace PotionBlues
         public int Reputation;
         public int Day;
         public int RunDuration;
+        public List<CustomerTransaction> CustomerTransactions = new();
 
         [NonSerialized]
         private List<PotionDefinition> PotionCache;
@@ -102,6 +103,23 @@ namespace PotionBlues
         public RunUpgradeCard(UpgradeCardDefinition card)
         {
             Card = card;
+        }
+    }
+
+    [Serializable]
+    public class CustomerTransaction
+    {
+        public PotionDefinition Potion;
+        public float Gold;
+        public float Reputation;
+        public int Day;
+
+        public CustomerTransaction(PotionDefinition potion, float gold, float reputation, int day)
+        {
+            Potion = potion;
+            Gold = gold;
+            Reputation = reputation;
+            Day = day;
         }
     }
 }
