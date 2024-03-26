@@ -20,5 +20,5 @@ MonoBehaviour:
   _reputationCost: 0
   _goldCost: 100
   _rarity: {fileID: 11400000, guid: 0cba053ab5edf3044acd2c249d0ec899, type: 2}
-  _unique: 0
+  _unique: 1
   _shopObject: {fileID: 11400000, guid: b0e6de1637a17304ea6fc8b55f1b6994, type: 2}

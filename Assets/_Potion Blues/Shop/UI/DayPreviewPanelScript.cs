@@ -17,6 +17,7 @@ namespace PotionBlues.Shop {
         [SerializeField, BoxGroup("Run Status")] private TextMeshProUGUI _dayNumber;
         [SerializeField, BoxGroup("Run Status")] private TextMeshProUGUI _gold;
         [SerializeField, BoxGroup("Run Status")] private TextMeshProUGUI _reputation;
+        [SerializeField, BoxGroup("Run Status")] private TextMeshProUGUI _reroll;
 
         [SerializeField, BoxGroup("Upgrade Panels")] private ShopUpgradeUIPanelScript _door;
         [SerializeField, BoxGroup("Upgrade Panels")] private ShopUpgradeUIPanelScript _counter;
@@ -61,6 +62,7 @@ namespace PotionBlues.Shop {
             _dayNumber.text = $"Day: {_scene.PotionBlues.GameData.ActiveRun.Day} / {_scene.PotionBlues.GameData.ActiveRun.RunDuration}";
             _gold.text = $"Gold: {(int)(_scene.PotionBlues.GameData.ActiveRun.Gold)}";
             _reputation.text = $"Rep: {(int)(_scene.PotionBlues.GameData.ActiveRun.Reputation)}";
+            _reroll.text = $"Reroll ({10 * (_scene.PotionBlues.GameData.ActiveRun.Rerolls + 1)}g)";
         }
 
         void RedrawUpgradePanels()

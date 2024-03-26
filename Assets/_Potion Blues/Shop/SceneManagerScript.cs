@@ -77,8 +77,6 @@ namespace PotionBlues.Shop {
                 _bus.Raise(new RunEvent(RunEventType.DayEnded));
                 Time.timeScale = 0;
             }
-
-            Debug.Log(PotionBlues.I().RNG.NextInt(2));
         }
 
         public void Play()
@@ -102,6 +100,27 @@ namespace PotionBlues.Shop {
             Time.timeScale = 1;
             DayTimeRemaining = DayLength;
             _bus.Raise(new RunEvent(RunEventType.DayStarted));
+        }
+
+        public void Reroll()
+        {
+            var rerollCost = 10 * _pb.GameData.ActiveRun.Rerolls + 1;
+            if (_pb.GameData.ActiveRun.Gold < rerollCost) return;
+
+            _pb.GameData.ActiveRun.Gold -= rerollCost;
+            _pb.GameData.ActiveRun.Rerolls += 1;
+            RefreshMerchantCards();
+            _dayPreviewPanel.Show();
+        }
+
+        private void RefreshMerchantCards()
+        {
+            _pb.GameData.ActiveRun.MerchantCards = _pb.GameData.Upgrades
+                .Except(_pb.GameData.ActiveRun.Upgrades.Where(card => card.Card.Unique == true).Select(card => card.Card))
+                .OrderBy(x => Guid.NewGuid())
+                .Take(5)
+                .Select(card => new RunUpgradeCard(card))
+                .ToList();
         }
 
         public void AbandonRun()
@@ -173,10 +192,10 @@ namespace PotionBlues.Shop {
                         var transaction = new CustomerTransaction(
                             null,
                             0,
-                            evt.Attributes.TryGet("Reputation Bonus"),
+                            -evt.Attributes.TryGet("Reputation Bonus"),
                             activeRun.Day);
                         activeRun.CustomerTransactions.Add(transaction);
-                        activeRun.Reputation -= transaction.Reputation;
+                        activeRun.Reputation += transaction.Reputation;
                     }
                     break;
             }
@@ -227,15 +246,11 @@ namespace PotionBlues.Shop {
                 case RunEventType.Created:
                 case RunEventType.DayPreview:
                     Time.timeScale = 0;
-                    _pb.GameData.ActiveRun.MerchantCards = _pb.GameData.Upgrades
-                       .Except(_pb.GameData.ActiveRun.Upgrades.Select(card => card.Card))
-                       .OrderBy(x => Guid.NewGuid())
-                       .Take(5)
-                       .Select(card => new RunUpgradeCard(card))
-                       .ToList();
+                    RefreshMerchantCards();
                     _dayPreviewPanel.Show();
                     break;
                 case RunEventType.DayStarted:
+                    _pb.GameData.ActiveRun.InvalidatePotionCache();
                     _dayPanel.TurnOn();
                     break;
                 case RunEventType.DayEnded:
@@ -278,6 +293,28 @@ namespace PotionBlues.Shop {
                     }
                     _pb.GameData.ActiveRun.Gold -= upgrade.GoldCost;
                     var upgradeCard = new RunUpgradeCard(upgrade);
+
+                    // if this is a shop object upgrade card, try to intelligently turn it on if possible
+                    if (upgrade.GetType() == typeof(ShopObjectUpgradeCardDefinition))
+                    {
+                        var shopObjectUpgrade = (ShopObjectUpgradeCardDefinition)upgrade;
+                        var siblingObjects = _pb.GameData.ActiveRun.Upgrades
+                            .Where(card => card.Card.GetType() == typeof(ShopObjectUpgradeCardDefinition))
+                            .Where(card => ((ShopObjectUpgradeCardDefinition)card.Card).ShopObject.Category == shopObjectUpgrade.ShopObject.Category);
+                        
+                        if (siblingObjects.Count() < shopObjectUpgrade.ShopObject.Category.Max)
+                        {
+                            upgradeCard.IsSelected = true;
+                        } else if (shopObjectUpgrade.ShopObject.Category.Max == 1)
+                        {
+                            foreach(var card in siblingObjects)
+                            {
+                                card.IsSelected = false;
+                            }
+                            upgradeCard.IsSelected = true;
+                        }
+                    }
+                    
                     _pb.GameData.ActiveRun.Upgrades.Add(upgradeCard);
                     _pb.GameData.ActiveRun.MerchantCards = _pb.GameData.ActiveRun.MerchantCards.Where(card => card.Card != upgrade).ToList();
                     break;

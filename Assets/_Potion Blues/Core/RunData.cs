@@ -18,6 +18,7 @@ namespace PotionBlues
         public float Reputation;
         public int Day;
         public int RunDuration;
+        public int Rerolls;
         public List<CustomerTransaction> CustomerTransactions = new();
 
         [NonSerialized]

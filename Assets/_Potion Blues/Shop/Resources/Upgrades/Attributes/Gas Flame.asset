@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gas Flame
   m_EditorClassIdentifier: 
   _reference: Attributes/Gas Flame
-  _description: Increases cauldron brewing speed by +10%
+  _description: Increases cauldron brewing speed by +33%
   _priority: 0
   _icon: {fileID: 0}
   _picture: {fileID: 0}
@@ -23,4 +23,4 @@ MonoBehaviour:
   _unique: 0
   _attributeValues:
   - Attribute: {fileID: 11400000, guid: 725edc994e4991b4080fba3b221f2a89, type: 2}
-    Value: 0.9
+    Value: 0.667

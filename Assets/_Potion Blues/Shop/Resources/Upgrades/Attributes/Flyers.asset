@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Flyers
   m_EditorClassIdentifier: 
   _reference: Attributes/Flyers
-  _description: Increases customer visits by +10%
+  _description: Increases customer visits by +50%
   _priority: 0
   _icon: {fileID: 0}
   _picture: {fileID: 0}
@@ -23,4 +23,4 @@ MonoBehaviour:
   _unique: 0
   _attributeValues:
   - Attribute: {fileID: 11400000, guid: f144fef757d9042488e5eb297f172a38, type: 2}
-    Value: 1.1
+    Value: 1.5

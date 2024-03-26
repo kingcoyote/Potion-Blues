@@ -19,12 +19,8 @@ MonoBehaviour:
   - Attribute: {fileID: 11400000, guid: f144fef757d9042488e5eb297f172a38, type: 2}
     Value: 0.5
   - Attribute: {fileID: 11400000, guid: a35171580303ef14587e3d7bd6328aca, type: 2}
-    Value: 1.05
+    Value: 1.25
   - Attribute: {fileID: 11400000, guid: 525b719f5b7064d44b52c24c455125ed, type: 2}
     Value: 5
   - Attribute: {fileID: 11400000, guid: f4803448c50f31e46bd74685c0bdac2a, type: 2}
     Value: 1
-  _customerFrequency: 0.5
-  _customerTipping: 1.05
-  _customerPatience: 5
-  _reputationBonus: 1

@@ -136,7 +136,7 @@ namespace PotionBlues.Shop
             if (Potion.State != PotionScript.PotionState.Mixed) return;
             Potion.Attributes = Potion.Attributes.Stack(Attributes);
             Potion.State = PotionScript.PotionState.Brewing;
-            BrewTime = Potion.Attributes.TryGet("Brewing Time");
+            BrewTime = Attributes.TryGet("Brewing Time");
             var bubbleProperties = _brewing.main;
             bubbleProperties.duration = BrewTime;
             // bubbleProperties.startColor = Potion.Definition.Color;

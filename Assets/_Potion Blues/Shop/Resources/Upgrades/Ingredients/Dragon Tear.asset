@@ -18,7 +18,7 @@ MonoBehaviour:
   _icon: {fileID: 0}
   _picture: {fileID: 0}
   _reputationCost: 50
-  _goldCost: 150
-  _rarity: {fileID: 11400000, guid: 0cba053ab5edf3044acd2c249d0ec899, type: 2}
-  _unique: 0
+  _goldCost: 300
+  _rarity: {fileID: 11400000, guid: 30a4bb62aaeac744ba437380b9434f85, type: 2}
+  _unique: 1
   _shopObject: {fileID: 11400000, guid: e7c939aa234903340b59c1de65cabcbb, type: 2}
