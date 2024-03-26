@@ -11,9 +11,9 @@ namespace PotionBlues
     {
         public string ProfileName;
 
-        public List<UpgradeCardDefinition> Upgrades;
+        public List<UpgradeCardDefinition> Upgrades = new();
         public RunData ActiveRun;
-        public List<RunData> RunHistory;
+        public List<RunData> RunHistory = new();
 
         public GameData(string profileName)
         {

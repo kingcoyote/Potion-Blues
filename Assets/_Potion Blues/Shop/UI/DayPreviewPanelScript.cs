@@ -17,6 +17,7 @@ namespace PotionBlues.Shop {
         [SerializeField, BoxGroup("Run Status")] private TextMeshProUGUI _dayNumber;
         [SerializeField, BoxGroup("Run Status")] private TextMeshProUGUI _gold;
         [SerializeField, BoxGroup("Run Status")] private TextMeshProUGUI _reputation;
+        [SerializeField, BoxGroup("Run Status")] private TextMeshProUGUI _level;
         [SerializeField, BoxGroup("Run Status")] private TextMeshProUGUI _reroll;
 
         [SerializeField, BoxGroup("Upgrade Panels")] private ShopUpgradeUIPanelScript _door;
@@ -29,6 +30,7 @@ namespace PotionBlues.Shop {
         [SerializeField, BoxGroup("Upgrade Panels")] private ShopUpgradeUIPanelScript _daily;
 
         private GenericEventBus<IEvent, IEventNode> _bus;
+        private int _playerLevel;
 
         // Start is called before the first frame update
         void Start()
@@ -38,6 +40,12 @@ namespace PotionBlues.Shop {
 
         public void Show()
         {
+            var totalReputation = PotionBlues.I().GameData.RunHistory.Select(rundata => rundata.Reputation).Sum();
+            if (totalReputation < 100) _playerLevel = 1;
+            else if (totalReputation < 500) _playerLevel = 2;
+            else if (totalReputation < 2500) _playerLevel = 3;
+            else if (totalReputation < 12500) _playerLevel = 4;
+            else _playerLevel = 5;
             RedrawUpgradePanels();
             Window.TurnOn();
         }
@@ -62,6 +70,7 @@ namespace PotionBlues.Shop {
             _dayNumber.text = $"Day: {_scene.PotionBlues.GameData.ActiveRun.Day} / {_scene.PotionBlues.GameData.ActiveRun.RunDuration}";
             _gold.text = $"Gold: {(int)(_scene.PotionBlues.GameData.ActiveRun.Gold)}";
             _reputation.text = $"Rep: {(int)(_scene.PotionBlues.GameData.ActiveRun.Reputation)}";
+            _level.text = $"Level: {_playerLevel}";
             _reroll.text = $"Reroll ({10 * (_scene.PotionBlues.GameData.ActiveRun.Rerolls + 1)}g)";
         }
 

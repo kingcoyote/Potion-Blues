@@ -104,7 +104,7 @@ namespace PotionBlues.Shop {
 
         public void Reroll()
         {
-            var rerollCost = 10 * _pb.GameData.ActiveRun.Rerolls + 1;
+            var rerollCost = 10 * (_pb.GameData.ActiveRun.Rerolls + 1);
             if (_pb.GameData.ActiveRun.Gold < rerollCost) return;
 
             _pb.GameData.ActiveRun.Gold -= rerollCost;
@@ -275,6 +275,7 @@ namespace PotionBlues.Shop {
                     {
                         _pb.GameData.RunHistory.Add(_pb.GameData.ActiveRun);
                         _pb.GameData.ActiveRun = null;
+                        _pb.Save();
                     }
                     break;
             }
