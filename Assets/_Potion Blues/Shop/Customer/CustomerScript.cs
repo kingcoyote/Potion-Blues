@@ -18,9 +18,12 @@ namespace PotionBlues.Shop
 
         private float _walkSpeed;
         private PotionData _potion;
+        private float _patience;
 
         [SerializeField] private Animator _anim;
         [SerializeField] private Image _icon;
+        [SerializeField] private Sprite _happyIcon;
+        [SerializeField] private Sprite _sadIcon;
 
         // Start is called before the first frame update
         void Start()
@@ -38,7 +41,8 @@ namespace PotionBlues.Shop
             // scale desired potion icon to be 64px high, while still maintaing correct aspect ratio
             _icon.GetComponent<RectTransform>().sizeDelta = DesiredPotion.Potion.textureRect.size * (64 / DesiredPotion.Potion.textureRect.size.y);
 
-            Refresh();
+            _patience = Attributes.TryGet("Customer Patience");
+
         }
 
         // Update is called once per frame
@@ -48,27 +52,19 @@ namespace PotionBlues.Shop
 
             transform.position += Vector3.right * _walkSpeed * Time.deltaTime;
 
-            var customerPatience = Attributes.TryGet("Customer Patience");
-
             if (Mathf.Abs(_walkSpeed) < 0.01f)
             {
-                customerPatience -= Time.deltaTime;
+                _patience -= Time.deltaTime;
             }
 
-            if (customerPatience < 0 || _potion != null)
+            if (_walkSpeed >= 0 && (_patience < 0 || _potion != null))
             {
                 _walkSpeed = -WalkSpeed;
                 var xdir = _walkSpeed >= 0 ? 1 : -1;
                 transform.localScale = new Vector3(xdir, 1, 1);
+
+                _icon.sprite = _potion == null ? _happyIcon : _sadIcon;
             }
-
-            Attributes.Set("Customer Patience", customerPatience);
-        }
-
-        void Refresh()
-        {
-            // _icon.sprite = Attribute.Icon;
-            // _icon.color = Attribute.Color;
         }
 
         public void OnTriggerEnter2D(Collider2D other)
@@ -78,7 +74,7 @@ namespace PotionBlues.Shop
                 StartCoroutine(StopWalking());
             }
 
-            var isReadyToLeave = Attributes.TryGet("Customer Patience") <= 0.01f || _potion != null;
+            var isReadyToLeave = _patience <= 0.01f || _potion != null;
 
             if (other.gameObject.GetComponent<DoorScript>() != null && isReadyToLeave)
             {

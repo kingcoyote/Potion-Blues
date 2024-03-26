@@ -42,7 +42,7 @@ namespace PotionBlues.Shop {
             _bus.SubscribeTo<CauldronEvent>(OnCauldronEvent, 100);
             _bus.SubscribeTo<IngredientEvent>(OnIngredientEvent, 100);
             _bus.SubscribeTo<RunEvent>(OnRunEvent);
-            _bus.SubscribeTo<UpgradeEvent>(OnUpgradeEvent, 100);
+            _bus.SubscribeTo<UpgradeEvent>(OnUpgradeEvent);
 
             _dayPreviewPanel.GetComponent<DayPreviewPanelScript>().PrepareBus();
             _dayPanel.GetComponent<DayPanelScript>().PrepareBus();
@@ -77,6 +77,8 @@ namespace PotionBlues.Shop {
                 _bus.Raise(new RunEvent(RunEventType.DayEnded));
                 Time.timeScale = 0;
             }
+
+            Debug.Log(PotionBlues.I().RNG.NextInt(2));
         }
 
         public void Play()
@@ -155,20 +157,26 @@ namespace PotionBlues.Shop {
             switch (evt.Type)
             {
                 case DoorEventType.CustomerLeave:
-                    var transaction = new CustomerTransaction(
-                        evt.Potion.Potion,
-                        evt.Potion.Attributes.TryGet("Potion Value"),
-                        evt.Attributes.TryGet("Reputation Bonus"),
-                        activeRun.Day);
-                    activeRun.CustomerTransactions.Add(transaction);
                     if (evt.Potion != null)
                     {
-                        activeRun.Gold += (int)transaction.Gold;
-                        activeRun.Reputation += (int)transaction.Reputation;
+                        var transaction = new CustomerTransaction(
+                            evt.Potion.Potion,
+                            evt.Potion.Attributes.TryGet("Potion Value"),
+                            evt.Attributes.TryGet("Reputation Bonus"),
+                            activeRun.Day);
+                        activeRun.CustomerTransactions.Add(transaction);
+                        activeRun.Gold += transaction.Gold;
+                        activeRun.Reputation += transaction.Reputation;
                         
                     } else
                     {
-                        activeRun.Reputation -= (int)transaction.Reputation;
+                        var transaction = new CustomerTransaction(
+                            null,
+                            0,
+                            evt.Attributes.TryGet("Reputation Bonus"),
+                            activeRun.Day);
+                        activeRun.CustomerTransactions.Add(transaction);
+                        activeRun.Reputation -= transaction.Reputation;
                     }
                     break;
             }
@@ -274,12 +282,6 @@ namespace PotionBlues.Shop {
                     _pb.GameData.ActiveRun.MerchantCards = _pb.GameData.ActiveRun.MerchantCards.Where(card => card.Card != upgrade).ToList();
                     break;
                 case UpgradeEventType.Unlocked:
-                    if (upgrade.ReputationCost > _pb.GameData.ActiveRun.Reputation)
-                    {
-                        _bus.ConsumeCurrentEvent();
-                        return;
-                    }
-                    _pb.GameData.ActiveRun.Reputation -= upgrade.ReputationCost;
                     _pb.GameData.Upgrades.Add(upgrade);
                     break;
             }

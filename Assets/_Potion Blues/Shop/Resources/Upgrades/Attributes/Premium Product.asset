@@ -12,13 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f281671a9fe8c394c92b8b0a9408687b, type: 3}
   m_Name: Premium Product
   m_EditorClassIdentifier: 
-  _reference: 
-  _description: 
+  _reference: Attributes/Premium Product
+  _description: High quality products that are worth more, but raise expectations
+    of customers.
   _priority: 0
   _icon: {fileID: 0}
   _picture: {fileID: 0}
-  _reputationCost: 0
-  _goldCost: 0
-  _rarity: {fileID: 0}
+  _reputationCost: 80
+  _goldCost: 150
+  _rarity: {fileID: 11400000, guid: 30a4bb62aaeac744ba437380b9434f85, type: 2}
   _unique: 0
-  _attributeValues: []
+  _attributeValues:
+  - Attribute: {fileID: 11400000, guid: f4803448c50f31e46bd74685c0bdac2a, type: 2}
+    Value: 1.25
+  - Attribute: {fileID: 11400000, guid: 2aba5f977f92a7d42ae3ce36691eec7c, type: 2}
+    Value: 1.25

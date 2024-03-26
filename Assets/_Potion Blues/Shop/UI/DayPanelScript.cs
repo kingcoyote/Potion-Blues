@@ -42,8 +42,8 @@ namespace PotionBlues.Shop {
         {
             _dayProgress.value = _scene.DayTimeRemaining;
             _dayNumber.text = $"Day {_scene.PotionBlues.GameData.ActiveRun.Day}";
-            _gold.text = $"{_scene.PotionBlues.GameData.ActiveRun.Gold}g";
-            _reputation.text = $"{_scene.PotionBlues.GameData.ActiveRun.Reputation} rep";
+            _gold.text = $"{(int)(_scene.PotionBlues.GameData.ActiveRun.Gold)}g";
+            _reputation.text = $"{(int)(_scene.PotionBlues.GameData.ActiveRun.Reputation)} rep";
         }
     }
 }

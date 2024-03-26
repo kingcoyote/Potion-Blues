@@ -1,5 +1,6 @@
 ﻿using PotionBlues.Definitions;
 using Sirenix.OdinInspector;
+using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,8 @@ namespace PotionBlues
         public List<RunUpgradeCard> Upgrades = new();
         [TableList]
         public List<RunUpgradeCard> MerchantCards = new();
-        public int Gold;
-        public int Reputation;
+        public float Gold;
+        public float Reputation;
         public int Day;
         public int RunDuration;
         public List<CustomerTransaction> CustomerTransactions = new();
@@ -66,7 +67,11 @@ namespace PotionBlues
                 return PotionCache[0];
             }
 
-            return PotionCache[PotionBlues.I().RNG.NextInt(PotionCache.Count)];
+            var randomIndex = PotionBlues.I().RNG.NextInt(PotionCache.Count);
+
+            Debug.Log($"Next random potion is {randomIndex}");
+
+            return PotionCache[randomIndex];
         }
 
         private void BuildPotionCache()

@@ -59,8 +59,8 @@ namespace PotionBlues.Shop {
             if (_scene.PotionBlues.GameData.ActiveRun == null) return;
 
             _dayNumber.text = $"Day: {_scene.PotionBlues.GameData.ActiveRun.Day} / {_scene.PotionBlues.GameData.ActiveRun.RunDuration}";
-            _gold.text = $"Gold: {_scene.PotionBlues.GameData.ActiveRun.Gold}";
-            _reputation.text = $"Rep: {_scene.PotionBlues.GameData.ActiveRun.Reputation}";
+            _gold.text = $"Gold: {(int)(_scene.PotionBlues.GameData.ActiveRun.Gold)}";
+            _reputation.text = $"Rep: {(int)(_scene.PotionBlues.GameData.ActiveRun.Reputation)}";
         }
 
         void RedrawUpgradePanels()

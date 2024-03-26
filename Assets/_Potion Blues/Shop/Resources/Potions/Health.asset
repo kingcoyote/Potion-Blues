@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Health
   m_EditorClassIdentifier: 
   _description: 
-  _value: 10
+  _value: 15
   _icon: {fileID: 21300000, guid: 1732f25dc14819d479c3abe8576a1283, type: 3}
   _potion: {fileID: 21300000, guid: 3f4d0637d7f6a1c4d98b3ccd748f24aa, type: 3}
   _color: {r: 0.98823535, g: 0, b: 0, a: 1}

@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa9fb26285f0234d974bc61875d470a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxSelectable: 1
   ShopObjectPrefab: {fileID: 5241236044044159198, guid: b650db2fdd2f4a74896c89839fbbaa55, type: 3}
   _layoutGroup: {fileID: 6281439708160045525}
 --- !u!1 &7548174095087576813
@@ -166,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.20125782, g: 0.20125782, b: 0.20125782, a: 1}
+  m_Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
