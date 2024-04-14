@@ -133,6 +133,8 @@ namespace PotionBlues.Shop
             if (RemainingPotions <= 0)
             {
                 // TODO - set Operator to the clean cauldron icon and set cleaning time
+                _operate.Set(_cleaningIcon, Attributes.TryGet("Cleaning Time"));
+                _operate.OnComplete = OnClean;
                 _sprite.sprite = Cauldron.Dirty;
                 State = CauldronState.Dirty;
                 return;
