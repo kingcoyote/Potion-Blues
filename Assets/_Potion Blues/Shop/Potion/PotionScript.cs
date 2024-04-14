@@ -53,16 +53,18 @@ namespace PotionBlues.Shop
                 return false;
 
             // anything with less than 4 ingredients is some oddity
-            if (ingredient.Attributes.Count < 4) 
+            if (ingredient.Attributes.Count < 4)
                 return false;
 
             // only allowed to add each ingredient a single time
-            if (Ingredients.Contains(ingredient)) 
+            if (Ingredients.Contains(ingredient))
                 return false;
 
             // no more primary ingredients allowed after it is mixed
-            if (State == PotionState.Mixed && ingredient.Type == IngredientDefinition.IngredientType.Primary) 
-                return false;
+            if (State == PotionState.Mixed && ingredient.Type == IngredientDefinition.IngredientType.Primary) {
+                Debug.LogError("Currently unable to add more than 1 primary ingredient. FIXME");
+                 return false;
+            }
 
             Ingredients.Add(ingredient);
             Definition = PotionBlues.I().GetPotionType(Ingredients);

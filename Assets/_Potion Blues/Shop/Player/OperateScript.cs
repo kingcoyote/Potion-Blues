@@ -33,6 +33,8 @@ namespace PotionBlues.Shop
             _input.actions["Select"].canceled += OnCancel;
 
             _box = GetComponent<CircleCollider2D>();
+
+            OnComplete += () => { gameObject.SetActive(false); };
         }
 
         private void OnDestroy()
@@ -65,6 +67,7 @@ namespace PotionBlues.Shop
 
             if (_operatingTime >= _requiredOperatingTime)
             {
+                gameObject.SetActive(false);
                 OnComplete.Invoke();
             }
         }
@@ -87,14 +90,16 @@ namespace PotionBlues.Shop
             _icon.sprite = icon;
             _requiredOperatingTime = operatingTime;
             _operatingTime = 0;
+            gameObject.SetActive(true);
         }
 
         [Button]
         public void Set(Sprite icon, float operatingTime, float fillSpeed, float decaySpeed)
         {
-            Set(icon, operatingTime);
             _fillSpeed = fillSpeed;
             _decaySpeed = decaySpeed;
+            Set(icon, operatingTime);
+            
         }
     }
 }
